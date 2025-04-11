@@ -9,8 +9,8 @@ const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.post("/", submitJoinRequest); // Public
-router.get("/", protect, getAllJoinRequests); // Admin only
-router.patch("/:id/confirm", protect, confirmJoinRequest); // Admin only
+router.post("/", submitJoinRequest);
+router.get("/", protect, getAllJoinRequests);
+router.patch("/:id/confirm", protect, confirmJoinRequest);
 
 module.exports = router;
