@@ -1,4 +1,8 @@
-/* Global Styles */
+/* ==========================================================================
+   Global Styles
+   ========================================================================== */
+
+/* CSS Variables */
 :root {
     --primary-color: #4a6fa5;
     --secondary-color: #166088;
@@ -14,6 +18,7 @@
     --transition: all 0.3s ease;
 }
 
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -24,37 +29,6 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Logo Styles */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--secondary-color);
-}
-
-.logo-img {
-    height: 70px;
-    width: 70px;
-    object-fit: contain;
-    border-radius: 50%;
-    padding: 5px;
-    background: linear-gradient(135deg, var(--light-color) 0%, var(--secondary-color) 100%);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    transition: var(--transition);
-}
-
-.logo span span {
-    color: var(--primary-color);
-}
-
-/* Hover animation */
-.logo:hover .logo-img {
-    transform: rotate(10deg) scale(1.1);
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-light) 100%);
-}
-
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
@@ -63,12 +37,17 @@ body {
     overflow-x: hidden;
 }
 
+/* Container */
 .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
+
+/* ==========================================================================
+   Typography and Common Elements
+   ========================================================================== */
 
 section {
     padding: 80px 0;
@@ -91,6 +70,7 @@ section {
     color: var(--gray-color);
 }
 
+/* Buttons */
 .btn {
     display: inline-block;
     background: var(--primary-color);
@@ -127,7 +107,40 @@ section {
     color: #fff;
 }
 
-/* Header Styles */
+.btn.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.btn.loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+/* ==========================================================================
+   Header and Navigation
+   ========================================================================== */
+
 header {
     position: fixed;
     top: 0;
@@ -153,10 +166,41 @@ nav {
     transition: var(--transition);
 }
 
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+.logo-img {
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
+    border-radius: 50%;
+    padding: 5px;
+    background: linear-gradient(135deg, var(--light-color) 0%, var(--secondary-color) 100%);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+
+.logo span span {
+    color: var(--primary-color);
+}
+
+.logo:hover .logo-img {
+    transform: rotate(10deg) scale(1.1);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%);
+}
+
+/* Navigation Links */
 .nav-links {
     display: flex;
     list-style: none;
-    align-items: center; /* Align items vertically */
+    align-items: center;
 }
 
 .nav-links li {
@@ -190,6 +234,7 @@ nav {
     width: 100%;
 }
 
+/* Complaint Button */
 .complaint-btn {
     margin-left: 30px;
     padding: 8px 15px;
@@ -209,6 +254,7 @@ nav {
     box-shadow: var(--box-shadow);
 }
 
+/* Hamburger Menu */
 .hamburger {
     display: none;
     cursor: pointer;
@@ -223,7 +269,7 @@ nav {
     transition: var(--transition);
 }
 
-/* Language Selector Styles */
+/* Language Selector */
 .language-selector {
     position: relative;
     z-index: 1000;
@@ -304,11 +350,16 @@ nav {
     color: var(--primary-color);
 }
 
-/* Hero Section */
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+
 .hero {
     height: 100vh;
     min-height: 700px;
-    background: linear-gradient(rgba(74, 111, 165, 0.8), rgba(70, 78, 82, 0.8)), url("https://www.coxandkings.co.uk/-/media/cox-and-kings/images/page-header-images/destinations/middle-east-and-north-africa/israel/jerusalem/main-highlights-jerusalem-1.jpg?w=1920&h=940&auto=format&fit=crop&w=1350&q=80") no-repeat center center/cover;
+    background: linear-gradient(rgba(74, 111, 165, 0.8), rgba(70, 78, 82, 0.8)), 
+                url("https://www.coxandkings.co.uk/-/media/cox-and-kings/images/page-header-images/destinations/middle-east-and-north-africa/israel/jerusalem/main-highlights-jerusalem-1.jpg?w=1920&h=940&auto=format&fit=crop&w=1350&q=80") 
+                no-repeat center center/cover;
     color: #fff;
     display: flex;
     align-items: center;
@@ -328,46 +379,175 @@ nav {
     margin: 0 auto 30px;
 }
 
-/* Programs Section */
-.program-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
+/* ==========================================================================
+   Programs Section
+   ========================================================================== */
+
+.programs-slider-container {
+    position: relative;
+    margin: 40px auto 0;
+    max-width: 1200px;
+    padding: 0 60px;
+    overflow: hidden;
 }
 
-.card {
+.programs-slider {
+    overflow: visible;
+    position: relative;
+}
+
+.program-cards {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 30px;
+    padding: 10px 10px;
+    will-change: transform;
+}
+
+.program-cards .card {
+    flex: 0 0 calc(25% - 30px);
+    min-width: 0;
+    box-sizing: border-box;
     background: #fff;
     border-radius: 10px;
     padding: 30px;
     text-align: center;
     box-shadow: var(--box-shadow);
     transition: var(--transition);
+    position: relative;
+    overflow: hidden;
 }
 
-.card:hover {
-    transform: translateY(-10px);
+.program-cards .card:hover {
+    transform: translateY(-10px) scale(1.02);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
-.card i {
+.program-cards .card i {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--card-color); /* Ensure icons use the card-specific color */
     margin-bottom: 20px;
 }
 
-.card h3 {
+.program-cards .card h3 {
     font-size: 1.5rem;
     margin-bottom: 15px;
     color: var(--secondary-color);
 }
 
-.card p {
+.program-cards .card p {
     color: var(--gray-color);
     margin-bottom: 20px;
 }
 
-/* Events Section */
+.program-cards .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--card-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.program-cards .card:hover::before {
+    transform: scaleX(1);
+}
+
+.program-cards .card .btn.small {
+    background: var(--card-color);
+    border: 1px solid var(--card-color);
+}
+
+.program-cards .card .btn.small:hover {
+    background: transparent;
+    color: var(--card-color);
+}
+
+/* Program Card Colors */
+.program-cards .card:nth-child(1) {
+    --card-color: #4a6fa5;
+    border-top: 4px solid var(--card-color);
+}
+
+.program-cards .card:nth-child(2) {
+    --card-color: #1678B7;
+    border-top: 4px solid var(--card-color);
+}
+
+.program-cards .card:nth-child(3) {
+    --card-color: #3A6EA4;
+    border-top: 4px solid var(--card-color);
+}
+
+.program-cards .card:nth-child(4) {
+    --card-color: #255484;
+    border-top: 4px solid var(--card-color);
+}
+
+.program-cards .card:nth-child(5) {
+    --card-color: #318DCB;
+    border-top: 4px solid var(--card-color);
+}
+
+.program-cards .card:nth-child(6) {
+    --card-color: #2E7FBA;
+    border-top: 4px solid var(--card-color);
+}
+
+.program-cards .card:nth-child(7) {
+    --card-color: #2B71A8;
+    border-top: 4px solid var(--card-color);
+}
+
+.program-cards .card:nth-child(8) {
+    --card-color: #93ccf8;
+    border-top: 4px solid var(--card-color);
+}
+
+/* Slider Arrows */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.slider-arrow:hover {
+    background: var(--secondary-color);
+    transform: translateY(-50%) scale(1.1);
+    opacity: 1;
+}
+
+.slider-arrow-left {
+    left: -10px;
+}
+
+.slider-arrow-right {
+    right: -10px;
+}
+
+/* ==========================================================================
+   Events Section
+   ========================================================================== */
+
 .event-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -427,14 +607,104 @@ nav {
     color: var(--gray-color);
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
 .event-info p i {
     margin-right: 8px;
     color: var(--primary-color);
+    min-width: 15px;
+    text-align: center;
 }
 
-/* Calendar Section */
+/* Program-Specific Event Colors */
+.event-card[data-program="Elderly"] .event-date,
+.event-item[data-program="Elderly"] .event-date,
+.event-card[data-program="Elderly"] .btn.small,
+.event-item[data-program="Elderly"] .btn.small {
+    background-color: #4a6fa5;
+    border-color: #4a6fa5;
+}
+
+.event-card[data-program="Women"] .event-date,
+.event-item[data-program="Women"] .event-date,
+.event-card[data-program="Women"] .btn.small,
+.event-item[data-program="Women"] .btn.small {
+    background-color: #1678B7;
+    border-color: #1678B7;
+}
+
+.event-card[data-program="Exceptionals"] .event-date,
+.event-item[data-program="Exceptionals"] .event-date,
+.event-card[data-program="Exceptionals"] .btn.small,
+.event-item[data-program="Exceptionals"] .btn.small {
+    background-color: #3A6EA4;
+    border-color: #3A6EA4;
+}
+
+.event-card[data-program="Youth"] .event-date,
+.event-item[data-program="Youth"] .event-date,
+.event-card[data-program="Youth"] .btn.small,
+.event-item[data-program="Youth"] .btn.small {
+    background-color: #255484;
+    border-color: #255484;
+}
+
+.event-card[data-program="Culture"] .event-date,
+.event-item[data-program="Culture"] .event-date,
+.event-card[data-program="Culture"] .btn.small,
+.event-item[data-program="Culture"] .btn.small {
+    background-color: #318DCB;
+    border-color: #318DCB;
+}
+
+.event-card[data-program="Kids Workshops"] .event-date,
+.event-item[data-program="Kids Workshops"] .event-date,
+.event-card[data-program="Kids Workshops"] .btn.small,
+.event-item[data-program="Kids Workshops"] .btn.small {
+    background-color: #2E7FBA;
+    border-color: #2E7FBA;
+}
+
+.event-card[data-program="Urban Planning"] .event-date,
+.event-item[data-program="Urban Planning"] .event-date,
+.event-card[data-program="Urban Planning"] .btn.small,
+.event-item[data-program="Urban Planning"] .btn.small {
+    background-color: #2B71A8;
+    border-color: #2B71A8;
+}
+
+.event-card[data-program="Public Action"] .event-date,
+.event-item[data-program="Public Action"] .event-date,
+.event-card[data-program="Public Action"] .btn.small,
+.event-item[data-program="Public Action"] .btn.small {
+    background-color: #93ccf8;
+    border-color: #93ccf8;
+}
+
+.event-card .btn.small:hover,
+.event-item .btn.small:hover {
+    background-color: transparent;
+    color: inherit;
+    transform: translateY(-2px);
+}
+
+/* Program Badge */
+.program-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: white;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* ==========================================================================
+   Calendar Section
+   ========================================================================== */
+
 .calendar {
     background-color: var(--light-color);
 }
@@ -540,6 +810,13 @@ nav {
     color: var(--secondary-color);
 }
 
+.calendar-events .no-events {
+    font-size: 1rem;
+    color: var(--gray-color);
+    font-style: italic;
+    margin-top: 10px;
+}
+
 .event-item {
     margin-bottom: 10px;
     padding-bottom: 10px;
@@ -563,14 +840,44 @@ nav {
     color: var(--gray-color);
 }
 
-/* News Section */
-.news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+.event-item .event-description {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+    margin: 10px 0;
 }
 
-.news-card {
+.event-item .btn.small {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   News Section
+   ========================================================================== */
+
+.news-slider-container {
+    position: relative;
+    margin: 40px auto 0;
+    max-width: 1200px;
+    padding: 0 40px;
+}
+
+.news-slider {
+    overflow: hidden;
+    position: relative;
+}
+
+.news-grid {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 30px;
+    padding: 10px 0;
+    will-change: transform;
+}
+
+.news-grid .news-card {
+    flex: 0 0 calc(33.333% - 30px);
+    min-width: 0;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -578,7 +885,7 @@ nav {
     transition: var(--transition);
 }
 
-.news-card:hover {
+.news-grid .news-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
@@ -633,7 +940,10 @@ nav {
     transform: translateX(3px);
 }
 
-/* Footer */
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
 footer {
     background: var(--dark-color);
     color: #fff;
@@ -740,7 +1050,10 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Modal */
+/* ==========================================================================
+   Modal and Forms
+   ========================================================================== */
+
 .modal {
     display: none;
     position: fixed;
@@ -804,10 +1117,13 @@ footer {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--dark-color);
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     width: 100%;
     padding: 10px 15px;
     border: 1px solid var(--light-gray);
@@ -817,8 +1133,18 @@ footer {
     transition: var(--transition);
 }
 
+.form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+    cursor: pointer;
+}
+
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
@@ -829,176 +1155,12 @@ footer {
     min-height: 100px;
 }
 
-/* Animations */
-.animate-from-bottom {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+.form-group input[readonly] {
+    background: #f1f3f5;
+    color: var(--gray-color);
+    cursor: default;
 }
 
-.animate-from-left {
-    opacity: 0;
-    transform: translateX(-30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.animate-from-right {
-    opacity: 0;
-    transform: translateX(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.animate-appear {
-    opacity: 1;
-    transform: translate(0);
-}
-
-.programs-slider-container {
-    position: relative;
-    margin: 40px auto 0;
-    max-width: 1200px;
-    padding: 0 60px; /* Increased padding to accommodate arrows */
-    overflow: hidden;
-}
-
-.programs-slider {
-    overflow: visible; /* Changed from hidden to visible */
-    position: relative;
-}
-
-.program-cards {
-    display: flex;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    gap: 30px;
-    padding: 10px 10px; /* Added some padding */
-    will-change: transform;
-}
-
-.program-cards .card {
-    flex: 0 0 calc(25% - 30px);
-    min-width: 0;
-    box-sizing: border-box;
-}
-
-.slider-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    z-index: 10;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    opacity: 0.9;
-}
-
-.slider-arrow:hover {
-    background: var(--secondary-color);
-    transform: translateY(-50%) scale(1.1);
-    opacity: 1;
-}
-
-.slider-arrow-left {
-    left: -10px;
-}
-
-.slider-arrow-right {
-    right: -10px;
-}
-
-/* Program Card Colors */
-.program-cards .card:nth-child(1) {
-    --card-color: #4a6fa5;
-    border-top: 4px solid var(--card-color);
-}
-
-.program-cards .card:nth-child(2) {
-    --card-color: #1678B7;
-    border-top: 4px solid var(--card-color);
-}
-
-.program-cards .card:nth-child(3) {
-    --card-color: #3A6EA4;
-    border-top: 4px solid var(--card-color);
-}
-
-.program-cards .card:nth-child(4) {
-    --card-color: #255484;
-    border-top: 4px solid var(--card-color);
-}
-
-.program-cards .card:nth-child(5) {
-    --card-color: #318DCB;
-    border-top: 4px solid var(--card-color);
-}
-
-.program-cards .card:nth-child(6) {
-    --card-color: #2E7FBA;
-    border-top: 4px solid var(--card-color);
-}
-
-.program-cards .card:nth-child(7) {
-    --card-color: #2B71A8;
-    border-top: 4px solid var(--card-color);
-}
-
-.program-cards .card:nth-child(8) {
-    --card-color: #93ccf8;
-    border-top: 4px solid var(--card-color);
-}
-
-.card {
-    position: relative;
-    overflow: hidden;
-    transition: var(--transition);
-}
-
-.card i {
-    color: var(--card-color);
-}
-
-.card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--card-color);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
-
-.card:hover::before {
-    transform: scaleX(1);
-}
-
-.card .btn.small {
-    background: var(--card-color);
-    border: 1px solid var(--card-color);
-}
-
-.card .btn.small:hover {
-    background: transparent;
-    color: var(--card-color);
-}
-
-/* Form and Verification */
 .form-step {
     transition: all 0.3s ease;
 }
@@ -1014,204 +1176,7 @@ footer {
     margin-bottom: 25px;
 }
 
-/* Loading state for buttons */
-.btn.loading {
-    position: relative;
-    pointer-events: none;
-}
-
-.btn.loading::after {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    border: 3px solid transparent;
-    border-top-color: #ffffff;
-    border-radius: 50%;
-    animation: button-loading-spinner 1s ease infinite;
-}
-
-@keyframes button-loading-spinner {
-    from {
-        transform: rotate(0turn);
-    }
-    to {
-        transform: rotate(1turn);
-    }
-}
-
-.calendar-events .no-events {
-    font-size: 1rem;
-    color: var(--gray-color);
-    font-style: italic;
-    margin-top: 10px;
-}
-
-.event-item .event-description {
-    font-size: 0.9rem;
-    color: var(--gray-color);
-    margin: 10px 0;
-}
-
-.event-item .btn.small {
-    margin-top: 10px;
-    display: inline-block;
-}
-
-/* Program Badge */
-.program-badge {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    color: white;
-    margin-left: 5px;
-    vertical-align: middle;
-}
-
-.event-item p {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.event-item p i {
-    margin-right: 5px;
-    min-width: 15px;
-    text-align: center;
-}
-
-/* Event Card and Calendar Event Program Colors */
-.event-card[data-program="Elderly"] .event-date,
-.event-item[data-program="Elderly"] .event-date {
-    background-color: #4a6fa5;
-}
-
-.event-card[data-program="Women"] .event-date,
-.event-item[data-program="Women"] .event-date {
-    background-color: #1678B7;
-}
-
-.event-card[data-program="Exceptionals"] .event-date,
-.event-item[data-program="Exceptionals"] .event-date {
-    background-color: #3A6EA4;
-}
-
-.event-card[data-program="Youth"] .event-date,
-.event-item[data-program="Youth"] .event-date {
-    background-color: #255484;
-}
-
-.event-card[data-program="Culture"] .event-date,
-.event-item[data-program="Culture"] .event-date {
-    background-color: #318DCB;
-}
-
-.event-card[data-program="Kids Workshops"] .event-date,
-.event-item[data-program="Kids Workshops"] .event-date {
-    background-color: #2E7FBA;
-}
-
-.event-card[data-program="Urban Planning"] .event-date,
-.event-item[data-program="Urban Planning"] .event-date {
-    background-color: #2B71A8;
-}
-
-.event-card[data-program="Public Action"] .event-date,
-.event-item[data-program="Public Action"] .event-date {
-    background-color: #93ccf8;
-}
-
-/* Register Button Colors */
-.event-card[data-program="Elderly"] .btn.small,
-.event-item[data-program="Elderly"] .btn.small {
-    background-color: #4a6fa5;
-    border-color: #4a6fa5;
-}
-
-.event-card[data-program="Women"] .btn.small,
-.event-item[data-program="Women"] .btn.small {
-    background-color: #1678B7;
-    border-color: #1678B7;
-}
-
-.event-card[data-program="Exceptionals"] .btn.small,
-.event-item[data-program="Exceptionals"] .btn.small {
-    background-color: #3A6EA4;
-    border-color: #3A6EA4;
-}
-
-.event-card[data-program="Youth"] .btn.small,
-.event-item[data-program="Youth"] .btn.small {
-    background-color: #255484;
-    border-color: #255484;
-}
-
-.event-card[data-program="Culture"] .btn.small,
-.event-item[data-program="Culture"] .btn.small {
-    background-color: #318DCB;
-    border-color: #318DCB;
-}
-
-.event-card[data-program="Kids Workshops"] .btn.small,
-.event-item[data-program="Kids Workshops"] .btn.small {
-    background-color: #2E7FBA;
-    border-color: #2E7FBA;
-}
-
-.event-card[data-program="Urban Planning"] .btn.small,
-.event-item[data-program="Urban Planning"] .btn.small {
-    background-color: #2B71A8;
-    border-color: #2B71A8;
-}
-
-.event-card[data-program="Public Action"] .btn.small,
-.event-item[data-program="Public Action"] .btn.small {
-    background-color: #93ccf8;
-    border-color: #93ccf8;
-}
-
-/* Hover effect for register buttons */
-.event-card .btn.small:hover,
-.event-item .btn.small:hover {
-    background-color: transparent;
-    color: inherit;
-    transform: translateY(-2px);
-}
-
-/* News Slider Styles */
-.news-slider-container {
-    position: relative;
-    margin: 40px auto 0;
-    max-width: 1200px;
-    padding: 0 40px;
-}
-
-.news-slider {
-    overflow: hidden;
-    position: relative;
-}
-
-.news-grid {
-    display: flex;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    gap: 30px;
-    padding: 10px 0;
-    will-change: transform;
-}
-
-.news-grid .news-card {
-    flex: 0 0 calc(33.333% - 30px);
-    min-width: 0;
-}
-
-/* Enhanced Registration Modal Styles */
+/* Registration Modal */
 #registrationModal .modal-content {
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -1233,52 +1198,6 @@ footer {
     height: 3px;
     background: var(--accent-color);
     margin: 10px auto;
-}
-
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    font-size: 0.95rem;
-    color: var(--dark-color);
-    font-weight: 500;
-    margin-bottom: 10px;
-    transition: var(--transition);
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid var(--light-gray);
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: inherit;
-    background: #fff;
-    transition: var(--transition);
-}
-
-.form-group select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 12px;
-    cursor: pointer;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
-    outline: none;
-}
-
-.form-group input[readonly] {
-    background: #f1f3f5;
-    color: var(--gray-color);
-    cursor: default;
 }
 
 #registrationModal .btn {
@@ -1305,12 +1224,7 @@ footer {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transition: 0.5s;
 }
 
@@ -1318,89 +1232,129 @@ footer {
     left: 100%;
 }
 
-/* Responsive Styles */
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+.animate-from-bottom {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-from-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-from-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-appear {
+    opacity: 1;
+    transform: translate(0);
+}
+
+/* ==========================================================================
+   Responsive Styles
+   ========================================================================== */
+
+/* Medium Screens (max-width: 992px) */
 @media (max-width: 992px) {
     .hero-content h1 {
         font-size: 3rem;
     }
-    
+
     .program-cards .card {
         flex: 0 0 calc(33.333% - 30px);
     }
-    
+
     .news-grid .news-card {
         flex: 0 0 calc(50% - 30px);
     }
-    
+
     .programs-slider-container,
     .news-slider-container {
         padding: 0 30px;
     }
 }
 
+/* Small Screens (max-width: 768px) */
 @media (max-width: 768px) {
-    /* General Mobile Adjustments */
+    /* General Adjustments */
     body {
         font-size: 16px;
     }
+
     section {
         padding: 40px 0;
     }
+
     .container {
         padding: 0 15px;
     }
+
     .section-header h2 {
         font-size: 1.8rem;
     }
+
     .section-header p {
         font-size: 0.95rem;
     }
+
     .btn {
         min-width: 120px;
         min-height: 44px;
         line-height: 1.5;
     }
 
-    /* Header Adjustments */
+    /* Header and Navigation */
     header {
         padding: 5px 0;
     }
+
     nav {
         padding: 8px 15px;
     }
 
-    /* Logo Adjustments */
     .logo {
         font-size: 1.4rem;
         gap: 8px;
     }
+
     .logo-img {
         height: 40px;
         width: 40px;
         padding: 3px;
     }
 
-    /* Hamburger Menu */
     .hamburger {
         display: block;
         padding: 10px 15px;
     }
+
     .hamburger .line {
         width: 20px;
         height: 3px;
         margin: 3px 0;
     }
+
     .hamburger.active .line:nth-child(1) {
         transform: rotate(-45deg) translate(-5px, 5px);
     }
+
     .hamburger.active .line:nth-child(2) {
         opacity: 0;
     }
+
     .hamburger.active .line:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -5px);
     }
 
-    /* Nav Links */
     .nav-links {
         position: fixed;
         top: 50px;
@@ -1418,12 +1372,15 @@ footer {
         transition: left 0.3s ease-in-out;
         z-index: 999;
     }
+
     .nav-links.active {
         left: 0;
     }
+
     .nav-links li {
         margin: 10px 0;
     }
+
     .nav-links a {
         font-size: 1.1rem;
         padding: 10px 20px;
@@ -1431,12 +1388,12 @@ footer {
         width: 100%;
         text-align: left;
     }
+
     .nav-links a:hover {
         background: var(--light-gray);
         color: var(--primary-color);
     }
 
-    /* Complaint Button in Nav Links */
     .complaint-btn {
         display: block;
         margin: 15px auto;
@@ -1446,33 +1403,34 @@ footer {
         font-size: 0.85rem;
     }
 
-    /* Hide Complaint Button in Header on Mobile */
     nav .complaint-btn {
         display: block;
         margin-left: 10px;
         padding: 5px 10px;
         font-size: 0.8rem;
-        
     }
 
-    /* Language Selector on Mobile */
     .language-selector {
         width: 100%;
         text-align: center;
     }
+
     .language-toggle {
         font-size: 1.1rem;
         padding: 10px 20px;
         display: block;
         width: 100%;
     }
+
     .language-toggle:hover {
         background: var(--light-gray);
         color: var(--primary-color);
     }
+
     .language-toggle::after {
-        display: none; /* Remove underline effect on mobile */
+        display: none;
     }
+
     .language-menu {
         position: static;
         width: 100%;
@@ -1483,9 +1441,11 @@ footer {
         opacity: 1;
         display: none;
     }
+
     .language-menu.active {
         display: block;
     }
+
     .language-menu a {
         padding: 8px 30px;
         font-size: 0.95rem;
@@ -1494,43 +1454,53 @@ footer {
     /* Hero Section */
     .hero {
         min-height: 500px;
-        background: linear-gradient(rgba(74, 111, 165, 0.85), rgba(70, 78, 82, 0.85)), url("https://www.coxandkings.co.uk/-/media/cox-and-kings/images/page-header-images/destinations/middle-east-and-north-africa/israel/jerusalem/main-highlights-jerusalem-1.jpg?w=768&h=432&auto=format&fit=crop&q=80") no-repeat center center/cover;
+        background: linear-gradient(rgba(74, 111, 165, 0.85), rgba(70, 78, 82, 0.85)), 
+                    url("https://www.coxandkings.co.uk/-/media/cox-and-kings/images/page-header-images/destinations/middle-east-and-north-africa/israel/jerusalem/main-highlights-jerusalem-1.jpg?w=768&h=432&auto=format&fit=crop&q=80") 
+                    no-repeat center center/cover;
     }
+
     .hero-content h1 {
         font-size: 2rem;
         line-height: 1.3;
     }
+
     .hero-content p {
         font-size: 1rem;
         max-width: 90%;
     }
+
     .hero-content .btn {
         padding: 10px 20px;
         font-size: 0.95rem;
     }
 
-    /* Programs and News Sliders */
+    /* Sliders */
     .programs-slider-container,
     .news-slider-container {
         padding: 0 20px;
     }
+
     .program-cards,
     .news-grid {
         gap: 20px;
     }
+
     .program-cards .card,
     .news-grid .news-card {
         flex: 0 0 calc(90% - 20px);
         margin: 0 auto;
     }
+
     .slider-arrow {
         width: 35px;
         height: 35px;
         font-size: 1rem;
     }
+
     .slider-arrow-left {
         left: 5px;
     }
+
     .slider-arrow-right {
         right: 5px;
     }
@@ -1540,32 +1510,40 @@ footer {
         grid-template-columns: 1fr;
         gap: 20px;
     }
+
     .event-card {
         flex-direction: column;
         max-width: 100%;
         margin: 0 auto;
     }
+
     .event-date {
         padding: 15px;
         min-width: 100%;
         text-align: center;
         border-radius: 10px 10px 0 0;
     }
+
     .event-date .day {
         font-size: 1.8rem;
     }
+
     .event-date .month {
         font-size: 0.9rem;
     }
+
     .event-info {
         padding: 15px;
     }
+
     .event-info h3 {
         font-size: 1.2rem;
     }
+
     .event-info p {
         font-size: 0.9rem;
     }
+
     .event-info .btn.small {
         padding: 8px 12px;
         font-size: 0.95rem;
@@ -1577,38 +1555,48 @@ footer {
     .calendar-container {
         max-width: 100%;
     }
+
     .calendar-grid {
         gap: 0.5px;
     }
+
     .calendar-day {
         min-height: 50px;
         padding: 8px;
     }
+
     .calendar-day .day-number {
         font-size: 0.9rem;
     }
+
     .calendar-day .event-indicator {
         width: 6px;
         height: 6px;
     }
+
     .calendar-events {
         padding: 15px;
     }
+
     .calendar-events h4 {
         font-size: 1.1rem;
     }
+
     .event-item {
         padding: 10px;
         background: var(--light-gray);
         border-radius: 5px;
         margin-bottom: 10px;
     }
+
     .event-item h5 {
         font-size: 0.95rem;
     }
+
     .event-item p {
         font-size: 0.85rem;
     }
+
     .event-item .btn.small {
         text-align: center;
         width: 100%;
@@ -1622,18 +1610,22 @@ footer {
         gap: 30px;
         text-align: center;
     }
+
     .footer-col ul {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 10px;
     }
+
     .footer-col ul li {
         margin: 0 10px;
     }
+
     .social-links {
         justify-content: center;
     }
+
     .emailing-form {
         max-width: 300px;
         margin: 20px auto;
@@ -1645,90 +1637,97 @@ footer {
         max-width: 400px;
         padding: 20px;
     }
+
     .modal h2 {
         font-size: 1.5rem;
     }
+
     .form-group label {
         font-size: 0.9rem;
     }
+
     .form-group input,
     .form-group textarea,
     .form-group select {
         font-size: 0.95rem;
         padding: 10px;
     }
+
     .form-group textarea {
         min-height: 80px;
     }
+
     .modal .btn {
         font-size: 0.95rem;
         padding: 10px;
         width: 100%;
     }
+
     .verification-hint {
         font-size: 0.75rem;
     }
 }
 
+/* Extra Small Screens (max-width: 576px) */
 @media (max-width: 576px) {
-    /* General Mobile Adjustments */
+    /* General Adjustments */
     body {
         font-size: 15px;
     }
+
     .section-header h2 {
         font-size: 1.6rem;
     }
+
     .section-header p {
         font-size: 0.9rem;
     }
 
-    /* Header Adjustments */
+    /* Header and Navigation */
     header {
         padding: 3px 0;
     }
+
     nav {
         padding: 5px 10px;
     }
 
-    /* Logo Adjustments */
     .logo {
         font-size: 1.2rem;
         gap: 6px;
     }
+
     .logo-img {
         height: 40px;
         width: 40px;
         padding: 3px;
     }
-    .logo span span {
-        display: inline;
-    }
 
-    /* Hamburger Menu */
     .hamburger {
         padding: 8px 12px;
     }
+
     .hamburger .line {
         width: 18px;
         height: 2.5px;
         margin: 3px 0;
     }
 
-    /* Nav Links */
     .nav-links {
         top: 45px;
         width: 100%;
         left: -100%;
         height: calc(100vh - 45px);
     }
+
     .nav-links a {
         font-size: 1rem;
     }
 
-    /* Language Selector on Very Small Screens */
     .language-toggle {
         font-size: 1rem;
     }
+
     .language-menu a {
         font-size: 0.9rem;
         padding: 8px 30px;
@@ -1738,9 +1737,11 @@ footer {
     .hero {
         min-height: 450px;
     }
+
     .hero-content h1 {
         font-size: 1.8rem;
     }
+
     .hero-content p {
         font-size: 0.9rem;
     }
@@ -1750,6 +1751,7 @@ footer {
     .news-grid .news-card {
         flex: 0 0 calc(100% - 20px);
     }
+
     .slider-arrow {
         width: 30px;
         height: 30px;
@@ -1759,9 +1761,11 @@ footer {
     .event-card {
         border-radius: 8px;
     }
+
     .event-info h3 {
         font-size: 1.1rem;
     }
+
     .event-info p {
         font-size: 0.85rem;
     }
@@ -1770,9 +1774,11 @@ footer {
     .calendar-day {
         min-height: 45px;
     }
+
     .calendar-day .day-number {
         font-size: 0.85rem;
     }
+
     .calendar-events h4 {
         font-size: 1rem;
     }
@@ -1781,6 +1787,7 @@ footer {
     .footer-col h3 {
         font-size: 1.3rem;
     }
+
     .footer-col p,
     .footer-col ul li a {
         font-size: 0.9rem;
@@ -1791,20 +1798,26 @@ footer {
         width: 95%;
         padding: 15px;
     }
+
     .modal h2 {
         font-size: 1.3rem;
     }
+
     .form-group input,
     .form-group textarea,
     .form-group select {
         font-size: 0.9rem;
     }
+
     .modal .btn {
         font-size: 0.9rem;
     }
 }
 
-/* Touch Feedback */
+/* ==========================================================================
+   Touch Feedback
+   ========================================================================== */
+
 .btn:active,
 .slider-arrow:active,
 .nav-links a:active,
