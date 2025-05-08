@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard | Admin</title>
+</head>
+<body>
+    <div class="dashboard-page">
+        <div class="top-header">
+            <img src="logo2.jpg" width="65px" height="65px">
+            <button onclick="signOut()">Sign Out</button>
+        </div>
+        <div class="dashboard-zone">
+            <div class="side-zone">
+                <h2>Admin Panel</h2>
+                <a onclick="openSection('dashboard')">Dashboard</a>
+                <a onclick="openSection('events')"><i class='bx bx-calendar-event'></i> Manage Events</a>
+                <a onclick="openSection('news')"><i class='bx bxs-news' ></i> Manage News</a>
+                <a onclick="openSection('compliaints')"><i class='bx bx-clipboard'></i> View Users' compliaints</a>
+                <a onclick="openSection('register')"><i class='bx bx-spreadsheet'></i> View Register Statis</a>
+                <a onclick="signOut()">Sign Out</a>
+            </div>
+            <div class="section-zone">
+                <section id="dashboard" class="section active">
+                    <h3>Dashboard</h3>
+                  
+                    <div class="dashboard-cards">
+                      <div class="cardE">
+                        <div class="card-title">Events Number</div>
+                        <div class="card-value" id="eventCount">0</div>
+                      </div>
+                      <div class="cardN">
+                        <div class="card-title">News Number</div>
+                        <div class="card-value" id="newsCount">0</div>
+                      </div>
+                      <div class="cardC">
+                        <div class="card-title">Unread compliaints</div>
+                        <div class="card-value" id="complimentCount">0</div>
+                      </div>
+                      <div class="cardR">
+                        <div class="card-title">Registers Status</div>
+                        <div class="card-value" id="registerCount">0</div>
+                      </div>
+                    </div>
+                  </section>
+                <section class="section" id="events">
+                    <h1>Manage Events</h1>
+                    <button onclick="openAddModal()">Add New Event</button>
+                    <div class="all-events">
+
+                    </div>
+                </section>
+                <div id="eventModal" class="modal">
+                  <div class="modal-content">
+                    <h3 id="modalTitle">Edit Event</h3>
+                    <form id="eventForm">
+                      <input type="hidden" name="mode" value="edit">
+                      <input type="hidden" name="originalDate">
+                      <input type="hidden" name="originalTitle">
+                      <input type="date" name="date" required />
+                      <input type="text" name="time" placeholder="Time (e.g. 4:00 PM - 5:00 PM)" required />
+                      <input type="text" name="title" placeholder="Event Title" required />
+                      <input type="text" name="location" placeholder="Location" required />
+                      <select name="program" required>
+                        <option value="Elderly">Elderly</option>
+                        <option value="Women">Women</option>
+                        <option value="Exceptionals">Exceptionals</option>
+                        <option value="Youth">Youth</option>
+                        <option value="Culture">Culture</option>
+                        <option value="Kids Workshops">Kids Workshops</option>
+                        <option value="Urban Planning">Urban Planning</option>
+                        <option value="Public Action">Public Action</option>
+                      </select>
+                      <textarea name="description" placeholder="Event Description" required></textarea>
+                      <div class="modal-actions">
+                        <button type="submit">Save</button>
+                        <button type="button" onclick="closeModal()">Cancel</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <section class="section" id="news">
+                    <h1>Manage News</h1>
+                    <button onclick="openNewsAddModal()">Add News</button>
+                    <div class="all-news">
+
+                    </div>
+                </section>
+                <div id="newsModal" class="modal">
+                  <div class="modal-content">
+                    <h3 id="newsModalTitle">Add/Edit News</h3>
+                    <form id="newsForm">
+                      <input type="hidden" name="mode" value="add" />
+                      <input type="hidden" name="originalTitle" />
+                
+                      <input type="date" name="date" required />
+                      <input type="text" name="title" placeholder="News Title" required />
+                      <input type="file" name="imageFile" accept="image/*" />
+                      <img id="imagePreview" src="" alt="Preview" style="width: 100%; max-height: 200px; margin: 10px 0; display: none;" />
+                      <textarea name="description" placeholder="News Description" required></textarea>
+                
+                      <div class="modal-actions">
+                        <button type="submit">Save</button>
+                        <button type="button" onclick="closeNewsModal()">Cancel</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>                
+                <section class="section" id="compliments">
+                  <button onclick="simulateNewCompliment()">hi</button>
+                  <h1>Users' compliaints</h1>
+                  <div id="complimentNotification" style="margin-bottom: 15px; color: crimson;"></div>
+                  <div id="complimentTableContainer">
+                  <table id="complimentTable" class="compliment-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Message</th>
+                        <th>Received</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Compliments will be populated here -->
+                    </tbody>
+                  </table>
+                  </div>
+                </section>
+                <section class="section" id="register">
+                  <h1>Event Registrations</h1>
+                  <div id="registerTableContainer">
+                  <table class="register-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Participants</th>
+                        <th>Event</th>
+                        <th>Date & Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="registerTableBody">
+                      <!-- Rows populated by JS -->
+                    </tbody>
+                  </table> 
+                  </div>                 
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
