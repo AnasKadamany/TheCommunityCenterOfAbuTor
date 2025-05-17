@@ -1,0 +1,78 @@
+/* login */
+body{
+    background:rgb(222, 223, 224);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.login-box{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: none;
+    border-radius: 15px;
+    width: 400px;
+    height: 460px;
+}
+.login-title{
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
+i{
+    padding: 10px;
+}
+.user-box{
+    display: grid;
+    justify-content: left;
+    align-items: left;
+    font-size: 20px;
+}
+.user-label{
+    padding: 10px;
+}
+.pass-label{
+    padding: 10px;
+}
+.input-box{
+    display: flex;
+    /* justify-content: left;
+    align-items: left; */
+}
+.user-input{
+    border-radius: 10px;
+    width: 250px;
+    height: 30px;
+    font-size: medium;
+    padding: 5px;
+}
+.pass-input{
+    border-radius: 10px;
+    width: 250px;
+    height: 30px;
+    font-size: medium;
+    padding: 5px;
+
+}
+.pass-box{
+    display: grid;
+    justify-content: left;
+    align-items: left;
+    font-size: 20px;
+}
+.login-button{
+    background: rgb(79, 154, 229);
+    width: 100%;
+    font-size: 24px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    padding:5px;
+    margin: 15px;
+}

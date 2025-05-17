@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AbuTor Community Center</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <img src="logo2.jpg" alt="Community Center Logo" class="logo-img">
+                    <span>Community<span>Center</span></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#calendar">Calendar</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="language-selector">
+                        <span class="language-toggle">Language</span>
+                        <ul class="language-menu">
+                            <li><a href="#" data-lang="en">English</a></li>
+                            <li><a href="#" data-lang="es">Arabic</a></li>
+                            <li><a href="#" data-lang="fr">Hebrew</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <button class="complaint-btn" id="complaintBtn">Make a Complaint</button>
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="animate-from-bottom">Empowering Our Community Together</h1>
+                <p class="animate-from-bottom">
+                    Welcome to AbuTor community center website! join us to have a mind altering experience and make our little world better.
+                </p>
+                <a href="#programs" class="btn animate-from-bottom">View Our Programs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs" id="programs">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="animate-from-left">Programs Overview</h2>
+                <p class="animate-from-right">
+                    Engage in our diverse programs that cater to teens, kids, and the elderly. From educational workshops to sports classes, we provide a range of activities to suit different interests and age groups.
+                </p>
+                <a href="#calendar" class="btn outline animate-from-bottom">Join Now</a>
+            </div>
+            <div class="programs-slider-container">
+                <button class="slider-arrow slider-arrow-left" aria-label="Previous programs">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="programs-slider">
+                    <div class="program-cards">
+                        <div class="card animate-from-bottom">
+                            <i class="fa-solid fa-person-cane"></i>
+                            <h3>Elderly</h3>
+                            <p>Providing a healthy, social, and recreational framework for the golden generation.</p>
+                        </div>
+                        <div class="card animate-from-bottom">
+                            <i class="fa-solid fa-venus"></i>
+                            <h3>Women</h3>
+                            <p>enhancing Women's personal development through courses in leadership, communication, and time management.</p>
+                        </div>
+                        <div class="card animate-from-bottom">
+                            <i class="fa-solid fa-wheelchair"></i>
+                            <h3>Exceptionals</h3>
+                            <p>Enhance social skills and connections, and emphasize the vital role this group plays in social inclusion.</p>
+                        </div>
+                        <div class="card animate-from-bottom">
+                            <i class="fas fa-users"></i>
+                            <h3>Youth</h3>
+                            <p>Engaging youth in activities that foster personal growth, strengthen social belonging, and encourage leadership.</p>
+                        </div>
+                        <div class="card animate-from-bottom">
+                            <i class="fa-solid fa-group-arrows-rotate"></i>
+                            <h3>Culture</h3>
+                            <p>Supporting and promoting the cultural aspect of society by celebrating religious and community occasions.</p>
+                        </div>
+                        <div class="card animate-from-bottom">
+                            <i class="fa-solid fa-child-reaching"></i>
+                            <h3>Kids Workshops</h3>
+                            <p>Fostering cultural awareness among children nurture a sense of belonging and togetherness.</p>
+                        </div>
+                        <div class="card animate-from-bottom">
+                            <i class="fa-solid fa-city"></i>
+                            <h3>Urban Planning</h3>
+                            <p>professionally bridges community planning needs with city planning authorities, with the main goal of enhancing quality of life.</p>
+                        </div>
+                        <div class="card animate-from-bottom">
+                            <i class="fa-solid fa-hands-helping"></i>
+                            <h3>Public Action</h3>
+                            <p>A social service that enhances individuals' social skills through group experiences and better problem-solving.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-arrow slider-arrow-right" aria-label="Next programs">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="slider-dots"></div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events" id="events">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="animate-from-left">Upcoming Events</h2>
+                <p class="animate-from-right">Join our exciting events and classes. Register online to secure your spot!</p>
+                <a href="events.html" class="btn outline animate-from-bottom">View All Events</a>
+            </div>
+            <div class="event-list">
+                <!--
+                <div class="event-card animate-from-bottom" data-program="Youth">
+                    <div class="event-date">
+                        <span class="day">15</span>
+                        <span class="month">Jun</span>
+                    </div>
+                    <div class="event-info">
+                        <h3>Football Training</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Community Center Field</p>
+                        <p><i class="fas fa-clock"></i> 4:00 PM - 6:00 PM</p>
+                        <p><i class="fas fa-tag"></i> <span class="program-badge" style="background-color: #255484;">Youth</span></p>
+                        <p>Join our weekly football training session for all skill levels. Equipment provided.</p>
+                        <a href="#" class="btn small">Register</a>
+                    </div>
+                </div>
+                <div class="event-card animate-from-bottom" data-program="Kids Workshops">
+                    <div class="event-date">
+                        <span class="day">17</span>
+                        <span class="month">Jun</span>
+                    </div>
+                    <div class="event-info">
+                        <h3>Arts & Crafts Workshop</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Room 203</p>
+                        <p><i class="fas fa-clock"></i> 2:00 PM - 4:00 PM</p>
+                        <p><i class="fas fa-tag"></i> <span class="program-badge" style="background-color: #2E7FBA;">Kids Workshops</span></p>
+                        <p>Creative workshop for kids and adults. All materials included.</p>
+                        <a href="#" class="btn small">Register</a>
+                    </div>
+                </div>
+                <div class="event-card animate-from-bottom" data-program="Elderly">
+                    <div class="event-date">
+                        <span class="day">20</span>
+                        <span class="month">Jun</span>
+                    </div>
+                    <div class="event-info">
+                        <h3>Senior Yoga Class</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Yoga Studio</p>
+                        <p><i class="fas fa-clock"></i> 10:00 AM - 11:00 AM</p>
+                        <p><i class="fas fa-tag"></i> <span class="program-badge" style="background-color: #4a6fa5;">Elderly</span></p>
+                        <p>Gentle yoga class designed specifically for seniors. All levels welcome.</p>
+                        <a href="#" class="btn small">Register</a>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar Section -->
+    <section class="calendar" id="calendar">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="animate-from-left">Event Calendar</h2>
+                <p class="animate-from-right">Check our calendar for upcoming events and classes. Click on any event to register.</p>
+            </div>
+            <div class="calendar-container animate-from-bottom">
+                <div class="calendar-header">
+                    <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                    <h3 id="currentMonth">June 2023</h3>
+                    <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="day-name">Sun</div>
+                    <div class="day-name">Mon</div>
+                    <div class="day-name">Tue</div>
+                    <div class="day-name">Wed</div>
+                    <div class="day-name">Thu</div>
+                    <div class="day-name">Fri</div>
+                    <div class="day-name">Sat</div>
+                    <!-- Days will be populated by JavaScript -->
+                </div>
+                <div class="calendar-events" id="calendarEvents">
+                    <h4 id="eventDateTitle">Today's Events</h4>
+                    <!-- Events will be populated by JavaScript -->
+                </div>
+                <div class="event-item"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news" id="news">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="animate-from-left">Community News</h2>
+                <p class="animate-from-right">Stay updated with what's happening in our community center.</p>
+            </div>
+            <div class="news-slider-container">
+                <button class="slider-arrow slider-arrow-left" aria-label="Previous news">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="news-slider">
+                    <div class="news-grid">
+                        <!--
+                        <div class="news-card animate-from-bottom">
+                            <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                            <div class="news-content">
+                                <span class="news-date">June 1, 2023</span>
+                                <h3>Summer Programs Launch</h3>
+                                <p>Our summer programs are now open for registration. Sign up early to secure your spot in our most popular classes!</p>
+                            </div>
+                        </div>
+                        <div class="news-card animate-from-bottom">
+                            <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                            <div class="news-content">
+                                <span class="news-date">May 28, 2023</span>
+                                <h3>New Football Coach Joins</h3>
+                                <p>We're excited to welcome our new football coach, John Smith, who brings 10 years of professional experience.</p>
+                            </div>
+                        </div>
+                        <div class="news-card animate-from-bottom">
+                            <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1524179091875-bf99a9a6af57?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                            <div class="news-content">
+                                <span class="news-date">May 20, 2023</span>
+                                <h3>Community Garden Opening</h3>
+                                <p>Our new community garden is now open! Come learn about urban gardening and grow your own vegetables.</p>
+                            </div>
+                        </div>
+                        <div class="news-card animate-from-bottom">
+                            <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1524179091875-bf99a9a6af57?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                            <div class="news-content">
+                                <span class="news-date">May 20, 2023</span>
+                                <h3>Community Garden Opening</h3>
+                                <p>Our new community garden is now open! Come learn about urban gardening and grow your own vegetables.</p>
+                            </div>
+                        </div>
+                    -->
+                    </div>
+                </div>
+                <button class="slider-arrow slider-arrow-right" aria-label="Next news">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Community Center</h3>
+                    <p>
+                        There must be a wind to dispel the clouds and the sun, in her golden ascent, shall cleanse the heart of every care.<br> From you to you since 2015.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/almarkazaljmaheri"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/aljamaheri8"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#calendar">Calendar</a></li>
+                        <li><a href="#news">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <a href="https://www.waze.com/live-map/directions?to=ll.31.764071%2C35.229356" target="_blank">
+                                5 Hamefaked St, Abu Tor
+                            </a>
+                        </li>
+                        <li><i class="fas fa-phone"></i> (02) 677-5459</li>
+                        <li><i class="fas fa-envelope"></i> markazjamahiri@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> Sun - Thu: 8:30AM - 5PM</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Email us!</h3>
+                    <p>Share with us your thought and what withn your heart.</p>
+                    <form class="emailing-form">
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Community Center. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Complaint Modal -->
+    <div class="modal" id="complaintModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Make a Complaint</h2>
+            <form id="complaintForm">
+                <div class="form-step" id="step1">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <button type="button" id="sendCodeBtn" class="btn">Send Verification Code</button>
+                </div>
+                <div class="form-step" id="step2" style="display: none;">
+                    <div class="form-group">
+                        <label for="verificationCode">Verification Code</label>
+                        <input type="text" id="verificationCode" required>
+                        <p class="verification-hint">We've sent a 6-digit code to your phone</p>
+                    </div>
+                    <button type="button" id="verifyCodeBtn" class="btn">Verify Code</button>
+                </div>
+                <div class="form-step" id="step3" style="display: none;">
+                    <div class="form-group">
+                        <label for="complaint">Complaint Details</label>
+                        <textarea id="complaint" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Submit Complaint</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal" id="registrationModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Register for Event</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="reg-name">Your Name</label>
+                    <input type="text" id="reg-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone">Phone Number</label>
+                    <input type="tel" id="reg-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-participants">Number of Participants (Max 5)</label>
+                    <select id="reg-participants" required>
+                        <option value="" disabled selected>Select number</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reg-event">Event</label>
+                    <input type="text" id="reg-event" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="reg-date">Date & Time</label>
+                    <input type="text" id="reg-date" readonly>
+                </div>
+                <button type="submit" class="btn">Complete Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="../api/userAPI.js"></script>
+    <script src="script.js"></script>
+    <script>
+        (function(){
+            function c(){
+                var b=a.contentDocument||a.contentWindow.document;
+                if(b){
+                    var d=b.createElement('script');
+                    d.innerHTML="window.__CF$cv$params={r:'92fc2ca5aaf3dd78',t:'MTc0NDU2MDAwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+                    b.getElementsByTagName('head')[0].appendChild(d)
+                }
+            }
+            if(document.body){
+                var a=document.createElement('iframe');
+                a.height=1;
+                a.width=1;
+                a.style.position='absolute';
+                a.style.top=0;
+                a.style.left=0;
+                a.style.border='none';
+                a.style.visibility='hidden';
+                document.body.appendChild(a);
+                if('loading'!==document.readyState)c();
+                else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);
+                else{
+                    var e=document.onreadystatechange||function(){};
+                    document.onreadystatechange=function(b){
+                        e(b);
+                        'loading'!==document.readyState&&(document.onreadystatechange=e,c())
+                    }
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

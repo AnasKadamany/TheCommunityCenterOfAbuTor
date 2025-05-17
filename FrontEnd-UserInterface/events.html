@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Events | Community Center</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="logo2.jpg" alt="Community Center Logo" class="logo-img">
+                    <span>Community<span>Center</span></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#programs">Programs</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="index.html#calendar">Calendar</a></li>
+                    <li><a href="index.html#news">News</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="language-selector">
+                        <span class="language-toggle">Language</span>
+                        <ul class="language-menu">
+                            <li><a href="#" data-lang="en">English</a></li>
+                            <li><a href="#" data-lang="es">Arabic</a></li>
+                            <li><a href="#" data-lang="fr">Hebrew</a></li>
+                            <!-- Add more languages as needed -->
+                        </ul>
+                    </li>
+                </ul>
+                <button class="complaint-btn" id="complaintBtn">Make a Complaint</button>
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+    <section class="events" id="all-events">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="animate-from-left">All Events</h2>
+                <p class="animate-from-right">Explore all our upcoming events and classes. Register online to secure your spot!</p>
+            </div>
+
+            <div class="event-list" id="allEventsList">
+                <!-- Events will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Complaint Modal -->
+    <div class="modal" id="complaintModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Make a Complaint</h2>
+            <form id="complaintForm">
+                <div class="form-step" id="step1">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <button type="button" id="sendCodeBtn" class="btn">Send Verification Code</button>
+                </div>
+                
+                <div class="form-step" id="step2" style="display: none;">
+                    <div class="form-group">
+                        <label for="verificationCode">Verification Code</label>
+                        <input type="text" id="verificationCode" required>
+                        <p class="verification-hint">We've sent a 6-digit code to your phone</p>
+                    </div>
+                    <button type="button" id="verifyCodeBtn" class="btn">Verify Code</button>
+                </div>
+                
+                <div class="form-step" id="step3" style="display: none;">
+                    <div class="form-group">
+                        <label for="complaint">Complaint Details</label>
+                        <textarea id="complaint" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Submit Complaint</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal" id="registrationModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Register for Event</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="reg-name">Your Name</label>
+                    <input type="text" id="reg-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone">Phone Number</label>
+                    <input type="tel" id="reg-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-participants">Number of Participants (Max 5)</label>
+                    <select id="reg-participants" required>
+                        <option value="" disabled selected>Select number</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reg-event">Event</label>
+                    <input type="text" id="reg-event" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="reg-date">Date & Time</label>
+                    <input type="text" id="reg-date" readonly>
+                </div>
+                <button type="submit" class="btn">Complete Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Community Center</h3>
+                    <p>There must be a wind to dispel the clouds and the sun, in her golden ascent, shall cleanse the heart of every care.<br> From you to you since 2015.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/almarkazaljmaheri"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/aljamaheri8"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#programs">Programs</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="index.html#calendar">Calendar</a></li>
+                        <li><a href="index.html#news">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <a href="https://www.waze.com/live-map/directions?to=ll.31.764071%2C35.229356" target="_blank">
+                              5 Hamefaked St, Abu Tor
+                            </a>
+                          </li>
+                        <li><i class="fas fa-phone"></i> (02) 677-5459</li>
+                        <li><i class="fas fa-envelope"></i> markazjamahiri@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> Sun - Thu: 8:30AM - 5PM</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Email us!</h3>
+                    <p>Share with us your thought and what withn your heart.</p>
+                    <form class="emailing-form">
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Community Center. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../api/userAPI.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

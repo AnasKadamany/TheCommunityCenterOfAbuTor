@@ -1,0 +1,62 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    username  String   @unique
+    password  String
+    role      String   @default("admin")
+    createdAt DateTime @default(now())
+}
+
+model Event {
+    id          String      @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String
+    image       String
+    type        String
+    date        DateTime
+    time        String?
+    location    String?
+    createdAt   DateTime    @default(now())
+    joins       EventJoin[]
+}
+
+model EventJoin {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    eventId     String   @db.ObjectId
+    event       Event    @relation(fields: [eventId], references: [id])
+    name        String
+    email       String
+    phone       String
+    number      Int
+    reason      String?
+    isConfirmed Boolean  @default(false)
+    createdAt   DateTime @default(now())
+}
+
+model News {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String
+    image       String
+    date        DateTime
+    createdAt   DateTime @default(now())
+}
+
+model Complaint {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    name        String
+    email       String
+    phone       String
+    description String
+    images      String[]
+    isSolved    Boolean  @default(false)
+    createdAt   DateTime @default(now())
+}

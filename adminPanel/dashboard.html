@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard | Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-page">
+        <!-- Enhanced Top Header -->
+        <div class="top-header">
+            <div class="logo-section">
+                <img src="logo2.jpg" width="65px" height="65px" alt="Community Center Logo">
+                <div class="logo-text"><p>Abu Tor Community</p> </div>
+            </div>
+            <div class="header-actions">
+                <div class="user-info">
+                    
+                </div>
+                <button class="btn btn-danger" onclick="signOut()">
+                    <i class='bx bx-log-out'></i>
+                    Sign Out
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-zone">
+            <!-- Enhanced Sidebar -->
+            <div class="side-zone">
+                <h2><i class='bx bx-cog'></i> Admin Panel</h2>
+                <nav>
+                    <button class="nav-item active" onclick="openSection('dashboard')">
+                        <i class='bx bx-home'></i>
+                        Dashboard
+                    </button>
+                    <button class="nav-item" onclick="openSection('events')">
+                        <i class='bx bx-calendar-event'></i>
+                        Manage Events
+                    </button>
+                    <button class="nav-item" onclick="openSection('news')">
+                        <i class='bx bxs-news'></i>
+                        Manage News
+                    </button>
+                    <button class="nav-item" onclick="openSection('complaints')">
+                        <i class='bx bx-clipboard'></i>
+                        User Complaints
+                    </button>
+                    <button class="nav-item" onclick="openSection('register')">
+                        <i class='bx bx-user-check'></i>
+                        Event Registrations
+                    </button>
+                </nav>
+            </div>
+
+            <div class="section-zone">
+                <!-- Enhanced Dashboard Section -->
+                <section id="dashboard" class="section active">
+                    <h3><i class='bx bx-bar-chart'></i> Dashboard Overview</h3>
+                    
+                    <div class="dashboard-cards">
+                        <div class="card cardE">
+                            <div class="card-header">
+                                <div>
+                                    <div class="card-title">Total Events</div>
+                                    <div class="card-value" id="eventCount">
+                                        <span class="loading"></span>
+                                    </div>
+                                </div>
+                                <i class='bx bx-calendar card-icon'></i>
+                            </div>
+                        </div>
+                        <div class="card cardN">
+                            <div class="card-header">
+                                <div>
+                                    <div class="card-title">News Articles</div>
+                                    <div class="card-value" id="newsCount">
+                                        <span class="loading"></span>
+                                    </div>
+                                </div>
+                                <i class='bx bx-news card-icon'></i>
+                            </div>
+                        </div>
+                        <div class="card cardC">
+                            <div class="card-header">
+                                <div>
+                                    <div class="card-title">Unread Complaints</div>
+                                    <div class="card-value" id="complaintCount">
+                                        <span class="loading"></span>
+                                    </div>
+                                </div>
+                                <i class='bx bx-error card-icon'></i>
+                            </div>
+                        </div>
+                        <div class="card cardR">
+                            <div class="card-header">
+                                <div>
+                                    <div class="card-title">Pending Registrations</div>
+                                    <div class="card-value" id="registerCount">
+                                        <span class="loading"></span>
+                                    </div>
+                                </div>
+                                <i class='bx bx-user-check card-icon'></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick actions on dashboard -->
+                    <div class="action-bar">
+                        <h4>Quick Actions</h4>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-primary" onclick="openAddModal()">
+                                <i class='bx bx-plus'></i>
+                                Add Event
+                            </button>
+                            <button class="btn btn-success" onclick="openNewsAddModal()">
+                                <i class='bx bx-plus'></i>
+                                Add News
+                            </button>
+                            <button class="btn btn-warning" onclick="openSection('complaints')">
+                                <i class='bx bx-bell'></i>
+                                Check Complaints
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Enhanced Events Section -->
+                <section class="section" id="events">
+                    <div class="action-bar">
+                        <h1><i class='bx bx-calendar-event'></i> Manage Events</h1>
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="search" class="search-box" placeholder="Search events..." id="eventSearch">
+                            <button class="btn btn-primary" onclick="openAddModal()">
+                                <i class='bx bx-plus'></i>
+                                Add New Event
+                            </button>
+                        </div>
+                    </div>
+                    <div class="content-grid all-events">
+                        <div style="text-align: center; padding: 2rem;">
+                            <span class="loading"></span>
+                            <p>Loading events...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Enhanced News Section -->
+                <section class="section" id="news">
+                    <div class="action-bar">
+                        <h1><i class='bx bxs-news'></i> Manage News</h1>
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="search" class="search-box" placeholder="Search news..." id="newsSearch">
+                            <button class="btn btn-primary" onclick="openNewsAddModal()">
+                                <i class='bx bx-plus'></i>
+                                Add News Article
+                            </button>
+                        </div>
+                    </div>
+                    <div class="content-grid all-news">
+                        <div style="text-align: center; padding: 2rem;">
+                            <span class="loading"></span>
+                            <p>Loading news...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Enhanced Complaints Section -->
+                <section class="section" id="complaints">
+                    <h1><i class='bx bx-clipboard'></i> User Complaints</h1>
+                    <div id="complaintNotification" class="notification notification-error" style="display: none;"></div>
+                    <div class="action-bar">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <button class="btn btn-success" onclick="markAllComplaintsRead()">
+                                <i class='bx bx-check-double'></i>
+                                Mark All as Read
+                            </button>
+                            <button class="btn btn-primary" onclick="refreshComplaints()">
+                                <i class='bx bx-refresh'></i>
+                                Refresh
+                            </button>
+                        </div>
+                        <input type="search" class="search-box" placeholder="Search complaints..." id="complaintSearch">
+                    </div>
+                    <div class="table-container">
+                        <table id="complaintTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Message</th>
+                                    <th>Received Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 2rem;">
+                                        <span class="loading"></span>
+                                        Loading complaints...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Enhanced Registrations Section -->
+                <section class="section" id="register">
+                    <h1><i class='bx bx-user-check'></i> Event Registrations</h1>
+                    <div class="action-bar">
+                        <div>
+                            <p>Manage event registrations and confirm attendance</p>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="search" class="search-box" placeholder="Search registrations..." id="registerSearch">
+                            <button class="btn btn-primary" onclick="refreshRegistrations()">
+                                <i class='bx bx-refresh'></i>
+                                Refresh
+                            </button>
+                            <button class="btn btn-success" onclick="exportRegistrations()">
+                                <i class='bx bx-download'></i>
+                                Export
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Participant Name</th>
+                                    <th>Contact Phone</th>
+                                    <th>Participants Count</th>
+                                    <th>Event Name</th>
+                                    <th>Registration Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="registerTableBody">
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 2rem;">
+                                        <span class="loading"></span>
+                                        Loading registrations...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Event Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Add/Edit Event</h3>
+            <form id="eventForm">
+                <input type="hidden" name="mode" value="add">
+                <input type="hidden" name="originalDate">
+                <input type="hidden" name="originalTitle">
+                <input type="hidden" name="eventId">
+                
+                <div class="form-group">
+                    <label class="form-label" for="eventDate">Event Date</label>
+                    <input type="date" name="date" id="eventDate" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="eventTime">Time</label>
+                    <input type="text" name="time" id="eventTime" class="form-control" 
+                           placeholder="e.g., 4:00 PM - 5:00 PM" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="eventTitle">Event Title</label>
+                    <input type="text" name="title" id="eventTitle" class="form-control" 
+                           placeholder="Enter event title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="eventLocation">Location</label>
+                    <input type="text" name="location" id="eventLocation" class="form-control" 
+                           placeholder="Enter event location" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="eventImage">Event Image (optional)</label>
+                    <input type="file" name="imageFile" id="eventImage" class="form-control" accept="image/*">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="eventProgram">Program Type</label>
+                    <select name="program" id="eventProgram" class="form-control" required>
+                        <option value="">Select a program</option>
+                        <option value="Elderly">Elderly Programs</option>
+                        <option value="Women">Women's Programs</option>
+                        <option value="Exceptionals">Special Needs Programs</option>
+                        <option value="Youth">Youth Programs</option>
+                        <option value="Culture">Cultural Events</option>
+                        <option value="Kids Workshops">Kids Workshops</option>
+                        <option value="Urban Planning">Urban Planning</option>
+                        <option value="Public Action">Public Action</option>
+                        <option value="Community">Community Events</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="eventDescription">Event Description</label>
+                    <textarea name="description" id="eventDescription" class="form-control" 
+                              placeholder="Enter event description" rows="4" required></textarea>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Enhanced News Modal -->
+    <div id="newsModal" class="modal">
+        <div class="modal-content">
+            <h3 id="newsModalTitle">Add/Edit News</h3>
+            <form id="newsForm">
+                <input type="hidden" name="mode" value="add">
+                <input type="hidden" name="originalTitle">
+                
+                <div class="form-group">
+                    <label class="form-label" for="newsDate">Publication Date</label>
+                    <input type="date" name="date" id="newsDate" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="newsTitle">News Title</label>
+                    <input type="text" name="title" id="newsTitle" class="form-control" 
+                           placeholder="Enter news title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="newsImage">News Image (Optional)</label>
+                    <input type="file" name="imageFile" id="newsImage" class="form-control" accept="image/*">
+                    <img id="imagePreview" src="" alt="Preview" 
+                         style="width: 100%; max-height: 200px; margin-top: 10px; display: none; border-radius: 8px;">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="newsDescription">News Content</label>
+                    <textarea name="description" id="newsDescription" class="form-control" 
+                              placeholder="Enter news content" rows="6" required></textarea>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeNewsModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save News</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include the single JavaScript file -->
+    <script src="dashboard.js"></script>
+</body>
+</html>
