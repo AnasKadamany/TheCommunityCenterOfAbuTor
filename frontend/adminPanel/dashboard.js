@@ -69,7 +69,7 @@ function openAddModal() {
 function openEditEventModal(eventId) {
   // Fetch event data and populate the form
   getAllEvents().then((events) => {
-    const event = events.find((e) => e._id === eventId);
+    const event = events.find((e) => e.id === eventId);
     if (event) {
       const modal = document.getElementById("eventModal");
       const form = document.getElementById("eventForm");
@@ -84,6 +84,15 @@ function openEditEventModal(eventId) {
       document.getElementById("eventLocation").value = event.location || "";
       document.getElementById("eventProgram").value = event.type || "";
       document.getElementById("eventDescription").value = event.description;
+      form.querySelector('input[name="existingImage"]').value =
+        event.image || "";
+      const preview = document.getElementById("imagePreview");
+      if (event.image) {
+        preview.src = event.image;
+        preview.style.display = "block";
+      } else {
+        preview.style.display = "none";
+      }
 
       title.textContent = "Edit Event";
       modal.style.display = "block";
@@ -122,6 +131,7 @@ function closeNewsModal() {
 function signOut() {
   if (confirm("Are you sure you want to sign out?")) {
     console.log("Signing out...");
+    localStorage.removeItem("token");
     window.location.href = "/adminPanel/login.html";
   }
 }
@@ -189,15 +199,25 @@ async function loadComplaints() {
       row.innerHTML = `
         <td>${complaint.name || "N/A"}</td>
         <td>${complaint.phone || "N/A"}</td>
-        <td>${complaint.message || "No message"}</td>
+        <td class="message-cell">${complaint.description || "No message"}</td>
         <td>${receivedDate}</td>
-        <td>${complaint.isRead ? "Read" : "Unread"}</td>
+        <td>${complaint.isSolved ? "Read" : "Unread"}</td>
         <td>
-          <button class="btn btn-sm btn-success" onclick="markComplaintAsRead('${
-            complaint._id
-          }')">Mark Read</button>
+        ${
+          !complaint.isSolved
+            ? `
+            <button
+              class="btn btn-sm btn-success"
+              onclick="markComplaintAsRead('${complaint.id}')"
+            >
+              Mark Read
+            </button>
+            `
+            : ""
+        }
+          
           <button class="btn btn-sm btn-danger" onclick="confirmDeleteComplaint('${
-            complaint._id
+            complaint.id
           }')">Delete</button>
         </td>
       `;
@@ -214,6 +234,34 @@ async function loadComplaints() {
       </tr>
     `;
   }
+}
+
+function confirmDeleteNews(newsId, title) {
+  showConfirmModal(
+    "Delete News",
+    `Are you sure you want to delete "${title}"? This action cannot be undone.`,
+    async () => {
+      showLoadingOverlay("Deleting news...");
+      try {
+        const res = await fetch(`http://localhost:8080/api/news/${newsId}`, {
+          method: "DELETE",
+        });
+
+        if (!res.ok) throw new Error("Failed to delete");
+
+        hideLoadingOverlay();
+        showToast("News deleted successfully!", "success");
+        loadNews();
+        updateDashboardCounts();
+      } catch (err) {
+        console.error("Delete failed:", err);
+        hideLoadingOverlay();
+        showToast("Failed to delete news", "error");
+      }
+    },
+    "Delete",
+    "btn-danger"
+  );
 }
 
 async function loadRegistrations() {
@@ -256,15 +304,21 @@ async function loadRegistrations() {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${reg.name || "N/A"}</td>
-        <td>${reg.phone || "N/A"}</td>
-        <td>${reg.number || 1}</td>
-        <td>${eventTitle}</td>
-        <td>${formattedDate}</td>
-        <td>${reg.isConfirmed ? "Confirmed" : "Pending"}</td>
-        <td>
-          <button class="btn btn-sm btn-success">Confirm</button>
-          <button class="btn btn-sm btn-danger">Delete</button>
-        </td>
+  <td>${reg.phone || "N/A"}</td>
+  <td>${reg.number || 1}</td>
+  <td>${eventTitle}</td>
+  <td>${formattedDate}</td>
+  <td>${reg.isConfirmed ? "Confirmed" : "Pending"}</td>
+    <td>
+      ${
+        reg.isConfirmed
+          ? ""
+          : `<button class="btn btn-sm btn-success" onclick="confirmRegistration('${reg.id}')">Confirm</button>`
+      }
+      <button class="btn btn-sm btn-danger" onclick="confirmDeleteRegistration('${
+        reg.id
+      }')">Delete</button>
+    </td>
       `;
       tableBody.appendChild(row);
     }
@@ -280,9 +334,121 @@ async function loadRegistrations() {
   }
 }
 
-function markAllComplaintsRead() {
-  console.log("Marking all complaints as read...");
-  // Implement mark all as read logic
+async function confirmRegistration(registrationId) {
+  try {
+    showLoadingOverlay("Confirming registration...");
+
+    const response = await fetch(
+      `http://localhost:8080/api/joins/${registrationId}/confirm`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ isConfirmed: true }),
+      }
+    );
+
+    if (!response.ok) throw new Error("Failed to confirm registration");
+
+    hideLoadingOverlay();
+    showToast("Registration confirmed successfully!", "success");
+    loadRegistrations();
+    updateDashboardCounts();
+  } catch (error) {
+    hideLoadingOverlay();
+    console.error("Error confirming registration:", error);
+    showToast("Failed to confirm registration", "error");
+  }
+}
+function confirmDeleteRegistration(registrationId) {
+  showConfirmModal(
+    "Delete Registration",
+    "Are you sure you want to delete this registration? This action cannot be undone.",
+    async () => {
+      try {
+        showLoadingOverlay("Deleting registration...");
+        const res = await fetch(
+          `http://localhost:8080/api/joins/${registrationId}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (!res.ok) throw new Error("Failed to delete registration");
+
+        hideLoadingOverlay();
+        showToast("Registration deleted successfully!", "success");
+        loadRegistrations();
+        updateDashboardCounts();
+      } catch (err) {
+        hideLoadingOverlay();
+        console.error("Delete failed:", err);
+        showToast("Failed to delete registration", "error");
+      }
+    },
+    "Delete",
+    "btn-danger"
+  );
+}
+
+async function changeComplaintStatus(complaintId, isSolved) {
+  try {
+    const res = await fetch(
+      `http://localhost:8080/api/complaints/${complaintId}/solve`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ isSolved: isSolved }),
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed to update complaint status");
+
+    const result = await res.json();
+    showToast("Complaint status updated successfully!", "success");
+    loadComplaints(); // Refresh list
+  } catch (error) {
+    console.error("Error updating complaint status:", error);
+    showToast("Failed to update complaint status", "error");
+  }
+}
+
+function markComplaintAsRead(complaintId) {
+  changeComplaintStatus(complaintId, true);
+}
+
+function confirmDeleteComplaint(complaintId) {
+  showConfirmModal(
+    "Delete Complaint",
+    "Are you sure you want to delete this complaint? This action cannot be undone.",
+    async () => {
+      showLoadingOverlay("Deleting complaint...");
+      try {
+        const res = await fetch(
+          `http://localhost:8080/api/complaints/${complaintId}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (!res.ok) throw new Error("Failed to delete complaint");
+
+        hideLoadingOverlay();
+        showToast("Complaint deleted successfully!", "success");
+        loadComplaints();
+        updateDashboardCounts();
+      } catch (err) {
+        console.error("Delete failed:", err);
+        hideLoadingOverlay();
+        showToast("Failed to delete complaint", "error");
+      }
+    },
+    "Delete",
+    "btn-danger"
+  );
 }
 
 function refreshComplaints() {
@@ -336,31 +502,6 @@ function hideLoadingOverlay() {
   if (overlay) {
     overlay.style.display = "none";
   }
-}
-
-function showToast(message, type = "info") {
-  const toast = document.createElement("div");
-  toast.className = `notification notification-${type}`;
-  toast.textContent = message;
-  toast.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 10000;
-        min-width: 300px;
-        animation: slideIn 0.3s ease;
-    `;
-
-  document.body.appendChild(toast);
-
-  setTimeout(() => {
-    toast.style.animation = "slideOut 0.3s ease";
-    setTimeout(() => {
-      if (toast.parentNode) {
-        toast.parentNode.removeChild(toast);
-      }
-    }, 300);
-  }, 5000);
 }
 
 function showConfirmModal(
@@ -530,7 +671,7 @@ function renderEvents(events) {
     card.className = "event-card";
 
     const eventDate = new Date(event.date);
-    const eventId = event._id;
+    const eventId = event.id;
 
     // Format the date and time properly
     const formattedDate = eventDate.toLocaleDateString("en-US", {
@@ -616,7 +757,7 @@ function renderNews(news) {
   news.forEach((item) => {
     const card = document.createElement("div");
     card.className = "news-card";
-
+    console.log(item);
     const newsDate = new Date(item.date);
     const formattedDate = newsDate.toLocaleDateString("en-US", {
       weekday: "long",
@@ -630,12 +771,12 @@ function renderNews(news) {
         <h4 class="card-title-text">${item.title || "Untitled News"}</h4>
         <div class="card-actions">
           <button class="btn btn-sm btn-outline btn-primary" onclick="openEditNewsModal('${
-            item._id
+            item.id
           }')">
             <i class='bx bx-edit'></i> Edit
           </button>
           <button class="btn btn-sm btn-outline btn-danger" onclick="confirmDeleteNews('${
-            item._id
+            item.id
           }', '${item.title}')">
             <i class='bx bx-trash'></i> Delete
           </button>
@@ -667,6 +808,113 @@ function renderNews(news) {
   });
 }
 
+async function openEditNewsModal(newsId) {
+  try {
+    const res = await fetch(`http://localhost:8080/api/news/${newsId}`);
+    if (!res.ok) throw new Error("Failed to load news");
+
+    const news = await res.json();
+
+    const modal = document.getElementById("newsModal");
+    const form = document.getElementById("newsForm");
+    const title = document.getElementById("newsModalTitle");
+
+    // Populate form fields
+    form.reset();
+    form.querySelector('input[name="mode"]').value = "edit";
+    form.querySelector('input[name="originalTitle"]').value = newsId;
+    form.querySelector('input[name="existingImage"]').value = news.image || "";
+    document.getElementById("newsDate").value = news.date.split("T")[0];
+    document.getElementById("newsTitle").value = news.title;
+    document.getElementById("newsDescription").value = news.description;
+
+    // Preview the image if available
+    const preview = document.getElementById("imagePreview");
+    if (news.image) {
+      preview.src = news.image;
+      preview.style.display = "block";
+    } else {
+      preview.style.display = "none";
+    }
+
+    title.textContent = "Edit News Article";
+    modal.style.display = "block";
+  } catch (error) {
+    console.error("Error loading news:", error);
+    showToast("Failed to load news", "error");
+  }
+}
+
+async function handleNewsFormSubmit(event) {
+  event.preventDefault();
+  const form = event.target;
+  const formData = new FormData(form);
+
+  showLoadingOverlay("Saving news...");
+
+  try {
+    const mode = formData.get("mode");
+    const newsId = formData.get("originalTitle");
+    let imageUrl = formData.get("existingImage") || "";
+
+    if (mode === "edit" && newsId) {
+      const existingNews = await getAllNews();
+      const foundNews = existingNews.find((n) => n.id === newsId);
+      imageUrl = foundNews?.image || "";
+    }
+
+    const imageFile = formData.get("imageFile");
+    if (imageFile && imageFile.size > 0) {
+      imageUrl = await uploadEventImage(imageFile);
+    }
+
+    const rawDate = formData.get("date");
+    const isoDate = new Date(rawDate).toISOString();
+
+    const newsData = {
+      title: formData.get("title").trim(),
+      description: formData.get("description").trim(),
+      date: isoDate,
+      image: imageUrl,
+    };
+
+    const token = localStorage.getItem("token");
+    const url =
+      mode === "edit" && newsId
+        ? `http://localhost:8080/api/news/${newsId}`
+        : `http://localhost:8080/api/news`;
+
+    const method = mode === "edit" ? "PUT" : "POST";
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newsData),
+    });
+
+    if (response.status === 401) {
+      showToast("Please Login Again", "error");
+      window.location.href = "/adminPanel/login.html";
+      return;
+    }
+
+    if (!response.ok) throw new Error("Failed to save news");
+
+    hideLoadingOverlay();
+    closeNewsModal();
+    await loadNews();
+    await updateDashboardCounts();
+    showToast("News saved successfully!", "success");
+  } catch (err) {
+    console.error("Error saving news:", err);
+    hideLoadingOverlay();
+    showToast("Error saving news", "error");
+  }
+}
+
 // 4. Create new event
 async function createEvent(eventData) {
   try {
@@ -674,9 +922,16 @@ async function createEvent(eventData) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(eventData),
     });
+
+    if (response.status === 401) {
+      showToast("Please Login Again", "error");
+      window.location.href = "/adminPanel/login.html";
+      return; // prevent further code from running
+    }
 
     if (!response.ok) {
       throw new Error(`Failed to create event: ${response.statusText}`);
@@ -785,12 +1040,10 @@ async function handleEventFormSubmit(event) {
   showLoadingOverlay("Saving event...");
 
   try {
-    let imageUrl = "";
-
+    let imageUrl = formData.get("existingImage") || "";
     const imageFile = formData.get("imageFile");
     if (imageFile && imageFile.size > 0) {
       imageUrl = await uploadEventImage(imageFile);
-      console.log("Image uploaded successfully:", imageUrl);
     }
 
     const eventData = {
@@ -799,8 +1052,8 @@ async function handleEventFormSubmit(event) {
       location: formData.get("location").trim(),
       time: formData.get("time").trim(),
       description: formData.get("description").trim(),
-      date: formData.get("date"),
-      image: imageUrl, // will be "" if no image selected
+      date: new Date(formData.get("date")).toISOString(),
+      image: imageUrl,
     };
 
     if (
@@ -920,6 +1173,11 @@ function searchEvents() {
 
 // Initialize the application
 document.addEventListener("DOMContentLoaded", async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/adminPanel/login.html";
+    return;
+  }
   // Load dashboard data
   await updateDashboardCounts();
 
@@ -927,6 +1185,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const eventForm = document.getElementById("eventForm");
   if (eventForm) {
     eventForm.addEventListener("submit", handleEventFormSubmit);
+  }
+
+  const newsForm = document.getElementById("newsForm");
+  if (newsForm) {
+    newsForm.addEventListener("submit", handleNewsFormSubmit);
   }
 
   // Initialize search functionality

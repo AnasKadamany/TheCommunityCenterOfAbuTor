@@ -1514,7 +1514,6 @@ footer {
     .event-card {
         flex-direction: column;
         max-width: 100%;
-        margin: 0 auto;
     }
 
     .event-date {

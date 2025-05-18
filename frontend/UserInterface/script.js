@@ -366,83 +366,29 @@ const MODALS = {
         return;
       }
 
-      if (!/^[\d\s\-\+]{8,15}$/.test(phone)) {
-        alert("Please enter a valid phone number");
-        return;
-      }
-
-      STATE.complaintModal.verificationData.code =
-        UTILS.generateVerificationCode();
-      STATE.complaintModal.verificationData.phone = phone;
-      STATE.complaintModal.verificationData.attempts = 0;
-      STATE.complaintModal.verificationData.verified = false;
-
-      DOM.sendCodeBtn.classList.add("loading");
-      DOM.sendCodeBtn.textContent = "Sending...";
-
-      const sent = await UTILS.sendVerificationCode(
-        phone,
-        STATE.complaintModal.verificationData.code
-      );
-
-      DOM.sendCodeBtn.classList.remove("loading");
-      DOM.sendCodeBtn.textContent = "Send Verification Code";
-
-      if (sent) {
-        DOM.step1.style.display = "none";
-        DOM.step2.style.display = "block";
-      } else {
-        alert("Failed to send verification code. Please try again.");
-      }
+      // Skip to the complaint textarea (step 3)
+      DOM.step1.style.display = "none";
+      DOM.step3.style.display = "block";
     },
 
     handleVerifyCode: () => {
-      const enteredCode = document
-        .getElementById("verificationCode")
-        .value.trim();
-
-      if (!enteredCode) {
-        alert("Please enter the verification code");
-        return;
-      }
-
-      STATE.complaintModal.verificationData.attempts++;
-
-      if (enteredCode === STATE.complaintModal.verificationData.code) {
-        STATE.complaintModal.verificationData.verified = true;
-        DOM.step2.style.display = "none";
-        DOM.step3.style.display = "block";
-      } else {
-        if (
-          STATE.complaintModal.verificationData.attempts >=
-          STATE.complaintModal.verificationData.maxAttempts
-        ) {
-          alert("Too many incorrect attempts. Please start over.");
-          MODALS.complaint.resetForm();
-        } else {
-          alert(
-            `Incorrect code. You have ${
-              STATE.complaintModal.verificationData.maxAttempts -
-              STATE.complaintModal.verificationData.attempts
-            } attempts left.`
-          );
-        }
-      }
+      console.log("Verification skipped — direct complaint mode.");
     },
 
     handleSubmit: async (e) => {
       e.preventDefault();
 
-      if (!STATE.complaintModal.verificationData.verified) {
-        alert("Please complete phone verification first");
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email =
+        document.getElementById("complaint-email").value.trim() || null;
+      const description = document.getElementById("complaint").value.trim();
+
+      if (!name || !phone || !description) {
+        alert("Please fill in all fields before submitting.");
         return;
       }
 
-      const name = document.getElementById("name").value;
-      const phone = STATE.complaintModal.verificationData.phone;
-      const description = document.getElementById("complaint").value;
-
-      // Show loading state
       const submitButton = DOM.complaintForm.querySelector(
         'button[type="submit"]'
       );
@@ -452,30 +398,19 @@ const MODALS = {
       submitButton.disabled = true;
 
       try {
-        // Send complaint to server using API
-        await API.complaints.submit({
-          name,
-          phone,
-          description,
-        });
-
-        // Show success message
-        alert(
-          "Thank you for your feedback! We will review your complaint and get back to you soon."
-        );
-
-        // Reset form and close modal
+        await API.complaints.submit({ name, phone, email, description });
+        showToast("Complaint submitted successfully!", "success");
         DOM.complaintForm.reset();
         MODALS.complaint.resetForm();
         DOM.complaintModal.classList.remove("show");
         document.body.style.overflow = "auto";
       } catch (error) {
         console.error("Failed to submit complaint:", error);
-        alert(
-          "There was a problem submitting your complaint. Please try again."
+        showToast(
+          "There was a problem submitting your complaint. Please try again.",
+          "error"
         );
       } finally {
-        // Reset button state
         submitButton.classList.remove("loading");
         submitButton.textContent = originalText;
         submitButton.disabled = false;
@@ -575,8 +510,9 @@ const MODALS = {
         });
 
         // Show success message
-        alert(
-          `Thank you, ${name}! You have successfully registered ${participants} participant(s) for "${STATE.registrationModal.currentEventData.title}".`
+        showToast(
+          `Thank you, ${name}! You have successfully registered ${participants} participant(s) for "${STATE.registrationModal.currentEventData.title}".`,
+          "success"
         );
 
         // Reset form and close modal
@@ -586,7 +522,10 @@ const MODALS = {
         STATE.registrationModal.currentEventData = null;
       } catch (error) {
         console.error("Failed to submit registration:", error);
-        alert("There was a problem with your registration. Please try again.");
+        showToast(
+          "There was a problem with your registration. Please try again.",
+          "error"
+        );
       } finally {
         // Reset button state
         submitButton.classList.remove("loading");

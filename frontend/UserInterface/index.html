@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AbuTor Community Center</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -321,42 +321,51 @@
         </div>
     </footer>
 
-    <!-- Modals -->
-    <!-- Complaint Modal -->
-    <div class="modal" id="complaintModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Make a Complaint</h2>
-            <form id="complaintForm">
-                <div class="form-step" id="step1">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" required>
-                    </div>
-                    <button type="button" id="sendCodeBtn" class="btn">Send Verification Code</button>
+  <!-- Complaint Modal -->
+<div class="modal" id="complaintModal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Make a Complaint</h2>
+        <form id="complaintForm">
+            <!-- Step 1: User Info -->
+            <div class="form-step" id="step1">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
-                <div class="form-step" id="step2" style="display: none;">
-                    <div class="form-group">
-                        <label for="verificationCode">Verification Code</label>
-                        <input type="text" id="verificationCode" required>
-                        <p class="verification-hint">We've sent a 6-digit code to your phone</p>
-                    </div>
-                    <button type="button" id="verifyCodeBtn" class="btn">Verify Code</button>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
                 </div>
-                <div class="form-step" id="step3" style="display: none;">
-                    <div class="form-group">
-                        <label for="complaint">Complaint Details</label>
-                        <textarea id="complaint" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Submit Complaint</button>
+                <div class="form-group">
+                    <label for="complaint-email">Email (optional)</label>
+                    <input type="email" id="complaint-email" name="email" placeholder="you@example.com">
                 </div>
-            </form>
-        </div>
+                <button type="button" id="sendCodeBtn" class="btn">Continue</button>
+            </div>
+
+            <!-- Step 2: Verification -->
+            <div class="form-step" id="step2" style="display: none;">
+                <div class="form-group">
+                    <label for="verificationCode">Verification Code</label>
+                    <input type="text" id="verificationCode" name="verificationCode">
+                    <p class="verification-hint">We've sent a 6-digit code to your phone</p>
+                </div>
+                <button type="button" id="verifyCodeBtn" class="btn">Verify Code</button>
+            </div>
+
+            <!-- Step 3: Complaint -->
+            <div class="form-step" id="step3" style="display: none;">
+                <div class="form-group">
+                    <label for="complaint">Complaint Details</label>
+                    <textarea id="complaint" name="complaintDetails" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Submit Complaint</button>
+            </div>
+        </form>
     </div>
+</div>
+
 
     <!-- Registration Modal -->
     <div class="modal" id="registrationModal">
@@ -397,8 +406,9 @@
     </div>
 
     <!-- Scripts -->
+     <script src="../utils/toast.js"></script>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="../api/userAPI.js"></script>
+    <script src="./api/userAPI.js"></script>
     <script src="script.js"></script>
     <script>
         (function(){

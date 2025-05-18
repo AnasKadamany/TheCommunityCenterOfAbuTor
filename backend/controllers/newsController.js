@@ -29,15 +29,13 @@ const getNewsById = async (req, res) => {
 
 const createNews = async (req, res) => {
   const { title, description, image, date } = req.body;
-
+  const isoDate = new Date(date).toISOString();
   try {
     const newNews = await prisma.news.create({
-      data: { title, description, image, date },
+      data: { title, description, image, date: isoDate },
     });
 
-    res
-      .status(200)
-      .json({ message: "News created successfully", news: newNews });
+    res.status(200).json(newNews);
   } catch (error) {
     console.error("Error creating news:", error);
     res.status(500).json({ message: "Failed to create news" });
@@ -47,11 +45,11 @@ const createNews = async (req, res) => {
 const updateNews = async (req, res) => {
   const newsId = req.params.id;
   const { title, description, image, date } = req.body;
-
+  const isoDate = new Date(date).toISOString();
   try {
     const updatedNews = await prisma.news.update({
       where: { id: newsId },
-      data: { title, description, image, date },
+      data: { title, description, image, date: isoDate },
     });
 
     res

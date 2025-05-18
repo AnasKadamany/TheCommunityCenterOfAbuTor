@@ -7,7 +7,7 @@ const submitComplaint = async (req, res) => {
 
   // Ensure images is always an array
   if (!Array.isArray(images)) {
-    images = [images]; // in case it's a single string (from a form)
+    images = [images];
   }
 
   try {
@@ -39,13 +39,14 @@ const getAllComplaints = async (req, res) => {
   }
 };
 
-const markComplaintSolved = async (req, res) => {
+const changeComplaintStatus = async (req, res) => {
   const complaintId = req.params.id;
+  const { isSolved } = req.body;
 
   try {
     const updatedComplaint = await prisma.complaint.update({
       where: { id: complaintId },
-      data: { isSolved: true },
+      data: { isSolved: isSolved },
     });
 
     res.status(200).json({
@@ -58,8 +59,24 @@ const markComplaintSolved = async (req, res) => {
   }
 };
 
+const deleteComplaint = async (req, res) => {
+  const complaintId = req.params.id;
+
+  try {
+    await prisma.complaint.delete({
+      where: { id: complaintId },
+    });
+
+    res.status(200).json({ message: "Complaint deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting complaint:", error);
+    res.status(500).json({ message: "Error deleting complaint" });
+  }
+};
+
 module.exports = {
   submitComplaint,
   getAllComplaints,
-  markComplaintSolved,
+  changeComplaintStatus,
+  deleteComplaint,
 };

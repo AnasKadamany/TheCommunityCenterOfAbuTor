@@ -14,6 +14,6 @@ router.get("/", getAllNews);
 router.get("/:id", getNewsById);
 router.post("/", protect, createNews);
 router.put("/:id", protect, updateNews);
-router.delete("/:id", protect, deleteNews);
+router.delete("/:id", deleteNews);
 
 module.exports = router;

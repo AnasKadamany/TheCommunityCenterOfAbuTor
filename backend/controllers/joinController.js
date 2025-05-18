@@ -47,8 +47,24 @@ const confirmJoinRequest = async (req, res) => {
   }
 };
 
+const deleteJoinRequest = async (req, res) => {
+  const joinId = req.params.id;
+
+  try {
+    await prisma.eventJoin.delete({
+      where: { id: joinId },
+    });
+
+    res.status(200).json({ message: "Join request deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error deleting join request" });
+  }
+};
+
 module.exports = {
   getAllJoinRequests,
   submitJoinRequest,
   confirmJoinRequest,
+  deleteJoinRequest,
 };

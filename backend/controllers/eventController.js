@@ -76,13 +76,16 @@ const updateEvent = async (req, res, next) => {
         description: eventData.description,
         image: eventData.image,
         type: eventData.type,
-        date: eventData.date,
+        date: new Date(eventData.date), // Ensure ISO format
+        time: eventData.time || null, // Include time
+        location: eventData.location || null, // Include location
       },
     });
 
-    return res
-      .status(200)
-      .json({ message: "Updated Successfully", updatedData });
+    return res.status(200).json({
+      message: "Updated Successfully",
+      updatedData,
+    });
   } catch (error) {
     console.error("Update failed:", error);
     return res.status(500).json({ message: "Problem updating the event" });

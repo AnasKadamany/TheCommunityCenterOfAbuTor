@@ -2,15 +2,18 @@ const express = require("express");
 const {
   submitComplaint,
   getAllComplaints,
-  markComplaintSolved,
+  changeComplaintStatus,
+  deleteComplaint,
 } = require("../controllers/complaintController");
 
 const { protect } = require("../middleware/authMiddleware");
+const { Delete } = require("@mui/icons-material");
 
 const router = express.Router();
 
 router.get("/", getAllComplaints); // Admin
 router.post("/", submitComplaint); // Public
-router.patch("/:id/solve", protect, markComplaintSolved); // Admin
+router.patch("/:id/solve", changeComplaintStatus); // Admin
+router.delete("/:id", deleteComplaint); // Admin
 
 module.exports = router;
