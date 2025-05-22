@@ -160,7 +160,7 @@ header.scrolled {
 
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     padding: 10px 15px;
     transition: var(--transition);
@@ -213,6 +213,7 @@ nav {
     font-weight: 500;
     transition: var(--transition);
     position: relative;
+    
 }
 
 .nav-links a:hover {
@@ -358,12 +359,13 @@ nav {
     height: 100vh;
     min-height: 700px;
     background: linear-gradient(rgba(74, 111, 165, 0.8), rgba(70, 78, 82, 0.8)), 
-                url("https://www.coxandkings.co.uk/-/media/cox-and-kings/images/page-header-images/destinations/middle-east-and-north-africa/israel/jerusalem/main-highlights-jerusalem-1.jpg?w=1920&h=940&auto=format&fit=crop&w=1350&q=80") 
+                url("try.png") 
                 no-repeat center center/cover;
     color: #fff;
     display: flex;
     align-items: center;
     text-align: center;
+    box-shadow: inset 0px -4px 4px 0 white;
     padding-top: 80px;
 }
 
@@ -1292,6 +1294,7 @@ footer {
 
     section {
         padding: 40px 0;
+        overflow-x: hidden;
     }
 
     .container {
@@ -1405,6 +1408,7 @@ footer {
 
     nav .complaint-btn {
         display: block;
+        width: max-content;
         margin-left: 10px;
         padding: 5px 10px;
         font-size: 0.8rem;
@@ -1455,7 +1459,7 @@ footer {
     .hero {
         min-height: 500px;
         background: linear-gradient(rgba(74, 111, 165, 0.85), rgba(70, 78, 82, 0.85)), 
-                    url("https://www.coxandkings.co.uk/-/media/cox-and-kings/images/page-header-images/destinations/middle-east-and-north-africa/israel/jerusalem/main-highlights-jerusalem-1.jpg?w=768&h=432&auto=format&fit=crop&q=80") 
+                    url("try.png") 
                     no-repeat center center/cover;
     }
 
@@ -1669,6 +1673,7 @@ footer {
 
 /* Extra Small Screens (max-width: 576px) */
 @media (max-width: 576px) {
+    
     /* General Adjustments */
     body {
         font-size: 15px;
@@ -1697,9 +1702,9 @@ footer {
     }
 
     .logo-img {
-        height: 40px;
-        width: 40px;
-        padding: 3px;
+        height: 70px;
+        width: 70px;
+        padding: 4.5px;
     }
 
     .hamburger {
@@ -1713,8 +1718,8 @@ footer {
     }
 
     .nav-links {
-        top: 45px;
-        width: 100%;
+        top: 108px;
+        width: 55%;
         left: -100%;
         height: calc(100vh - 45px);
     }
@@ -1735,6 +1740,7 @@ footer {
     /* Hero Section */
     .hero {
         min-height: 450px;
+        
     }
 
     .hero-content h1 {
@@ -1825,3 +1831,353 @@ footer {
     opacity: 0.8;
     transform: scale(0.98);
 }
+[dir="rtl"] h1 {
+    
+font-family: "Playpen Sans Arabic", "Playpen Sans Hebrew";
+font-style: normal;
+font-weight: 400;
+    font-size: 3.5rem;
+    
+}
+.titleDiv {
+    display: flex;
+    flex-direction: column;
+}
+[dir="rtl"] .titleDiv {
+    font-family: "Playpen Sans Arabic", "Playpen Sans Hebrew";
+    font-optical-sizing: auto;
+    font-size: 1.2rem;
+}
+[dir="ltr"] .titleDiv {
+    font-family: "Playpen Sans ", "Playpen Sans Hebrew";
+    font-optical-sizing: auto;
+    font-size: 1.2rem;
+}
+[dir="rtl"] .line1 {
+  font-family: "Playpen Sans Arabic", cursive;
+  font-optical-sizing: auto;
+
+    
+}
+
+.he-line1 {
+  font-family: "Playpen Sans Hebrew", cursive !important;
+  font-optical-sizing: auto !important;
+
+}
+.line2 {
+    color: #074f80;
+} 
+
+[dir="rtl"] .nav-links a {
+    margin-left: 10px;
+    color: var(--dark-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+    font-size: 20px;
+}
+[dir= "rtl"] .language-toggle {
+    font-size: 20px;
+}
+[dir= "rtl"] .complaint-btn {
+    height: 45px;
+    margin-right: -50px;
+    text-align: right;
+    padding: 8px 15px;
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+    transition: var(--transition);
+}
+[dir= "rtl"] .hero-content p {
+    font-family: "Tajawal", sans-serif;
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+}
+
+[dir= "rtl"] .section-header h2 {
+    font-family: "Playpen Sans Arabic", "Playpen Sans Hebrew";
+    padding-top: 5px;
+    font-size: 2.6rem;
+    margin-bottom: 15px;
+    
+    color: var(--secondary-color);
+}
+[dir= "rtl"] .section-header p {
+    font-family: "Tajawal", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    max-width: 700px;
+    margin: 0 auto 25px;
+    color: var(--gray-color);
+}
+[dir= "rtl"] .btn {
+    font-family: "Tajawal", sans-serif;
+    display: inline-block;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+[dir= "rtl"] .btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+}
+[dir= "rtl"] .btn.outline {
+    font-family: "Tajawal", sans-serif;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+[dir= "rtl"] .btn.outline:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+[dir="rtl"] .programs-slider-container {
+    direction: ltr; /* Keep slider direction LTR while content is RTL */
+}
+[dir="rtl"] .program-cards .card h3 {
+    font-family: "Playpen Sans Arabic", "Playpen Sans Hebrew";
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+[dir="rtl"] .program-cards .card p {
+    font-family: "Tajawal", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    direction: rtl;
+    color: var(--gray-color);
+    margin-bottom: 20px;
+}
+[dir="rtl"] .footer-col h3 {
+    font-family: "Playpen Sans Arabic", "Playpen Sans Hebrew";
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+[dir="rtl"] .footer-col p {
+    font-family: "Tajawal", sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+}
+[dir="rtl"] .footer-col a {
+    font-family: "Tajawal", sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: var(--transition);
+}
+[dir="rtl"] [data-i18n="hours"] {
+font-family: "Tajawal", sans-serif;
+padding-right: 2px;
+}
+[dir="rtl"] [data-i18n="num"] {
+
+padding-right: 2px;
+}
+[dir="rtl"] .emailing-form input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 0 5px 5px 0; 
+    font-size: 1rem;
+    direction: ltr; 
+    text-align: right; 
+    unicode-bidi: plaintext; 
+}
+
+[dir="rtl"] .emailing-form button {
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    padding: 0 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    transform: scaleX(-1); /* Add this line to flip the icon */
+}
+[dir="rtl"] .day-name {
+    font-family: "Tajawal", sans-serif;
+    background: var(--secondary-color);
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-weight: 500;
+}
+[dir="rtl"] .calendar-events h4 {
+    font-family: "Tajawal", sans-serif;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+
+
+/* Centered Language Menu - Works for both LTR and RTL */
+.language-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%; /* Start from center */
+  transform: translateX(-50%); /* Center precisely */
+  min-width: 120px;
+  text-align: center; /* Center menu text */
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Active state - same for both directions */
+.language-menu.active {
+  display: block;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0); /* Maintain center position */
+}
+
+/* Mobile view - full width centered text */
+@media (max-width: 768px) {
+  .language-menu {
+    position: static;
+    width: 100%;
+    transform: none;
+    left: auto;
+    text-align: center;
+    padding: 0;
+  }
+  
+  .language-menu.active {
+    transform: none;
+  }
+}
+/* Default LTR positioning */
+.language-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+  text-align: left;
+}
+
+/* RTL positioning override */
+[dir="rtl"] .language-menu {
+  right: auto;
+  left: 0;
+  text-align: right;
+}
+
+/* Active state adjustments */
+.language-menu.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[dir="rtl"] .language-menu.active {
+  transform: translateY(0); /* Remove any LTR-specific transforms */
+}
+[dir="rtl"] .modal h2 {
+    font-family: "Tajawal", sans-serif;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+[dir="rtl"] .form-group label {
+    font-family: "Tajawal", sans-serif;
+    display: block;
+    padding-right: 4px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--dark-color);
+}
+[dir="rtl"] .form-group select {
+    font-family: "Tajawal", sans-serif;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 15px center;
+    background-size: 12px;
+    cursor: pointer;
+}
+[dir="rtl"] .news-slider {
+    font-family: "Tajawal", sans-serif;
+    direction: ltr;
+    overflow: hidden;
+    position: relative;
+}
+[dir="rtl"] .section-header p {
+    max-width: 700px;
+    margin: 0 auto 25px;
+    color: var(--gray-color);
+}
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .language-menu {
+    position: static;
+    width: 100%;
+    text-align: left;
+    padding-left: 20px;
+    background: rgba(0,0,0,0.05);
+  }
+
+  [dir="rtl"] .language-menu {
+    text-align: right;
+    padding-left: 0;
+    padding-right: 20px;
+  }
+}
+[dir="rtl"] .language-menu a {
+    display: block;
+    margin: auto;
+    padding: 10px 15px;
+    color: var(--dark-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+@media (max-width: 576px) {
+      [dir="rtl"]  .nav-links {
+        top: 92px;
+        width: 55%;
+
+    }
+     [dir="rtl"] .hero-content h1 {
+        font-size: 1.8rem;
+    }
+       [dir="rtl"]  .nav {
+        padding: 5px 10px;
+        max-width: 1000px;
+    }
+       [dir="rtl"] .container {
+        box-sizing: border-box;
+        padding: 0 15px;
+    }
+       [dir="rtl"] nav .complaint-btn {
+        display: block;
+        width: max-content;
+        margin-left: 10px;
+        margin-right: 40px;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+    
+
+
+    
+
+}
+

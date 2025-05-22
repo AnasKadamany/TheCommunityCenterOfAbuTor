@@ -4,42 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Events | Community Center</title>
+    <link rel="stylesheet" href="https://use.typekit.net/jlo8pmu.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&family=Playpen+Sans+Hebrew:wght@100..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+        <!-- Header Section -->
+    <header class="header">
         <div class="container">
-            <nav>
+            <nav class="nav">
                 <div class="logo">
                     <img src="logo2.jpg" alt="Community Center Logo" class="logo-img">
-                    <span>Community<span>Center</span></span>
+                    <div class="titleDiv">
+                     <span class="line1" data-i18n="community">Community</span>
+                     <span class="line2" data-i18n="center">Center</span>
+                    </div>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="index.html#home">Home</a></li>
-                    <li><a href="index.html#programs">Programs</a></li>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="index.html#calendar">Calendar</a></li>
-                    <li><a href="index.html#news">News</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="index.html#home" data-i18n="home">Home</a></li>
+                    <li><a href="index.html#programs" data-i18n="programs">Programs</a></li>
+                    <li><a href="index.html#events" data-i18n="events">Events</a></li>
+                    <li><a href="index.html#calendar" data-i18n="calendar">Calendar</a></li>
+                    <li><a href="index.html#news" data-i18n="news">News</a></li>
+                    <li><a href="#contact" data-i18n="contact">Contact</a></li>
                     <li class="language-selector">
-                        <span class="language-toggle">Language</span>
+                        <span class="language-toggle" data-i18n="lang">Language</span>
                         <ul class="language-menu">
-                            <li><a href="#" data-lang="en">English</a></li>
-                            <li><a href="#" data-lang="es">Arabic</a></li>
-                            <li><a href="#" data-lang="fr">Hebrew</a></li>
-                            <!-- Add more languages as needed -->
+                            <li><a href="#" data-lang="en" data-i18n="en">English</a></li>
+                            <li><a href="#" data-lang="ar" data-i18n="ar">Arabic</a></li>
+                            <li><a href="#" data-lang="he" data-i18n="he">Hebrew</a></li>
                         </ul>
                     </li>
                 </ul>
-                <button class="complaint-btn" id="complaintBtn">Make a Complaint</button>
+                <button class="complaint-btn" id="complaintBtn" data-i18n="complaintBtn">Make a Complaint</button>
                 <div class="hamburger">
                     <div class="line"></div>
                     <div class="line"></div>
                     <div class="line"></div>
                 </div>
-
+                
             </nav>
         </div>
     </header>
@@ -47,8 +57,8 @@
     <section class="events" id="all-events">
         <div class="container">
             <div class="section-header">
-                <h2 class="animate-from-left">All Events</h2>
-                <p class="animate-from-right">Explore all our upcoming events and classes. Register online to secure your spot!</p>
+                <h2 class="animate-from-left" data-i18n="AllEvents2">All Events</h2>
+                <p class="animate-from-right" data-i18n="Exploreall2">Explore all our upcoming events and classes. Register online to secure your spot!</p>
             </div>
 
             <div class="event-list" id="allEventsList">
@@ -58,42 +68,49 @@
     </section>
 
     <!-- Complaint Modal -->
-    <div class="modal" id="complaintModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Make a Complaint</h2>
-            <form id="complaintForm">
-                <div class="form-step" id="step1">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" required>
-                    </div>
-                    <button type="button" id="sendCodeBtn" class="btn">Send Verification Code</button>
+<div class="modal" id="complaintModal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 data-i18n="MakeeaComplaint">Make a Complaint</h2>
+        <form id="complaintForm">
+            <!-- Step 1: User Info -->
+            <div class="form-step" id="step1">
+                <div class="form-group">
+                    <label for="name" data-i18n="YourName">Your Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
-                
-                <div class="form-step" id="step2" style="display: none;">
-                    <div class="form-group">
-                        <label for="verificationCode">Verification Code</label>
-                        <input type="text" id="verificationCode" required>
-                        <p class="verification-hint">We've sent a 6-digit code to your phone</p>
-                    </div>
-                    <button type="button" id="verifyCodeBtn" class="btn">Verify Code</button>
+                <div class="form-group">
+                    <label for="phone"data-i18n="PhoneNumber">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
                 </div>
-                
-                <div class="form-step" id="step3" style="display: none;">
-                    <div class="form-group">
-                        <label for="complaint">Complaint Details</label>
-                        <textarea id="complaint" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Submit Complaint</button>
+                <div class="form-group">
+                    <label for="complaint-email" data-i18n="Emailoptional">Email (optional)</label>
+                    <input type="email" id="complaint-email" name="email" placeholder="you@example.com">
                 </div>
-            </form>
-        </div>
+                <button type="button" id="sendCodeBtn" class="btn" data-i18n="Continue">Continue</button>
+            </div>
+
+            <!-- Step 2: Verification -->
+            <div class="form-step" id="step2" style="display: none;">
+                <div class="form-group">
+                    <label for="verificationCode">Verification Code</label>
+                    <input type="text" id="verificationCode" name="verificationCode">
+                    <p class="verification-hint">We've sent a 6-digit code to your phone</p>
+                </div>
+                <button type="button" id="verifyCodeBtn" class="btn">Verify Code</button>
+            </div>
+
+            <!-- Step 3: Complaint -->
+            <div class="form-step" id="step3" style="display: none;">
+                <div class="form-group">
+                    <label for="complaint" data-i18n="ComplaintDetails">Complaint Details</label>
+                    <textarea id="complaint" name="complaintDetails" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn" data-i18n="SubmitComplaint">Submit Complaint</button>
+            </div>
+        </form>
     </div>
+</div>
 
     <!-- Registration Modal -->
     <div class="modal" id="registrationModal">
@@ -137,48 +154,51 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h3>Community Center</h3>
-                    <p>There must be a wind to dispel the clouds and the sun, in her golden ascent, shall cleanse the heart of every care.<br> From you to you since 2015.</p>
+                    <h3 data-i18n="CommunityCenterfooter">Community Center</h3>
+<p>
+    <span data-i18n="Theremustbea">There must be a wind to dispel the clouds and the sun, in her golden ascent, shall cleanse the heart of every care.</span><br>
+    <span data-i18n="br">From you to you since 2015.</span>
+</p>
                     <div class="social-links">
                         <a href="https://www.facebook.com/almarkazaljmaheri"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/aljamaheri8"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h3>Quick Links</h3>
+                    <h3 data-i18n="QuickLinks">Quick Links</h3>
                     <ul>
-                        <li><a href="index.html#home">Home</a></li>
-                        <li><a href="index.html#programs">Programs</a></li>
-                        <li><a href="#events">Events</a></li>
-                        <li><a href="index.html#calendar">Calendar</a></li>
-                        <li><a href="index.html#news">News</a></li>
+                        <li><a href="index.html#home" data-i18n="Home">Home</a></li>
+                        <li><a href="index.html#programs" data-i18n="Programs">Programs</a></li>
+                        <li><a href="#events" data-i18n="Events">Events</a></li>
+                        <li><a href="index.html#calendar" data-i18n="Calendar">Calendar</a></li>
+                        <li><a href="index.html#news" data-i18n="News">News</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>Contact Us</h3>
+                    <h3 data-i18n="ContactUs">Contact Us</h3>
                     <ul>
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
-                            <a href="https://www.waze.com/live-map/directions?to=ll.31.764071%2C35.229356" target="_blank">
-                              5 Hamefaked St, Abu Tor
+                            <a href="https://www.waze.com/live-map/directions?to=ll.31.764071%2C35.229356" target="_blank" data-i18n="Hamefaked">
+                                5 Hamefaked St, Abu Tor
                             </a>
-                          </li>
-                        <li><i class="fas fa-phone"></i> (02) 677-5459</li>
-                        <li><i class="fas fa-envelope"></i> markazjamahiri@gmail.com</li>
-                        <li><i class="fas fa-clock"></i> Sun - Thu: 8:30AM - 5PM</li>
+                        </li>
+                        <li><i class="fas fa-phone"></i><span data-i18n="num">(02) 677-5459</span></li>
+                        <li><i class="fas fa-envelope"></i>markazjamahiri@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> <span data-i18n="hours">Sun - Thu: 8:30AM - 5PM</span></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>Email us!</h3>
-                    <p>Share with us your thought and what withn your heart.</p>
+                    <h3 data-i18n="emai">Email us!</h3>
+                    <p data-i18n="Sharewithus">Share with us your thought and what withn your heart.</p>
                     <form class="emailing-form">
-                        <input type="email" placeholder="Your Email">
+                        <input type="email" placeholder="Your Email" data-i18n-placeholder="emailPlaceholder">
                         <button type="submit"><i class="fas fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Community Center. All Rights Reserved.</p>
+                <p data-i18n="footerCopyright">&copy; 2025 Community Center. All Rights Reserved.</p>
             </div>
         </div>
     </footer>

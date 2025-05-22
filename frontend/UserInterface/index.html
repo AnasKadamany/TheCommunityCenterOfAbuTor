@@ -1,40 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AbuTor Community Center</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://use.typekit.net/jlo8pmu.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&family=Playpen+Sans+Hebrew:wght@100..800&display=swap" rel="stylesheet">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&family=Playpen+Sans+Hebrew:wght@100..800&family=Playpen+Sans:wght@100..800&family=Rakkas&display=swap" rel="stylesheet">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    
     <!-- Header Section -->
     <header class="header">
         <div class="container">
             <nav class="nav">
                 <div class="logo">
                     <img src="logo2.jpg" alt="Community Center Logo" class="logo-img">
-                    <span>Community<span>Center</span></span>
+                    <div class="titleDiv">
+                     <span class="line1" data-i18n="community">Community</span>
+                     <span class="line2" data-i18n="center">Center</span>
+                    </div>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#programs">Programs</a></li>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#calendar">Calendar</a></li>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home" data-i18n="home">Home</a></li>
+                    <li><a href="#programs" data-i18n="programs">Programs</a></li>
+                    <li><a href="#events" data-i18n="events">Events</a></li>
+                    <li><a href="#calendar" data-i18n="calendar">Calendar</a></li>
+                    <li><a href="#news" data-i18n="news">News</a></li>
+                    <li><a href="#contact" data-i18n="contact">Contact</a></li>
                     <li class="language-selector">
-                        <span class="language-toggle">Language</span>
+                        <span class="language-toggle" data-i18n="lang">Language</span>
                         <ul class="language-menu">
-                            <li><a href="#" data-lang="en">English</a></li>
-                            <li><a href="#" data-lang="es">Arabic</a></li>
-                            <li><a href="#" data-lang="fr">Hebrew</a></li>
+                            <li><a href="#" data-lang="en" data-i18n="en">English</a></li>
+                            <li><a href="#" data-lang="ar" data-i18n="ar">Arabic</a></li>
+                            <li><a href="#" data-lang="he" data-i18n="he">Hebrew</a></li>
                         </ul>
                     </li>
                 </ul>
-                <button class="complaint-btn" id="complaintBtn">Make a Complaint</button>
+                <button class="complaint-btn" id="complaintBtn" data-i18n="complaintBtn">Make a Complaint</button>
                 <div class="hamburger">
                     <div class="line"></div>
                     <div class="line"></div>
@@ -48,11 +66,11 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1 class="animate-from-bottom">Empowering Our Community Together</h1>
-                <p class="animate-from-bottom">
+                <h1 class="animate-from-bottom" data-i18n="homeTitle">Empowering Our Community Together</h1>
+                <p class="animate-from-bottom" data-i18n="homeSubtitle">
                     Welcome to AbuTor community center website! join us to have a mind altering experience and make our little world better.
                 </p>
-                <a href="#programs" class="btn animate-from-bottom">View Our Programs</a>
+                <a href="#programs" class="btn animate-from-bottom" data-i18n="viewourprograms">View Our Programs</a>
             </div>
         </div>
     </section>
@@ -61,11 +79,11 @@
     <section class="programs" id="programs">
         <div class="container">
             <div class="section-header">
-                <h2 class="animate-from-left">Programs Overview</h2>
-                <p class="animate-from-right">
+                <h2 class="animate-from-left" data-i18n="ProgramsOverview">Programs Overview</h2>
+                <p class="animate-from-right" data-i18n="Engageinour">
                     Engage in our diverse programs that cater to teens, kids, and the elderly. From educational workshops to sports classes, we provide a range of activities to suit different interests and age groups.
                 </p>
-                <a href="#calendar" class="btn outline animate-from-bottom">Join Now</a>
+                <a href="#calendar" class="btn outline animate-from-bottom" data-i18n="JoinNow">Join Now</a>
             </div>
             <div class="programs-slider-container">
                 <button class="slider-arrow slider-arrow-left" aria-label="Previous programs">
@@ -75,43 +93,43 @@
                     <div class="program-cards">
                         <div class="card animate-from-bottom">
                             <i class="fa-solid fa-person-cane"></i>
-                            <h3>Elderly</h3>
-                            <p>Providing a healthy, social, and recreational framework for the golden generation.</p>
+                            <h3 data-i18n="Elderly">Elderly</h3>
+                            <p data-i18n="Providinga">Providing a healthy, social, and recreational framework for the golden generation.</p>
                         </div>
                         <div class="card animate-from-bottom">
                             <i class="fa-solid fa-venus"></i>
-                            <h3>Women</h3>
-                            <p>enhancing Women's personal development through courses in leadership, communication, and time management.</p>
+                            <h3 data-i18n="Women">Women</h3>
+                            <p data-i18n="enhancingWomen">enhancing Women's personal development through courses in leadership, communication, and time management.</p>
                         </div>
                         <div class="card animate-from-bottom">
                             <i class="fa-solid fa-wheelchair"></i>
-                            <h3>Exceptionals</h3>
-                            <p>Enhance social skills and connections, and emphasize the vital role this group plays in social inclusion.</p>
+                            <h3 data-i18n="Exceptionals">Exceptionals</h3>
+                            <p data-i18n="Enhancesocial">Enhance social skills and connections, and emphasize the vital role this group plays in social inclusion.</p>
                         </div>
                         <div class="card animate-from-bottom">
                             <i class="fas fa-users"></i>
-                            <h3>Youth</h3>
-                            <p>Engaging youth in activities that foster personal growth, strengthen social belonging, and encourage leadership.</p>
+                            <h3 data-i18n="Youth">Youth</h3>
+                            <p data-i18n="Engagingyouth">Engaging youth in activities that foster personal growth, strengthen social belonging, and encourage leadership.</p>
                         </div>
                         <div class="card animate-from-bottom">
                             <i class="fa-solid fa-group-arrows-rotate"></i>
-                            <h3>Culture</h3>
-                            <p>Supporting and promoting the cultural aspect of society by celebrating religious and community occasions.</p>
+                            <h3 data-i18n="Culture">Culture</h3>
+                            <p data-i18n="Supportingand">Supporting and promoting the cultural aspect of society by celebrating religious and community occasions.</p>
                         </div>
                         <div class="card animate-from-bottom">
                             <i class="fa-solid fa-child-reaching"></i>
-                            <h3>Kids Workshops</h3>
-                            <p>Fostering cultural awareness among children nurture a sense of belonging and togetherness.</p>
+                            <h3 data-i18n="KidsWorkshops">Kids Workshops</h3>
+                            <p data-i18n="Fosteringcultural">Fostering cultural awareness among children nurture a sense of belonging and togetherness.</p>
                         </div>
                         <div class="card animate-from-bottom">
                             <i class="fa-solid fa-city"></i>
-                            <h3>Urban Planning</h3>
-                            <p>professionally bridges community planning needs with city planning authorities, with the main goal of enhancing quality of life.</p>
+                            <h3 data-i18n="UrbanPlanning">Urban Planning</h3>
+                            <p data-i18n="professionally">professionally bridges community planning needs with city planning authorities, with the main goal of enhancing quality of life.</p>
                         </div>
                         <div class="card animate-from-bottom">
                             <i class="fa-solid fa-hands-helping"></i>
-                            <h3>Public Action</h3>
-                            <p>A social service that enhances individuals' social skills through group experiences and better problem-solving.</p>
+                            <h3 data-i18n="PublicAction">Public Action</h3>
+                            <p data-i18n="Asocialserv">A social service that enhances individuals' social skills through group experiences and better problem-solving.</p>
                         </div>
                     </div>
                 </div>
@@ -127,9 +145,9 @@
     <section class="events" id="events">
         <div class="container">
             <div class="section-header">
-                <h2 class="animate-from-left">Upcoming Events</h2>
-                <p class="animate-from-right">Join our exciting events and classes. Register online to secure your spot!</p>
-                <a href="events.html" class="btn outline animate-from-bottom">View All Events</a>
+                <h2 class="animate-from-left" data-i18n="UpcomingEvents">Upcoming Events</h2>
+                <p class="animate-from-right" data-i18n="Joinour">Join our exciting events and classes. Register online to secure your spot!</p>
+                <a href="events.html" class="btn outline animate-from-bottom" data-i18n="ViewAll">View All Events</a>
             </div>
             <div class="event-list">
                 <!--
@@ -184,8 +202,8 @@
     <section class="calendar" id="calendar">
         <div class="container">
             <div class="section-header">
-                <h2 class="animate-from-left">Event Calendar</h2>
-                <p class="animate-from-right">Check our calendar for upcoming events and classes. Click on any event to register.</p>
+                <h2 class="animate-from-left" data-i18n="EventCalendar">Event Calendar</h2>
+                <p class="animate-from-right" data-i18n="Checkourcalendar">Check our calendar for upcoming events and classes. Click on any event to register.</p>
             </div>
             <div class="calendar-container animate-from-bottom">
                 <div class="calendar-header">
@@ -194,17 +212,17 @@
                     <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="calendar-grid">
-                    <div class="day-name">Sun</div>
-                    <div class="day-name">Mon</div>
-                    <div class="day-name">Tue</div>
-                    <div class="day-name">Wed</div>
-                    <div class="day-name">Thu</div>
-                    <div class="day-name">Fri</div>
-                    <div class="day-name">Sat</div>
+                    <div class="day-name" data-i18n="daySun">Sun</div>
+                    <div class="day-name" data-i18n="dayMon">Mon</div>
+                    <div class="day-name" data-i18n="dayTue">Tue</div>
+                    <div class="day-name" data-i18n="dayWed">Wed</div>
+                    <div class="day-name" data-i18n="dayThu">Thu</div>
+                    <div class="day-name" data-i18n="dayFri">Fri</div>
+                    <div class="day-name" data-i18n="daySat">Sat</div>
                     <!-- Days will be populated by JavaScript -->
                 </div>
                 <div class="calendar-events" id="calendarEvents">
-                    <h4 id="eventDateTitle">Today's Events</h4>
+                    <h4 id="eventDateTitle" data-i18n="TodayEvents">Today's Events</h4>
                     <!-- Events will be populated by JavaScript -->
                 </div>
                 <div class="event-item"></div>
@@ -216,8 +234,8 @@
     <section class="news" id="news">
         <div class="container">
             <div class="section-header">
-                <h2 class="animate-from-left">Community News</h2>
-                <p class="animate-from-right">Stay updated with what's happening in our community center.</p>
+                <h2 class="animate-from-left" data-i18n="CommunityNews">Community News</h2>
+                <p class="animate-from-right" data-i18n="Stayupdated">Stay updated with what's happening in our community center.</p>
             </div>
             <div class="news-slider-container">
                 <button class="slider-arrow slider-arrow-left" aria-label="Previous news">
@@ -273,50 +291,51 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h3>Community Center</h3>
-                    <p>
-                        There must be a wind to dispel the clouds and the sun, in her golden ascent, shall cleanse the heart of every care.<br> From you to you since 2015.
-                    </p>
+                    <h3 data-i18n="CommunityCenterfooter">Community Center</h3>
+<p>
+    <span data-i18n="Theremustbea">There must be a wind to dispel the clouds and the sun, in her golden ascent, shall cleanse the heart of every care.</span><br>
+    <span data-i18n="br">From you to you since 2015.</span>
+</p>
                     <div class="social-links">
                         <a href="https://www.facebook.com/almarkazaljmaheri"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/aljamaheri8"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h3>Quick Links</h3>
+                    <h3 data-i18n="QuickLinks">Quick Links</h3>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#programs">Programs</a></li>
-                        <li><a href="#events">Events</a></li>
-                        <li><a href="#calendar">Calendar</a></li>
-                        <li><a href="#news">News</a></li>
+                        <li><a href="#home" data-i18n="Home">Home</a></li>
+                        <li><a href="#programs" data-i18n="Programs">Programs</a></li>
+                        <li><a href="#events" data-i18n="Events">Events</a></li>
+                        <li><a href="#calendar" data-i18n="Calendar">Calendar</a></li>
+                        <li><a href="#news" data-i18n="News">News</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>Contact Us</h3>
+                    <h3 data-i18n="ContactUs">Contact Us</h3>
                     <ul>
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
-                            <a href="https://www.waze.com/live-map/directions?to=ll.31.764071%2C35.229356" target="_blank">
+                            <a href="https://www.waze.com/live-map/directions?to=ll.31.764071%2C35.229356" target="_blank" data-i18n="Hamefaked">
                                 5 Hamefaked St, Abu Tor
                             </a>
                         </li>
-                        <li><i class="fas fa-phone"></i> (02) 677-5459</li>
-                        <li><i class="fas fa-envelope"></i> markazjamahiri@gmail.com</li>
-                        <li><i class="fas fa-clock"></i> Sun - Thu: 8:30AM - 5PM</li>
+                        <li><i class="fas fa-phone"></i><span data-i18n="num">(02) 677-5459</span></li>
+                        <li><i class="fas fa-envelope"></i>markazjamahiri@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> <span data-i18n="hours">Sun - Thu: 8:30AM - 5PM</span></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>Email us!</h3>
-                    <p>Share with us your thought and what withn your heart.</p>
+                    <h3 data-i18n="emai">Email us!</h3>
+                    <p data-i18n="Sharewithus">Share with us your thought and what withn your heart.</p>
                     <form class="emailing-form">
-                        <input type="email" placeholder="Your Email">
+                        <input type="email" placeholder="Your Email" data-i18n-placeholder="emailPlaceholder">
                         <button type="submit"><i class="fas fa-paper-plane"></i></button>
                     </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Community Center. All Rights Reserved.</p>
+                <p data-i18n="footerCopyright">&copy; 2025 Community Center. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -325,23 +344,23 @@
 <div class="modal" id="complaintModal">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
-        <h2>Make a Complaint</h2>
+        <h2 data-i18n="MakeeaComplaint">Make a Complaint</h2>
         <form id="complaintForm">
             <!-- Step 1: User Info -->
             <div class="form-step" id="step1">
                 <div class="form-group">
-                    <label for="name">Your Name</label>
+                    <label for="name" data-i18n="YourName">Your Name</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
+                    <label for="phone"data-i18n="PhoneNumber">Phone Number</label>
                     <input type="tel" id="phone" name="phone" required>
                 </div>
                 <div class="form-group">
-                    <label for="complaint-email">Email (optional)</label>
+                    <label for="complaint-email" data-i18n="Emailoptional">Email (optional)</label>
                     <input type="email" id="complaint-email" name="email" placeholder="you@example.com">
                 </div>
-                <button type="button" id="sendCodeBtn" class="btn">Continue</button>
+                <button type="button" id="sendCodeBtn" class="btn" data-i18n="Continue">Continue</button>
             </div>
 
             <!-- Step 2: Verification -->
@@ -357,10 +376,10 @@
             <!-- Step 3: Complaint -->
             <div class="form-step" id="step3" style="display: none;">
                 <div class="form-group">
-                    <label for="complaint">Complaint Details</label>
+                    <label for="complaint" data-i18n="ComplaintDetails">Complaint Details</label>
                     <textarea id="complaint" name="complaintDetails" rows="5" required></textarea>
                 </div>
-                <button type="submit" class="btn">Submit Complaint</button>
+                <button type="submit" class="btn" data-i18n="SubmitComplaint">Submit Complaint</button>
             </div>
         </form>
     </div>
@@ -371,20 +390,20 @@
     <div class="modal" id="registrationModal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2>Register for Event</h2>
+            <h2 data-i18n="RegisterforEvent">Register for Event</h2>
             <form id="registrationForm">
                 <div class="form-group">
-                    <label for="reg-name">Your Name</label>
+                    <label for="reg-name" data-i18n="YourName2">Your Name</label>
                     <input type="text" id="reg-name" required>
                 </div>
                 <div class="form-group">
-                    <label for="reg-phone">Phone Number</label>
+                    <label for="reg-phone" data-i18n="PhoneNumber2">Phone Number</label>
                     <input type="tel" id="reg-phone" required>
                 </div>
                 <div class="form-group">
-                    <label for="reg-participants">Number of Participants (Max 5)</label>
+                    <label for="reg-participants" data-i18n="NumberofParti">Number of Participants (Max 5)</label>
                     <select id="reg-participants" required>
-                        <option value="" disabled selected>Select number</option>
+                        <option value="" disabled selected data-i18n="Selectnumber">Select number</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -393,14 +412,14 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="reg-event">Event</label>
+                    <label for="reg-event" data-i18n="Event2">Event</label>
                     <input type="text" id="reg-event" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="reg-date">Date & Time</label>
+                    <label for="reg-date" data-i18n="DateTime">Date & Time</label>
                     <input type="text" id="reg-date" readonly>
                 </div>
-                <button type="submit" class="btn">Complete Registration</button>
+                <button type="submit" class="btn" data-i18n="CompleteRegistra">Complete Registration</button>
             </form>
         </div>
     </div>
