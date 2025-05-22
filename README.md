@@ -1,6 +1,6 @@
 # Welcome to the Community Center of Abu Tor wiki!
-## our goal
-### develop a website for the community center to:
+## Our goal
+### Develop a website for the community center to:
 * Simplify Events registrations.
 
 * Enable faster and more efficient complaint submissions.
