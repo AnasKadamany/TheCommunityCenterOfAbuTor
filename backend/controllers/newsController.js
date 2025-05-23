@@ -1,9 +1,18 @@
 const prisma = require("../utils/prismaClient");
 
 const getAllNews = async (req, res) => {
+  const lang = req.query.lang?.toLowerCase() || "en";
   try {
     const news = await prisma.news.findMany({ orderBy: { date: "desc" } });
-    res.status(200).json(news);
+
+    const translatedNews = news.map((item) => {
+      return {
+        ...item,
+        title: item.title[lang],
+        description: item.description[lang],
+      };
+    });
+    res.status(200).json(translatedNews);
   } catch (error) {
     console.error("Error fetching news:", error);
     res.status(500).json({ message: "Failed to fetch news" });
@@ -12,6 +21,7 @@ const getAllNews = async (req, res) => {
 
 const getNewsById = async (req, res) => {
   const newsId = req.params.id;
+  const lang = req.query.lang?.toLowerCase() || "en";
 
   try {
     const news = await prisma.news.findUnique({ where: { id: newsId } });
@@ -20,7 +30,13 @@ const getNewsById = async (req, res) => {
       return res.status(404).json({ message: "News item not found" });
     }
 
-    res.status(200).json(news);
+    const translatedNews = {
+      ...news,
+      title: news.title?.[lang] || "",
+      description: news.description?.[lang] || "",
+    };
+
+    res.status(200).json(translatedNews);
   } catch (error) {
     console.error("Error fetching news by ID:", error);
     res.status(500).json({ message: "Error fetching news" });

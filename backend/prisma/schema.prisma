@@ -17,13 +17,13 @@ model User {
 
 model Event {
     id          String      @id @default(auto()) @map("_id") @db.ObjectId
-    title       String
-    description String
+    title       Json
+    description Json
     image       String
     type        String
     date        DateTime
     time        String?
-    location    String?
+    location    Json
     createdAt   DateTime    @default(now())
     joins       EventJoin[]
 }
@@ -43,8 +43,8 @@ model EventJoin {
 
 model News {
     id          String   @id @default(auto()) @map("_id") @db.ObjectId
-    title       String
-    description String
+    title       Json
+    description Json
     image       String
     date        DateTime
     createdAt   DateTime @default(now())

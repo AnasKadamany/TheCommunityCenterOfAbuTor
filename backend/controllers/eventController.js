@@ -1,9 +1,20 @@
 const prisma = require("../utils/prismaClient");
 
 const getEvents = async (req, res, next) => {
+  const lang = req.query.lang?.toLowerCase() || "en";
   try {
-    const events = await prisma.event.findMany();
-    return res.json(events);
+    const events = await prisma.event.findMany({
+      orderBy: { date: "asc" },
+    });
+    const translatedEvents = events.map((event) => {
+      return {
+        ...event,
+        title: event.title[lang],
+        description: event.description[lang],
+        location: event.location[lang],
+      };
+    });
+    return res.json(translatedEvents);
   } catch (error) {
     console.error("Error fetching events:", error);
     return res.status(500).json({ error: "Failed to fetch events" });
@@ -11,16 +22,25 @@ const getEvents = async (req, res, next) => {
 };
 
 const upcomingEvents = async (req, res, next) => {
+  const lang = req.query.lang?.toLowerCase() || "en";
   try {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(0, 0, 0, 0); //if we didn't did that , it will set the hours in the current time .
+    tomorrow.setHours(0, 0, 0, 0);
     const events = await prisma.event.findMany({
       where: { date: { gt: tomorrow } },
       orderBy: { date: "asc" },
       take: 3,
     });
-    return res.json(events);
+    const translatedEvents = events.map((event) => {
+      return {
+        ...event,
+        title: event.title[lang],
+        description: event.description[lang],
+        location: event.location[lang],
+      };
+    });
+    return res.json(translatedEvents);
   } catch (error) {
     console.error("Error fetching events:", error);
     return res.status(500).json({ error: "Failed to fetch events" });
@@ -29,15 +49,21 @@ const upcomingEvents = async (req, res, next) => {
 
 const getOneEvent = async (req, res, next) => {
   const eventId = req.params.id;
-
+  const lang = req.query.lang?.toLowerCase() || "en";
   try {
     const event = await prisma.event.findUnique({ where: { id: eventId } });
 
     if (!event) {
       return res.status(404).json({ message: "Event not found" });
     }
+    const translatedEvent = {
+      ...event,
+      title: event.title[lang],
+      description: event.description[lang],
+      location: event.location[lang],
+    };
 
-    return res.json(event);
+    return res.json(translatedEvent);
   } catch (error) {
     console.error("Error fetching event by ID:", error);
     return res.status(500).json({ message: "Error fetching event" });
@@ -59,7 +85,7 @@ const createEvent = async (req, res, next) => {
     });
     return res.status(200).json(event);
   } catch (error) {
-    console.error("Error creating event:", error); // 🔍 log actual error
+    console.error("Error creating event:", error);
     return res.status(500).json({ message: "Problem With Creating the Event" });
   }
 };
@@ -76,9 +102,9 @@ const updateEvent = async (req, res, next) => {
         description: eventData.description,
         image: eventData.image,
         type: eventData.type,
-        date: new Date(eventData.date), // Ensure ISO format
-        time: eventData.time || null, // Include time
-        location: eventData.location || null, // Include location
+        date: new Date(eventData.date),
+        time: eventData.time || null,
+        location: eventData.location || null,
       },
     });
 
@@ -104,7 +130,6 @@ const deleteEvent = async (req, res, next) => {
   } catch (error) {
     console.error("Delete failed:", error);
 
-    // Optional: Check if the error is because the event doesn't exist
     if (error.code === "P2025") {
       return res.status(404).json({ message: "Event not found" });
     }
