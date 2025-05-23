@@ -20,7 +20,7 @@ model Event {
     title       Json
     description Json
     image       String
-    type        String
+    type        Json
     date        DateTime
     time        String?
     location    Json
