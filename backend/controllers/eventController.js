@@ -12,6 +12,7 @@ const getEvents = async (req, res, next) => {
         title: event.title[lang],
         description: event.description[lang],
         location: event.location[lang],
+        type: event.type[lang],
       };
     });
     return res.json(translatedEvents);
@@ -38,6 +39,7 @@ const upcomingEvents = async (req, res, next) => {
         title: event.title[lang],
         description: event.description[lang],
         location: event.location[lang],
+        type: event.type[lang],
       };
     });
     return res.json(translatedEvents);
@@ -61,6 +63,7 @@ const getOneEvent = async (req, res, next) => {
       title: event.title[lang],
       description: event.description[lang],
       location: event.location[lang],
+      type: event.type[lang],
     };
 
     return res.json(translatedEvent);
