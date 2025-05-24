@@ -3,6 +3,7 @@ let currentLang = localStorage.getItem("lang") || "en";
 // DOM Elements
 // =============================================
 const DOM = {
+  
   // Programs Slider
   programsSlider: document.querySelector(".programs-slider"),
   programCards: document.querySelector(".program-cards"),
