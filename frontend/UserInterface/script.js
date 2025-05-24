@@ -438,7 +438,7 @@ const MODALS = {
     handleRegisterClick: function (e) {
       e.preventDefault();
       const eventCard = this.closest(".event-card, .event-item");
-      
+
       // Get the event ID
       const eventId = eventCard.getAttribute("data-event-id");
 
@@ -483,7 +483,7 @@ const MODALS = {
       document.body.style.overflow = "hidden";
       applyTranslations(currentLang);
     },
-  
+
     handleSubmit: async (e) => {
       e.preventDefault();
 
@@ -514,7 +514,6 @@ const MODALS = {
           number: parseInt(participants),
           reason,
         });
-        
 
         // Show success message
         showToast(
@@ -552,7 +551,7 @@ const CALENDAR = {
 
     DOM.allEventsList.innerHTML = "";
     const eventArray = [];
-    
+
     // Convert events object to array
     for (const dateKey in CONFIG.events) {
       const [day, month, year] = dateKey.split("-").map(Number);
@@ -628,15 +627,27 @@ const CALENDAR = {
       DOM.calendarGrid.removeChild(DOM.calendarGrid.lastChild);
     }
 
-      const monthKeys = [
-        "monthJan", "monthFeb", "monthMar", "monthApr", "monthMay", "monthJun",
-        "monthJul", "monthAug", "monthSep", "monthOct", "monthNov", "monthDec"
-      ];
+    const monthKeys = [
+      "monthJan",
+      "monthFeb",
+      "monthMar",
+      "monthApr",
+      "monthMay",
+      "monthJun",
+      "monthJul",
+      "monthAug",
+      "monthSep",
+      "monthOct",
+      "monthNov",
+      "monthDec",
+    ];
 
-      const currentMonthKey = monthKeys[STATE.calendar.currentMonth];
-      const translatedMonth = translations[currentLang]?.[currentMonthKey] || monthKeys[STATE.calendar.currentMonth];
+    const currentMonthKey = monthKeys[STATE.calendar.currentMonth];
+    const translatedMonth =
+      translations[currentLang]?.[currentMonthKey] ||
+      monthKeys[STATE.calendar.currentMonth];
 
-      DOM.currentMonthEl.textContent = `${translatedMonth} ${STATE.calendar.currentYear}`;
+    DOM.currentMonthEl.textContent = `${translatedMonth} ${STATE.calendar.currentYear}`;
 
     // Calculate first day of month and days in month
     const firstDay = new Date(
@@ -787,8 +798,8 @@ const CALENDAR = {
       registerBtn.href = "#";
       registerBtn.classList.add("btn", "small");
       registerBtn.setAttribute("data-i18n", "register");
-      registerBtn.textContent = translations[currentLang]?.register || "Register";
-
+      registerBtn.textContent =
+        translations[currentLang]?.register || "Register";
 
       if (CONFIG.programColors[event.program]) {
         registerBtn.style.backgroundColor = CONFIG.programColors[event.program];
@@ -823,7 +834,6 @@ const CALENDAR = {
     });
     applyTranslations(currentLang);
   },
-  
 
   navigateMonth: (direction) => {
     if (direction === "prev") {
@@ -1134,7 +1144,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-
 // =============================================
 // API Functions
 // =============================================
@@ -1154,7 +1163,6 @@ async function loadEventsFromBackend() {
     // Update UI based on which page we're on
     if (DOM.allEventsList) {
       CALENDAR.populateAllEvents();
-      
     } else {
       // For homepage
       updateEventCards(events.slice(0, Math.min(3, events.length))); // Show first 3
@@ -1253,12 +1261,8 @@ function updateEventCards(events) {
       // Get month
       month = getTranslatedMonth(eventDate.getMonth());
 
-
       // Format time
-      const hours = eventDate.getHours();
-      const minutes = eventDate.getMinutes().toString().padStart(2, "0");
-      const ampm = hours >= 12 ? "PM" : "AM";
-      time = `${hours % 12 || 12}:${minutes} ${ampm}`;
+      time = event.time || "—";
     } catch (error) {
       console.error("Error formatting date for event:", error);
     }
@@ -1444,12 +1448,21 @@ function updateNewsUI(newsItems) {
 }
 function getTranslatedMonth(index) {
   const keys = [
-    "monthJan", "monthFeb", "monthMar", "monthApr", "monthMay", "monthJun",
-    "monthJul", "monthAug", "monthSep", "monthOct", "monthNov", "monthDec"
+    "monthJan",
+    "monthFeb",
+    "monthMar",
+    "monthApr",
+    "monthMay",
+    "monthJun",
+    "monthJul",
+    "monthAug",
+    "monthSep",
+    "monthOct",
+    "monthNov",
+    "monthDec",
   ];
   return translations[currentLang]?.[keys[index]] || keys[index];
 }
-
 
 // Translation dictionary
 
@@ -1463,12 +1476,15 @@ const translations = {
       "Engage in our diverse programs that cater to teens, kids, and the elderly. From educational workshops to sports classes, we provide a range of activities to suit different interests and age groups.",
     joinNow: "Join Now",
     eventsHeader: "Upcoming Events",
-    eventsDescription: "Join our exciting events and classes. Register online to secure your spot!",
+    eventsDescription:
+      "Join our exciting events and classes. Register online to secure your spot!",
     viewAllEvents: "View All Events",
     calendarHeader: "Event Calendar",
-    calendarDescription: "Check our calendar for upcoming events and classes. Click on any event to register.",
+    calendarDescription:
+      "Check our calendar for upcoming events and classes. Click on any event to register.",
     newsHeader: "Community News",
-    newsDescription: "Stay updated with what's happening in our community center.",
+    newsDescription:
+      "Stay updated with what's happening in our community center.",
     contactUs: "Contact Us",
     quickLinks: "Quick Links",
     emailUs: "Email us!",
@@ -1488,89 +1504,102 @@ const translations = {
     event: "Event",
     dateTime: "Date & Time",
     completeRegistration: "Complete Registration",
-    home : "home" ,
-    programs: "programs" ,
-    events : "events" ,
-    calendar : "calendar" ,
-    news : "news" ,
-    contact : "contact" ,
-    lang : "Language" ,
-    en : "English" ,
-    ar : "العربية" ,
-    he : "Hebrew" ,
-    community : "AbuTor" ,
-    center : "Community Center" ,
-    viewourprograms : "View Our Programs" ,
-    ProgramsOverview : "Programs Overview" ,
-    Engageinour : "Engage in our diverse programs that cater to teens, kids, and the elderly. From educational workshops to sports classes, we provide a range of activities to suit different interests and age groups." ,
-    JoinNow : "Join Now" ,
-    Elderly : "Elderly",
-    Providinga : "Providing a healthy, social, and recreational framework for the golden generation." ,
-    Women : "Women" ,
-    enhancingWomen : "enhancing Women's personal development through courses in leadership, communication, and time management." ,
-    Exceptionals : "Exceptionals" ,
-    Enhancesocial : "Enhance social skills and connections, and emphasize the vital role this group plays in social inclusion." ,
-    Youth : "Youth" ,
-    Engagingyouth : "Engaging youth in activities that foster personal growth, strengthen social belonging, and encourage leadership." ,
-    Culture : "Culture" ,
-    Supportingand : "Supporting and promoting the cultural aspect of society by celebrating religious and community occasions." ,
-    KidsWorkshops : "Kids Workshops" ,
-    Fosteringcultural : "Fostering cultural awareness among children nurture a sense of belonging and togetherness." ,
-    UrbanPlanning : "Urban Planning" ,
-    professionally : "professionally bridges community planning needs with city planning authorities, with the main goal of enhancing quality of life." ,
-    PublicAction : "Public Action" ,
-    Asocialserv : "A social service that enhances individuals' social skills through group experiences and better problem-solving." ,
-    UpcomingEvents : "Upcoming Events" ,
-    Joinour : "Join our exciting events and classes. Register online to secure your spot!" ,
-    ViewAll : "View All Events" ,
-    CommunityNews : "Community News" ,
-    Stayupdated : "Stay updated with what's happening in our community center." ,
-    CommunityCenterfooter : "Community Center" ,
-    Theremustbea : "There must be a wind to dispel the clouds and the sun, in her golden ascent, shall cleanse the heart of every care." ,
-    br : "From you to you since 2015." ,
-    QuickLinks : "Quick Links" ,
-    Home : "Home" ,
-    Programs : "Programs" ,
-    Events : "Events" ,
-    Calendar : "Calendar" ,
-    News : "News" ,
-    ContactUs : "Contact Us" ,
-    Hamefaked : "5 Hamefaked St, Abu Tor" ,
-    num : "(02) 677-5459" ,
-    hours : "Sun - Thu: 8:30AM - 5PM" ,
-    emai : "Email us!" ,
-    Sharewithus : "Share with us your thought and what withn your heart." ,
-    emailPlaceholder : "Your Email",
-    footerCopyright : "© 2025 Community Center. All Rights Reserved." ,
-    EventCalendar : "Event Calendar" ,
-    Checkourcalendar : "Check our calendar for upcoming events and classes. Click on any event to register." ,
-    daySun : "Sun" ,
-    dayMon : "Mon" ,
-    dayTue : "Tue" ,
-    dayWed : "Wed" ,
-    dayThu : "Thu" ,
-    dayFri : "Fri" ,
-    daySat : "Sat" ,
-    TodayEvents : "Today's Events" ,
-    MakeeaComplaint : "Make a Complaint" ,
-    YourName : "Your Name" ,
-    PhoneNumber : "Phone Number" ,
-    Emailoptional : "Email (optional)" ,
-    Continue : "Continue" ,
-    ComplaintDetails : "Complaint Details" ,
-    SubmitComplaint : "Submit Complaint" ,
-    RegisterforEvent : "Register for Event" ,
-    YourName2 : "Your Name" ,
-    PhoneNumber2 : "Phone Number" ,
-    NumberofParti : "Number of Participants (Max 5)" ,
-    Selectnumber : "Select number" ,
-    Event2 : "Event" ,
-    DateTime : "Date & Time" ,
-    CompleteRegistra : "Complete Registration" ,
-    AllEvents2 : "All Events" ,
-    Exploreall2 : "Explore all our upcoming events and classes. Register online to secure your spot!" ,
-    register: "Register" ,
-    NoEventsForDay : "No events scheduled for this day." ,
+    home: "home",
+    programs: "programs",
+    events: "events",
+    calendar: "calendar",
+    news: "news",
+    contact: "contact",
+    lang: "Language",
+    en: "English",
+    ar: "العربية",
+    he: "Hebrew",
+    community: "AbuTor",
+    center: "Community Center",
+    viewourprograms: "View Our Programs",
+    ProgramsOverview: "Programs Overview",
+    Engageinour:
+      "Engage in our diverse programs that cater to teens, kids, and the elderly. From educational workshops to sports classes, we provide a range of activities to suit different interests and age groups.",
+    JoinNow: "Join Now",
+    Elderly: "Elderly",
+    Providinga:
+      "Providing a healthy, social, and recreational framework for the golden generation.",
+    Women: "Women",
+    enhancingWomen:
+      "enhancing Women's personal development through courses in leadership, communication, and time management.",
+    Exceptionals: "Exceptionals",
+    Enhancesocial:
+      "Enhance social skills and connections, and emphasize the vital role this group plays in social inclusion.",
+    Youth: "Youth",
+    Engagingyouth:
+      "Engaging youth in activities that foster personal growth, strengthen social belonging, and encourage leadership.",
+    Culture: "Culture",
+    Supportingand:
+      "Supporting and promoting the cultural aspect of society by celebrating religious and community occasions.",
+    KidsWorkshops: "Kids Workshops",
+    Fosteringcultural:
+      "Fostering cultural awareness among children nurture a sense of belonging and togetherness.",
+    UrbanPlanning: "Urban Planning",
+    professionally:
+      "professionally bridges community planning needs with city planning authorities, with the main goal of enhancing quality of life.",
+    PublicAction: "Public Action",
+    Asocialserv:
+      "A social service that enhances individuals' social skills through group experiences and better problem-solving.",
+    UpcomingEvents: "Upcoming Events",
+    Joinour:
+      "Join our exciting events and classes. Register online to secure your spot!",
+    ViewAll: "View All Events",
+    CommunityNews: "Community News",
+    Stayupdated: "Stay updated with what's happening in our community center.",
+    CommunityCenterfooter: "Community Center",
+    Theremustbea:
+      "There must be a wind to dispel the clouds and the sun, in her golden ascent, shall cleanse the heart of every care.",
+    br: "From you to you since 2015.",
+    QuickLinks: "Quick Links",
+    Home: "Home",
+    Programs: "Programs",
+    Events: "Events",
+    Calendar: "Calendar",
+    News: "News",
+    ContactUs: "Contact Us",
+    Hamefaked: "5 Hamefaked St, Abu Tor",
+    num: "(02) 677-5459",
+    hours: "Sun - Thu: 8:30AM - 5PM",
+    emai: "Email us!",
+    Sharewithus: "Share with us your thought and what withn your heart.",
+    emailPlaceholder: "Your Email",
+    footerCopyright: "© 2025 Community Center. All Rights Reserved.",
+    EventCalendar: "Event Calendar",
+    Checkourcalendar:
+      "Check our calendar for upcoming events and classes. Click on any event to register.",
+    daySun: "Sun",
+    dayMon: "Mon",
+    dayTue: "Tue",
+    dayWed: "Wed",
+    dayThu: "Thu",
+    dayFri: "Fri",
+    daySat: "Sat",
+    TodayEvents: "Today's Events",
+    MakeeaComplaint: "Make a Complaint",
+    YourName: "Your Name",
+    PhoneNumber: "Phone Number",
+    Emailoptional: "Email (optional)",
+    Continue: "Continue",
+    ComplaintDetails: "Complaint Details",
+    SubmitComplaint: "Submit Complaint",
+    RegisterforEvent: "Register for Event",
+    YourName2: "Your Name",
+    PhoneNumber2: "Phone Number",
+    NumberofParti: "Number of Participants (Max 5)",
+    Selectnumber: "Select number",
+    Event2: "Event",
+    DateTime: "Date & Time",
+    CompleteRegistra: "Complete Registration",
+    AllEvents2: "All Events",
+    Exploreall2:
+      "Explore all our upcoming events and classes. Register online to secure your spot!",
+    register: "Register",
+    NoEventsForDay: "No events scheduled for this day.",
     monthJan: "Jan",
     monthFeb: "Feb",
     monthMar: "Mar",
@@ -1582,23 +1611,8 @@ const translations = {
     monthSep: "Sep",
     monthOct: "Oct",
     monthNov: "Nov",
-    monthDec: "Dec" ,
-    mailadd : "markazjamahiri@gmail.com" ,
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
+    monthDec: "Dec",
+    mailadd: "markazjamahiri@gmail.com",
   },
   ar: {
     homeTitle: "المركز الجماهيري الثوري",
@@ -1609,10 +1623,12 @@ const translations = {
       "انضم إلى برامجنا المتنوعة التي تلبي احتياجات المراهقين والأطفال وكبار السن. من ورش العمل التعليمية إلى دروس الرياضة، نقدم مجموعة متنوعة من الأنشطة.",
     joinNow: "انضم الآن",
     eventsHeader: "الفعاليات القادمة",
-    eventsDescription: "انضم إلى فعالياتنا وفصولنا المثيرة. سجل عبر الإنترنت لتأمين مكانك!",
+    eventsDescription:
+      "انضم إلى فعالياتنا وفصولنا المثيرة. سجل عبر الإنترنت لتأمين مكانك!",
     viewAllEvents: "عرض جميع الفعاليات",
     calendarHeader: "تقويم الفعاليات",
-    calendarDescription: "تحقق من تقويمنا للفعاليات والفصول القادمة. انقر على أي فعالية للتسجيل.",
+    calendarDescription:
+      "تحقق من تقويمنا للفعاليات والفصول القادمة. انقر على أي فعالية للتسجيل.",
     newsHeader: "أخبار المجتمع",
     newsDescription: "ابق على اطلاع بما يحدث في مركز مجتمعنا.",
     contactUs: "اتصل بنا",
@@ -1634,89 +1650,101 @@ const translations = {
     event: "الفعالية",
     dateTime: "التاريخ والوقت",
     completeRegistration: "إكمال التسجيل",
-    home : "الرئيسية" ,
-    programs: "اللأقسام" ,
-    events : "الفعاليات" ,
-    calendar : "الجدول" ,
-    news : "الأخبار" ,
-    contact : "تواصل معنا" ,
-    lang : "اللغة" ,
-    en : "English" ,
-    ar : "العربية" ,
-    he : "Hebrew" ,
-    community : "المركز الجماهيري" ,
-    center : " أبو طور" ,
-    viewourprograms : "عرض الأقسام" ,
-    ProgramsOverview : "أقسام المركز" ,
-    Engageinour : "انضموا إلى برامجنا المتنوعة التي تلبي احتياجات الفئات العمرية المختلقة من المراهقين والأطفال وكبار السن. من ورش العمل التعليمية إلى الحصص الرياضية، نقدم لكم مجموعة متنوعة من الأنشطة التي تناسب مختلف الاهتمامات والفئات العمرية." ,
-    JoinNow : "انضم إلينا" ,
-    Elderly : "المسنين" ,
-    Providinga : "توفير إطار ترفيهي اجتماعي صحي للجيل الذهبي توطيد العلاقة بين الجيل الذهبي وفئات المجتمع المختلفة بهدف إبراز قدرة المسنين في استمرارية العطاء و تحسين جودة حياة المسنين." ,
-    Women : "النساء" ,
-    enhancingWomen : "يهدف إلى تمكين المرأة اقتصادياً من خلال التدريب على المهارات الحرفيّة والمهنيّة، كما يهدف إلى تطوير مهاراتها الشخصية من خلال تقديم دورات في القيادة والتواصل وإدارة الوقت." ,
-    Exceptionals : "الاستثنائيون" ,
-    Enhancesocial : "في قسم التربية الخاصة نسعى الى دعم وتطوير وتنمية جميع الجوانب الايجابية عند المنتفعين وتحقيق الصحة النفسية وتنمية المهارات والروابط الاجتماعية إضافة العمل على تأكيد واثبات الدور الهام لهذه الفئة في الدمج المجتمعي." ,
-    Youth : "الشبيبة" ,
-    Engagingyouth : "يهدف الى مشاركة الشباب بجميع الفعاليات التي تسعى لصقل وتطوير شخصياتهم , وتعزيز الانتماء الاجتماعي وروح المبادرة لديهم." ,
-    Culture : "الثقافة" ,
-    Supportingand : "دعم وتعزيز الجانب الثقافي في المجتمع من خلال احياء المناسبات الدينية والمجتمعية لتوثيق الترابط المجتمعي. " ,
-    KidsWorkshops : "ندوات للأطفال" ,
-    Fosteringcultural : "إن تعزيز الوعي الثقافي لدى الأطفال له دورٌ حيوي في ترسيخ شعور قوي بالانتماء والتعاطف والترابط. فمن خلال التعرّف على التقاليد والقيم وأساليب الحياة المختلفة، يكتسب الأطفال تقديرًا أعمق للتنوع، ويصبحون أكثر ميلًا لاحترام الاختلافات التي تُميّز كل شخص والاحتفاء بها." ,
-    UrbanPlanning : "التخطيط العمراني" ,
-    professionally : "يقوم المخطط بالتجسير بين احتياجات المجتمع التخطيطية بصورة مهنية وسلطات التخطيط والتطوير بالمدينة وفهم العمليات الحضرية والاحتياجات الحضرية العامة، الهدف بشكل أساسي يتمحور حول تحسين جودة الحياة للسكان." ,
-    PublicAction : "العمل الجماهيري" ,
-    Asocialserv : "دور العمل الجماهيري هو تخطيط وتنفيذ مشاريع تنموية مجتمعية والمتابعة المستمرة مع سكان في تحصيل الحقوق المجتمعية من خلال التشبيك مع المؤسسات المجتمعية وتعزيز العلاقات المجتمعية مع الجهات والمؤسسات الشريكة." ,
-    UpcomingEvents : "الفعاليات القادمة" ,
-    Joinour : "شاركوا معنا لاكتساب مهارات جديدة وبناء شبكة علاقات مهنية وتطوير مجتمعنا معاً!" ,
-    ViewAll : "جميع فعاليات المركز" ,
-    CommunityNews : "أخبار المركز" ,
-    Stayupdated : "كن على اطلاع على اخر الاخبار بما يجري في الحي, ومركزنا!" ,
-    CommunityCenterfooter : "المركز الجماهيري الثوري" ,
-    Theremustbea : "لا بد من ريح تبدد الغيوم, والشمس في اشراقها ستبدد الغيوم." ,
-    br : "منكم وإليكم منذ 2015." ,
-    QuickLinks : "الوصول السريع" ,
-    Home : "الرئيسية" ,
-    Programs : "الأقسام" ,
-    Events : "الفعاليات" ,
-    Calendar : "الجدول" ,
-    News : "الأخبار" ,
-    ContactUs : "اتصلو بنا" ,
-    Hamefaked : "شارع المفكد 5, القدس الثوري" ,
-    num : " 02-6775459  " ,
-    hours : "الأحد - الخميس : 5PM - 8AM" ,
-    emai : "عندك فكرة!" ,
-    Sharewithus : "شاركنا بأفكارك وما يجول في خاطرك." ,
-    emailPlaceholder : "بريدك الإلكتروني" ,
-    footerCopyright : "© 2025 جميع الحقوق محفوظة - المركز الجماهيري الثوري." ,
-    EventCalendar : "جدول الفعاليات" ,
-    Checkourcalendar : "ألق نظرة على التقويم لرؤية كل الفعاليات القادمة. اضعط على أي فعالية للتسجيل." ,
-    daySun : "الأحد" ,
-    dayMon : "الأثنين" ,
-    dayTue : "الثلاثاء" ,
-    dayWed : "الأربعاء" ,
-    dayThu : "الخميس" ,
-    dayFri : "الجمعة" ,
-    daySat : "السبت" ,
-    TodayEvents : "فعاليات اليوم" ,
-    MakeeaComplaint : "استبيان الشكوى" ,
-    YourName : "الإسم الثلاثي" ,
-    PhoneNumber : "رقم الهاتف النقال" ,
-    Emailoptional : "البريد الإلكتروني (إختياري)" ,
-    Continue : "التالي" ,
-    ComplaintDetails : "تفاصيل الشكوى" ,
-    SubmitComplaint : "إرسال" ,
-    RegisterforEvent : "إستمارة التسجيل للفعالية" ,
-    YourName2 : " الإسم الثلاثي" ,
-    PhoneNumber2 : "رقم الهاتف النقال" ,
-    NumberofParti : "عدد المتسجلين" ,
-    Selectnumber : "إختر عدد المتسجلين" ,
-    Event2 : "الفعالية" ,
-    DateTime : " التاريخ والساعة" ,
-    CompleteRegistra : "إرسال" ,
-    AllEvents2 : "فعاليات المركز" ,
-    Exploreall2 : "هنا يمكنك أن تجد كل الفعاليات القادمة, فلا تضيع فرصتك وسجل الان!",
-    register: "تسجيل" ,
-    NoEventsForDay : "لا توجد فعاليات لهذا اليوم." ,
+    home: "الرئيسية",
+    programs: "اللأقسام",
+    events: "الفعاليات",
+    calendar: "الجدول",
+    news: "الأخبار",
+    contact: "تواصل معنا",
+    lang: "اللغة",
+    en: "English",
+    ar: "العربية",
+    he: "Hebrew",
+    community: "المركز الجماهيري",
+    center: " أبو طور",
+    viewourprograms: "عرض الأقسام",
+    ProgramsOverview: "أقسام المركز",
+    Engageinour:
+      "انضموا إلى برامجنا المتنوعة التي تلبي احتياجات الفئات العمرية المختلقة من المراهقين والأطفال وكبار السن. من ورش العمل التعليمية إلى الحصص الرياضية، نقدم لكم مجموعة متنوعة من الأنشطة التي تناسب مختلف الاهتمامات والفئات العمرية.",
+    JoinNow: "انضم إلينا",
+    Elderly: "المسنين",
+    Providinga:
+      "توفير إطار ترفيهي اجتماعي صحي للجيل الذهبي توطيد العلاقة بين الجيل الذهبي وفئات المجتمع المختلفة بهدف إبراز قدرة المسنين في استمرارية العطاء و تحسين جودة حياة المسنين.",
+    Women: "النساء",
+    enhancingWomen:
+      "يهدف إلى تمكين المرأة اقتصادياً من خلال التدريب على المهارات الحرفيّة والمهنيّة، كما يهدف إلى تطوير مهاراتها الشخصية من خلال تقديم دورات في القيادة والتواصل وإدارة الوقت.",
+    Exceptionals: "الاستثنائيون",
+    Enhancesocial:
+      "في قسم التربية الخاصة نسعى الى دعم وتطوير وتنمية جميع الجوانب الايجابية عند المنتفعين وتحقيق الصحة النفسية وتنمية المهارات والروابط الاجتماعية إضافة العمل على تأكيد واثبات الدور الهام لهذه الفئة في الدمج المجتمعي.",
+    Youth: "الشبيبة",
+    Engagingyouth:
+      "يهدف الى مشاركة الشباب بجميع الفعاليات التي تسعى لصقل وتطوير شخصياتهم , وتعزيز الانتماء الاجتماعي وروح المبادرة لديهم.",
+    Culture: "الثقافة",
+    Supportingand:
+      "دعم وتعزيز الجانب الثقافي في المجتمع من خلال احياء المناسبات الدينية والمجتمعية لتوثيق الترابط المجتمعي. ",
+    KidsWorkshops: "ندوات للأطفال",
+    Fosteringcultural:
+      "إن تعزيز الوعي الثقافي لدى الأطفال له دورٌ حيوي في ترسيخ شعور قوي بالانتماء والتعاطف والترابط. فمن خلال التعرّف على التقاليد والقيم وأساليب الحياة المختلفة، يكتسب الأطفال تقديرًا أعمق للتنوع، ويصبحون أكثر ميلًا لاحترام الاختلافات التي تُميّز كل شخص والاحتفاء بها.",
+    UrbanPlanning: "التخطيط العمراني",
+    professionally:
+      "يقوم المخطط بالتجسير بين احتياجات المجتمع التخطيطية بصورة مهنية وسلطات التخطيط والتطوير بالمدينة وفهم العمليات الحضرية والاحتياجات الحضرية العامة، الهدف بشكل أساسي يتمحور حول تحسين جودة الحياة للسكان.",
+    PublicAction: "العمل الجماهيري",
+    Asocialserv:
+      "دور العمل الجماهيري هو تخطيط وتنفيذ مشاريع تنموية مجتمعية والمتابعة المستمرة مع سكان في تحصيل الحقوق المجتمعية من خلال التشبيك مع المؤسسات المجتمعية وتعزيز العلاقات المجتمعية مع الجهات والمؤسسات الشريكة.",
+    UpcomingEvents: "الفعاليات القادمة",
+    Joinour:
+      "شاركوا معنا لاكتساب مهارات جديدة وبناء شبكة علاقات مهنية وتطوير مجتمعنا معاً!",
+    ViewAll: "جميع فعاليات المركز",
+    CommunityNews: "أخبار المركز",
+    Stayupdated: "كن على اطلاع على اخر الاخبار بما يجري في الحي, ومركزنا!",
+    CommunityCenterfooter: "المركز الجماهيري الثوري",
+    Theremustbea: "لا بد من ريح تبدد الغيوم, والشمس في اشراقها ستبدد الغيوم.",
+    br: "منكم وإليكم منذ 2015.",
+    QuickLinks: "الوصول السريع",
+    Home: "الرئيسية",
+    Programs: "الأقسام",
+    Events: "الفعاليات",
+    Calendar: "الجدول",
+    News: "الأخبار",
+    ContactUs: "اتصلو بنا",
+    Hamefaked: "شارع المفكد 5, القدس الثوري",
+    num: " 02-6775459  ",
+    hours: "الأحد - الخميس : 5PM - 8AM",
+    emai: "عندك فكرة!",
+    Sharewithus: "شاركنا بأفكارك وما يجول في خاطرك.",
+    emailPlaceholder: "بريدك الإلكتروني",
+    footerCopyright: "© 2025 جميع الحقوق محفوظة - المركز الجماهيري الثوري.",
+    EventCalendar: "جدول الفعاليات",
+    Checkourcalendar:
+      "ألق نظرة على التقويم لرؤية كل الفعاليات القادمة. اضعط على أي فعالية للتسجيل.",
+    daySun: "الأحد",
+    dayMon: "الأثنين",
+    dayTue: "الثلاثاء",
+    dayWed: "الأربعاء",
+    dayThu: "الخميس",
+    dayFri: "الجمعة",
+    daySat: "السبت",
+    TodayEvents: "فعاليات اليوم",
+    MakeeaComplaint: "استبيان الشكوى",
+    YourName: "الإسم الثلاثي",
+    PhoneNumber: "رقم الهاتف النقال",
+    Emailoptional: "البريد الإلكتروني (إختياري)",
+    Continue: "التالي",
+    ComplaintDetails: "تفاصيل الشكوى",
+    SubmitComplaint: "إرسال",
+    RegisterforEvent: "إستمارة التسجيل للفعالية",
+    YourName2: " الإسم الثلاثي",
+    PhoneNumber2: "رقم الهاتف النقال",
+    NumberofParti: "عدد المتسجلين",
+    Selectnumber: "إختر عدد المتسجلين",
+    Event2: "الفعالية",
+    DateTime: " التاريخ والساعة",
+    CompleteRegistra: "إرسال",
+    AllEvents2: "فعاليات المركز",
+    Exploreall2:
+      "هنا يمكنك أن تجد كل الفعاليات القادمة, فلا تضيع فرصتك وسجل الان!",
+    register: "تسجيل",
+    NoEventsForDay: "لا توجد فعاليات لهذا اليوم.",
     monthJan: "يناير",
     monthFeb: "فبراير",
     monthMar: "مارس",
@@ -1728,30 +1756,25 @@ const translations = {
     monthSep: "سبتمبر",
     monthOct: "أكتوبر",
     monthNov: "نوفمبر",
-    monthDec: "ديسمبر" ,
-    mailadd : " markazjamahiri@gmail.com" ,
-
-
-
-
-
-
-
+    monthDec: "ديسمبر",
+    mailadd: " markazjamahiri@gmail.com",
   },
   he: {
     homeTitle: "מחזקים את הקהילה שלנו יחד",
     homeSubtitle:
       "ברוכים הבאים לאתר הרשמי של מרכז הקהילה אבו טור, המקום שממלא את עולמכם. כאן תוכלו להירשם לאירועים האהובים עליכם ולהגיש תלונות שכונתיות בקלות ובפשטות.",
-    viewourprograms : "צפו במחלקות שלנו" ,
-      programsHeader: "סקירת תוכניות",
+    viewourprograms: "צפו במחלקות שלנו",
+    programsHeader: "סקירת תוכניות",
     programsDescription:
       "השתתפו בתוכניות מגוונות המיועדות לבני נוער, ילדים וקשישים. מסדנאות חינוכיות ועד שיעורי ספורט - אנו מציעים מגוון פעילויות לכל גיל.",
     joinNow: "הצטרף עכשיו",
     eventsHeader: "אירועים קרובים",
-    eventsDescription: "הצטרפו לאירועים ולשיעורים המרגשים שלנו. הירשמו באינטרנט כדי להבטיח את מקומכם!",
+    eventsDescription:
+      "הצטרפו לאירועים ולשיעורים המרגשים שלנו. הירשמו באינטרנט כדי להבטיח את מקומכם!",
     viewAllEvents: "צפה בכל האירועים",
     calendarHeader: "לוח אירועים",
-    calendarDescription: "בדקו את לוח השנה שלנו לאירועים ושיעורים קרובים. לחצו על כל אירוע כדי להירשם.",
+    calendarDescription:
+      "בדקו את לוח השנה שלנו לאירועים ושיעורים קרובים. לחצו על כל אירוע כדי להירשם.",
     newsHeader: "חדשות הקהילה",
     newsDescription: "הישארו מעודכנים עם מה שקורה במרכז הקהילתי שלנו.",
     contactUs: "צור קשר",
@@ -1773,88 +1796,101 @@ const translations = {
     event: "אירוע",
     dateTime: "תאריך ושעה",
     completeRegistration: "השלם רישום",
-    lang : "השפה" ,
-    en : "English" ,
-    ar : "العربية" ,
-    he : "עברית" ,
-    home : "ראשי" ,
-    programs: "מחלקות" ,
-    events : "אירועים" ,
-    calendar : "לוח אירועים" ,
-    news : "חשדות" ,
-    contact : "צור קשר" ,
-    community : "מרקז קהילתי" ,
-    center : " אבו טור" ,
-    ProgramsOverview : "החוגים שלנו" ,
-    Engageinour : "השתתפו במגוון התוכניות שלנו הפונות לבני נוער, ילדים וקשישים. החל מסדנאות חינוכיות ועד שיעורי ספורט, אנו מציעים מגוון פעילויות שיתאימו לתחומי עניין וקבוצות גיל שונות." ,
-    JoinNow : "הצטרפו אלינו" ,
-    Elderly : "קשישים" ,
-    Providinga : "מתן מסגרת חברתית ופנאי בריאה לדור הזהב. חיזוק הקשר בין דור הזהב לבין מגזרים שונים בחברה במטרה להדגיש את יכולתם של קשישים להמשיך ולתת ולשפר את איכות חייהם." ,
-    Women : "נשים" ,
-    enhancingWomen : "מטרתה להעצים נשים כלכלית באמצעות הכשרה במיומנויות מקצועיות ומקצועיות. כמו כן, היא שואפת לפתח את כישוריהם האישיים על ידי הצעת קורסים במנהיגות, תקשורת וניהול זמן." ,
-    Exceptionals : "מְיֻחָדים" ,
-    Enhancesocial : "במחלקה לחינוך מיוחד, אנו שואפים לתמוך, לפתח ולטפח את כל ההיבטים החיוביים של התלמידים שלנו, להשיג בריאות נפשית, לפתח מיומנויות וקשרים חברתיים, ופועלים לאישור והוכחה של התפקיד החשוב שממלאת קבוצה זו באינטגרציה חברתית." ,
-    Youth : "נוער" ,
-    Engagingyouth : "היא שואפת לערב צעירים בכל הפעילויות שמטרתן לחדד ולפתח את אישיותם, ולחזק את שייכותם החברתית ואת רוח היוזמה שלהם." ,
-    Culture : "תרבות" ,
-    Supportingand : "תמיכה ושיפור ההיבט התרבותי של החברה על ידי חגיגת אירועים דתיים וקהילתיים לחיזוק הלכידות הקהילתית." ,
-    KidsWorkshops : "סדנאות לילדים" ,
-    Fosteringcultural : "טיפוח מודעות תרבותית בקרב ילדים ממלא תפקיד חיוני בטיפוח תחושת שייכות חזקה, אמפתיה ואחדות. על ידי למידה על מסורות, ערכים ודרכי חיים שונות, ילדים מפתחים הערכה עמוקה יותר לגיוון וסביר יותר שיכבדו ויחגגו את השוני שהופך כל אדם לייחודי." ,
-    UrbanPlanning : "תכנון עירוני" ,
-    professionally : "התוכנית מגשרת בין צרכי התכנון המקצועיים של הקהילה לבין רשויות התכנון והפיתוח של העיר, תוך הבנת תהליכים עירוניים וצרכים עירוניים כלליים, כאשר המטרה העיקרית היא שיפור איכות החיים של התושבים." ,
-    PublicAction : "פעולה ציבורית" ,
-    Asocialserv : "תפקידה של פעולה ציבורית הוא לתכנן וליישם פרויקטים של פיתוח קהילתי ולעקוב באופן רציף אחר התושבים כדי להשיג זכויות קהילתיות באמצעות יצירת קשרים עם מוסדות קהילתיים וחיזוק קשרי הקהילה עם סוכנויות ומוסדות שותפים." ,
-    UpcomingEvents : "אירועים קרובים" ,
-    Joinour : "הצטרפו אלינו כדי לרכוש מיומנויות חדשות, לבנות רשת קשרים מקצועית ולפתח את הקהילה שלנו יחד!" ,
-    ViewAll : "כל האירועים" ,
-    CommunityNews : "החדשות" ,
-    Stayupdated : "הישאר מעודכן במה שקורה במרכז הקהילתי שלנו." ,
-    CommunityCenterfooter : "מרקז הקהילה אבו טור",
-    Theremustbea : "הכרחית היא רוח שתפזר את העננים, והשמש, בעלייתה הזהובה, תטהר את הלב מכל דאגה." ,
-    br : "מכם ואליכם מאז 2015." ,
-    QuickLinks : "קישורים" ,
-    Home : "ראשי" ,
-    Programs : "מחלקות" ,
-    Events : "אירועים" ,
-    Calendar : "לוח אירועים" ,
-    News : "חדשות" ,
-    ContactUs : "צור קשר" ,
-    Hamefaked : "רחוב המפקד 5, אבו טור" ,
-    num : " 02-6775459" ,
-    hours : "ראשון - חמישי : 8AM - 5PM" ,
-    emai : "יש לך רעיון?" ,
-    Sharewithus : "שתף אותנו במחשבה שלך ובמה שבלבך." ,
-    emailPlaceholder : "המייל שלך" ,
-    footerCopyright : "© 2025 כל הזכויות שמורות - מרקז הקהילה אבו טור." ,
-    EventCalendar : "לוח אירועים" ,
-    Checkourcalendar : "עיין בלוח השנה שלנו לאירועים ושיעורים קרובים. לחצו על אירוע להרשמה." ,
-    daySun : "ראשון" ,
-    dayMon : "שני" ,
-    dayTue : "שלישי" ,
-    dayWed : "רביעי" ,
-    dayThu : "חמישי" ,
-    dayFri : "שישי" ,
-    daySat : "שבת" ,
-    TodayEvents : "אירועי היום." ,
-    MakeeaComplaint : "הגש תלונה" ,
-    YourName : "השם שלך" ,
-    PhoneNumber : "מםפר הטלפון" ,
-    Emailoptional : "דואר אלקטרוני (אופציונלי)" ,
-    Continue : "להמשך" ,
-    ComplaintDetails : "פרטי תלונה" ,
-    SubmitComplaint : "להגיש" ,
-    RegisterforEvent : "הרשמה לאירוע" ,
-    YourName2 : "השם שלך" ,
-    PhoneNumber2 : "מספר הטלפון" ,
-    NumberofParti : "מםפר הנרשמים" ,
-    Selectnumber : "בחר את מספר הנרשמים" ,
-    Event2 : "האירוע" ,
-    DateTime : "תאריך ושעה" ,
-    CompleteRegistra : "השלם רישום" ,
-    AllEvents2 : "כל האירועים" ,
-    Exploreall2 : "חקור את כל האירועים והשיעורים הקרובים שלנו. הירשם אונליין כדי להבטיח את מקומך!" ,
-    register: "הרשמה" ,
-    NoEventsForDay : "אין אירועים ליום זה." ,
+    lang: "השפה",
+    en: "English",
+    ar: "العربية",
+    he: "עברית",
+    home: "ראשי",
+    programs: "מחלקות",
+    events: "אירועים",
+    calendar: "לוח אירועים",
+    news: "חשדות",
+    contact: "צור קשר",
+    community: "מרקז קהילתי",
+    center: " אבו טור",
+    ProgramsOverview: "החוגים שלנו",
+    Engageinour:
+      "השתתפו במגוון התוכניות שלנו הפונות לבני נוער, ילדים וקשישים. החל מסדנאות חינוכיות ועד שיעורי ספורט, אנו מציעים מגוון פעילויות שיתאימו לתחומי עניין וקבוצות גיל שונות.",
+    JoinNow: "הצטרפו אלינו",
+    Elderly: "קשישים",
+    Providinga:
+      "מתן מסגרת חברתית ופנאי בריאה לדור הזהב. חיזוק הקשר בין דור הזהב לבין מגזרים שונים בחברה במטרה להדגיש את יכולתם של קשישים להמשיך ולתת ולשפר את איכות חייהם.",
+    Women: "נשים",
+    enhancingWomen:
+      "מטרתה להעצים נשים כלכלית באמצעות הכשרה במיומנויות מקצועיות ומקצועיות. כמו כן, היא שואפת לפתח את כישוריהם האישיים על ידי הצעת קורסים במנהיגות, תקשורת וניהול זמן.",
+    Exceptionals: "מְיֻחָדים",
+    Enhancesocial:
+      "במחלקה לחינוך מיוחד, אנו שואפים לתמוך, לפתח ולטפח את כל ההיבטים החיוביים של התלמידים שלנו, להשיג בריאות נפשית, לפתח מיומנויות וקשרים חברתיים, ופועלים לאישור והוכחה של התפקיד החשוב שממלאת קבוצה זו באינטגרציה חברתית.",
+    Youth: "נוער",
+    Engagingyouth:
+      "היא שואפת לערב צעירים בכל הפעילויות שמטרתן לחדד ולפתח את אישיותם, ולחזק את שייכותם החברתית ואת רוח היוזמה שלהם.",
+    Culture: "תרבות",
+    Supportingand:
+      "תמיכה ושיפור ההיבט התרבותי של החברה על ידי חגיגת אירועים דתיים וקהילתיים לחיזוק הלכידות הקהילתית.",
+    KidsWorkshops: "סדנאות לילדים",
+    Fosteringcultural:
+      "טיפוח מודעות תרבותית בקרב ילדים ממלא תפקיד חיוני בטיפוח תחושת שייכות חזקה, אמפתיה ואחדות. על ידי למידה על מסורות, ערכים ודרכי חיים שונות, ילדים מפתחים הערכה עמוקה יותר לגיוון וסביר יותר שיכבדו ויחגגו את השוני שהופך כל אדם לייחודי.",
+    UrbanPlanning: "תכנון עירוני",
+    professionally:
+      "התוכנית מגשרת בין צרכי התכנון המקצועיים של הקהילה לבין רשויות התכנון והפיתוח של העיר, תוך הבנת תהליכים עירוניים וצרכים עירוניים כלליים, כאשר המטרה העיקרית היא שיפור איכות החיים של התושבים.",
+    PublicAction: "פעולה ציבורית",
+    Asocialserv:
+      "תפקידה של פעולה ציבורית הוא לתכנן וליישם פרויקטים של פיתוח קהילתי ולעקוב באופן רציף אחר התושבים כדי להשיג זכויות קהילתיות באמצעות יצירת קשרים עם מוסדות קהילתיים וחיזוק קשרי הקהילה עם סוכנויות ומוסדות שותפים.",
+    UpcomingEvents: "אירועים קרובים",
+    Joinour:
+      "הצטרפו אלינו כדי לרכוש מיומנויות חדשות, לבנות רשת קשרים מקצועית ולפתח את הקהילה שלנו יחד!",
+    ViewAll: "כל האירועים",
+    CommunityNews: "החדשות",
+    Stayupdated: "הישאר מעודכן במה שקורה במרכז הקהילתי שלנו.",
+    CommunityCenterfooter: "מרקז הקהילה אבו טור",
+    Theremustbea:
+      "הכרחית היא רוח שתפזר את העננים, והשמש, בעלייתה הזהובה, תטהר את הלב מכל דאגה.",
+    br: "מכם ואליכם מאז 2015.",
+    QuickLinks: "קישורים",
+    Home: "ראשי",
+    Programs: "מחלקות",
+    Events: "אירועים",
+    Calendar: "לוח אירועים",
+    News: "חדשות",
+    ContactUs: "צור קשר",
+    Hamefaked: "רחוב המפקד 5, אבו טור",
+    num: " 02-6775459",
+    hours: "ראשון - חמישי : 8AM - 5PM",
+    emai: "יש לך רעיון?",
+    Sharewithus: "שתף אותנו במחשבה שלך ובמה שבלבך.",
+    emailPlaceholder: "המייל שלך",
+    footerCopyright: "© 2025 כל הזכויות שמורות - מרקז הקהילה אבו טור.",
+    EventCalendar: "לוח אירועים",
+    Checkourcalendar:
+      "עיין בלוח השנה שלנו לאירועים ושיעורים קרובים. לחצו על אירוע להרשמה.",
+    daySun: "ראשון",
+    dayMon: "שני",
+    dayTue: "שלישי",
+    dayWed: "רביעי",
+    dayThu: "חמישי",
+    dayFri: "שישי",
+    daySat: "שבת",
+    TodayEvents: "אירועי היום.",
+    MakeeaComplaint: "הגש תלונה",
+    YourName: "השם שלך",
+    PhoneNumber: "מםפר הטלפון",
+    Emailoptional: "דואר אלקטרוני (אופציונלי)",
+    Continue: "להמשך",
+    ComplaintDetails: "פרטי תלונה",
+    SubmitComplaint: "להגיש",
+    RegisterforEvent: "הרשמה לאירוע",
+    YourName2: "השם שלך",
+    PhoneNumber2: "מספר הטלפון",
+    NumberofParti: "מםפר הנרשמים",
+    Selectnumber: "בחר את מספר הנרשמים",
+    Event2: "האירוע",
+    DateTime: "תאריך ושעה",
+    CompleteRegistra: "השלם רישום",
+    AllEvents2: "כל האירועים",
+    Exploreall2:
+      "חקור את כל האירועים והשיעורים הקרובים שלנו. הירשם אונליין כדי להבטיח את מקומך!",
+    register: "הרשמה",
+    NoEventsForDay: "אין אירועים ליום זה.",
     monthJan: "ינואר",
     monthFeb: "פברואר",
     monthMar: "מרץ",
@@ -1866,32 +1902,8 @@ const translations = {
     monthSep: "ספטמבר",
     monthOct: "אוקטובר",
     monthNov: "נובמבר",
-    monthDec: "דצמבר" , 
-    mailadd : "  markazjamahiri@gmail.com" ,
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
+    monthDec: "דצמבר",
+    mailadd: "  markazjamahiri@gmail.com",
   },
 };
 
@@ -1911,9 +1923,7 @@ function applyTranslations(lang) {
   elements.forEach((el) => {
     const key = el.getAttribute("data-i18n");
     if (translations[lang] && translations[lang][key]) {
-
       if (el.children.length > 0) {
-
         const textNodes = getTextNodes(el);
         if (textNodes.length > 0) {
           textNodes[0].nodeValue = translations[lang][key];
@@ -1924,7 +1934,6 @@ function applyTranslations(lang) {
         el.textContent = translations[lang][key];
       }
     }
-
   });
 
   // Update placeholder attributes
@@ -1959,16 +1968,26 @@ function applyTranslations(lang) {
   }
   if (DOM.currentMonthEl) {
     const monthKeys = [
-      "monthJan", "monthFeb", "monthMar", "monthApr", "monthMay", "monthJun",
-      "monthJul", "monthAug", "monthSep", "monthOct", "monthNov", "monthDec"
+      "monthJan",
+      "monthFeb",
+      "monthMar",
+      "monthApr",
+      "monthMay",
+      "monthJun",
+      "monthJul",
+      "monthAug",
+      "monthSep",
+      "monthOct",
+      "monthNov",
+      "monthDec",
     ];
     const currentMonthKey = monthKeys[STATE.calendar.currentMonth];
-    const translatedMonth = translations[lang]?.[currentMonthKey] || currentMonthKey;
+    const translatedMonth =
+      translations[lang]?.[currentMonthKey] || currentMonthKey;
 
     DOM.currentMonthEl.textContent = `${translatedMonth} ${STATE.calendar.currentYear}`;
   }
 }
-
 
 // Helper function to get text nodes
 function getTextNodes(node) {
@@ -2024,7 +2043,6 @@ async function onLanguageChange(newLang) {
   }
 }
 
-
 // Add event listener after DOM loads
 document.addEventListener("DOMContentLoaded", () => {
   // Language selector
@@ -2034,7 +2052,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const lang = e.target.getAttribute("data-lang");
       onLanguageChange(lang);
       // Update language toggle text
-      const toggle = btn.closest(".language-selector").querySelector(".language-toggle");
+      const toggle = btn
+        .closest(".language-selector")
+        .querySelector(".language-toggle");
       if (toggle) {
         toggle.textContent = translations[lang]?.[lang] || "Language";
       }
