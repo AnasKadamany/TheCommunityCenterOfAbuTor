@@ -799,6 +799,7 @@ const CALENDAR = {
         e.preventDefault();
 
         STATE.registrationModal.currentEventData = {
+          id: event.id,
           title: event.title,
           date: `${monthNames[month]} ${day}`,
           time: event.time,
@@ -1397,16 +1398,20 @@ function updateNewsUI(newsItems) {
       // Format date safely
       let formattedDate;
       try {
-        if (typeof API.news.formatNewsDate === "function") {
-          formattedDate = API.news.formatNewsDate(item.date);
-        } else {
-          const date = new Date(item.date);
-          formattedDate = date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
-        }
+        const localeMap = {
+          en: "en-US",
+          ar: "ar-EG", // or "ar-SA"
+          he: "he-IL",
+        };
+
+        const options = {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+
+        const date = new Date(item.date);
+        formattedDate = date.toLocaleDateString(localeMap[currentLang] || "en-US", options);
       } catch (error) {
         formattedDate = "Recent update";
       }
