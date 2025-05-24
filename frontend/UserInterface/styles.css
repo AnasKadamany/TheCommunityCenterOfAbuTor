@@ -1870,17 +1870,15 @@ font-weight: 400;
 } 
 
 [dir="rtl"] .nav-links a {
-    margin-left: 10px;
+    
     color: var(--dark-color);
     text-decoration: none;
     font-weight: 500;
     transition: var(--transition);
     position: relative;
-    font-size: 20px;
+
 }
-[dir= "rtl"] .language-toggle {
-    font-size: 20px;
-}
+
 [dir= "rtl"] .complaint-btn {
     height: 45px;
     margin-right: -50px;
@@ -1990,6 +1988,17 @@ padding-right: 2px;
 [dir="rtl"] [data-i18n="num"] {
 
 padding-right: 2px;
+}
+[dir="rtl"] .calendar-header button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: var(--transition);
+    transform: rotate(180deg);
 }
 [dir="rtl"] .emailing-form input {
     flex-grow: 1;

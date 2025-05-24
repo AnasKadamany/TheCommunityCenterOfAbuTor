@@ -52,7 +52,8 @@
     events: {
       // Gets all events - Maps to GET /api/events endpoint (eventController.getEvents)
       getAll: async function () {
-        return fetchAPI("/events");
+        const lang = localStorage.getItem("lang") || "en";
+        return fetchAPI("/events?lang="+lang);
       },
 
       // Gets upcoming events - Maps to GET /api/events/upcoming endpoint (eventController.upcomingEvents)
@@ -107,7 +108,8 @@
     news: {
       // Gets all news - Maps to GET /api/news endpoint (newsController.getAllNews)
       getAll: async function () {
-        return fetchAPI("/news");
+        const lang = localStorage.getItem("lang") || "en";
+        return fetchAPI("/news?lang="+lang);
       },
 
       // Gets a specific news item - Maps to GET /api/news/:id endpoint (newsController.getNewsById)

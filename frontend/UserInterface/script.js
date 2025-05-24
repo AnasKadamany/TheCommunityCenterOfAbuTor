@@ -1,3 +1,4 @@
+let currentLang = localStorage.getItem("lang") || "en";
 // =============================================
 // DOM Elements
 // =============================================
@@ -437,7 +438,7 @@ const MODALS = {
     handleRegisterClick: function (e) {
       e.preventDefault();
       const eventCard = this.closest(".event-card, .event-item");
-
+      
       // Get the event ID
       const eventId = eventCard.getAttribute("data-event-id");
 
@@ -480,8 +481,9 @@ const MODALS = {
 
       DOM.registrationModal.classList.add("show");
       document.body.style.overflow = "hidden";
+      applyTranslations(currentLang);
     },
-
+  
     handleSubmit: async (e) => {
       e.preventDefault();
 
@@ -489,25 +491,30 @@ const MODALS = {
       const phone = document.getElementById("reg-phone").value;
       const participants = document.getElementById("reg-participants").value;
       const eventId = STATE.registrationModal.currentEventData.id;
+      const title = STATE.registrationModal.currentEventData.title.trim();
 
       // Show loading state
       const submitButton = DOM.registrationForm.querySelector(
         'button[type="submit"]'
       );
+      applyTranslations(currentLang);
       const originalText = submitButton.textContent;
       submitButton.classList.add("loading");
       submitButton.textContent = "Registering...";
       submitButton.disabled = true;
 
       try {
+        const reason = translations["ar"][title] || title;
+        console.log("Reason:", reason);
         // Send registration to server using API
         await API.registration.submit({
           name,
           eventId,
           phone,
           number: parseInt(participants),
-          reason: `Registration for ${STATE.registrationModal.currentEventData.title}`,
+          reason,
         });
+        
 
         // Show success message
         showToast(
@@ -545,21 +552,7 @@ const CALENDAR = {
 
     DOM.allEventsList.innerHTML = "";
     const eventArray = [];
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
+    
     // Convert events object to array
     for (const dateKey in CONFIG.events) {
       const [day, month, year] = dateKey.split("-").map(Number);
@@ -597,7 +590,7 @@ const CALENDAR = {
         eventCard.setAttribute("data-event-id", event.id);
       }
 
-      const monthDisplay = monthNames[event.month];
+      const monthDisplay = getTranslatedMonth(event.month);
       const programColor = CONFIG.programColors[event.program] || "#4a6fa5";
 
       eventCard.innerHTML = `
@@ -611,7 +604,7 @@ const CALENDAR = {
         <p><i class="fas fa-clock"></i> ${event.time}</p>
         <p><i class="fas fa-tag"></i> <span class="program-badge" style="background-color: ${programColor}">${event.program}</span></p>
         <p>${event.description}</p>
-        <a href="#" class="btn small" style="background-color: ${programColor}; border-color: ${programColor};">Register</a>
+        <a href="#" class="btn small" style="background-color: ${programColor}; border-color: ${programColor};" data-i18n="register">Register</a>
       </div>
     `;
 
@@ -624,6 +617,7 @@ const CALENDAR = {
     });
 
     MODALS.registration.attachRegisterListeners();
+    applyTranslations(currentLang);
   },
 
   renderCalendar: () => {
@@ -634,23 +628,15 @@ const CALENDAR = {
       DOM.calendarGrid.removeChild(DOM.calendarGrid.lastChild);
     }
 
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    DOM.currentMonthEl.textContent = `${
-      monthNames[STATE.calendar.currentMonth]
-    } ${STATE.calendar.currentYear}`;
+      const monthKeys = [
+        "monthJan", "monthFeb", "monthMar", "monthApr", "monthMay", "monthJun",
+        "monthJul", "monthAug", "monthSep", "monthOct", "monthNov", "monthDec"
+      ];
+
+      const currentMonthKey = monthKeys[STATE.calendar.currentMonth];
+      const translatedMonth = translations[currentLang]?.[currentMonthKey] || monthKeys[STATE.calendar.currentMonth];
+
+      DOM.currentMonthEl.textContent = `${translatedMonth} ${STATE.calendar.currentYear}`;
 
     // Calculate first day of month and days in month
     const firstDay = new Date(
@@ -760,9 +746,11 @@ const CALENDAR = {
     // Display message if no events
     if (dayEvents.length === 0) {
       const noEvents = document.createElement("p");
+      noEvents.setAttribute("data-i18n", "NoEventsForDay");
       noEvents.textContent = "No events scheduled for this day.";
       noEvents.classList.add("no-events");
       DOM.calendarEvents.appendChild(noEvents);
+      applyTranslations(currentLang);
       return;
     }
 
@@ -798,7 +786,9 @@ const CALENDAR = {
       const registerBtn = document.createElement("a");
       registerBtn.href = "#";
       registerBtn.classList.add("btn", "small");
-      registerBtn.textContent = "Register";
+      registerBtn.setAttribute("data-i18n", "register");
+      registerBtn.textContent = translations[currentLang]?.register || "Register";
+
 
       if (CONFIG.programColors[event.program]) {
         registerBtn.style.backgroundColor = CONFIG.programColors[event.program];
@@ -831,7 +821,9 @@ const CALENDAR = {
       eventItem.appendChild(registerBtn);
       DOM.calendarEvents.appendChild(eventItem);
     });
+    applyTranslations(currentLang);
   },
+  
 
   navigateMonth: (direction) => {
     if (direction === "prev") {
@@ -1110,7 +1102,7 @@ const initEventListeners = () => {
 // =============================================
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("Page loaded, initializing...");
-
+  currentLang = localStorage.getItem("lang") || "en";
   // Initialize UI components
   SLIDERS.programs.updateSlider();
   SLIDERS.news.updateSlider();
@@ -1130,9 +1122,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   UTILS.checkScroll();
 
   try {
-    await loadEventsFromBackend();
+    await loadEventsFromBackend(); // 🟢 Wait for dynamic event cards to load
+    applyTranslations(currentLang); // 🟢 Apply translation after they are in the DOM
 
-    // Only load news if we're on a page with news section
+    // Load news only if on news page
     if (DOM.newsGrid) {
       await loadNewsFromBackend();
     }
@@ -1140,6 +1133,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error loading data:", error);
   }
 });
+
 
 // =============================================
 // API Functions
@@ -1160,6 +1154,7 @@ async function loadEventsFromBackend() {
     // Update UI based on which page we're on
     if (DOM.allEventsList) {
       CALENDAR.populateAllEvents();
+      
     } else {
       // For homepage
       updateEventCards(events.slice(0, Math.min(3, events.length))); // Show first 3
@@ -1168,6 +1163,7 @@ async function loadEventsFromBackend() {
 
     // Ensure event listeners are attached
     MODALS.registration.attachRegisterListeners();
+    applyTranslations(currentLang);
   } catch (error) {
     console.error("Failed to load events:", error);
   }
@@ -1255,21 +1251,8 @@ function updateEventCards(events) {
       day = eventDate.getDate();
 
       // Get month
-      const monthNames = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-      month = monthNames[eventDate.getMonth()];
+      month = getTranslatedMonth(eventDate.getMonth());
+
 
       // Format time
       const hours = eventDate.getHours();
@@ -1302,7 +1285,7 @@ function updateEventCards(events) {
       event.type || "General"
     }</span></p>
           <p>${event.description || "No description available."}</p>
-          <a href="#" class="btn small" style="background-color: ${programColor}; border-color: ${programColor};">Register</a>
+          <a href="#" class="btn small" style="background-color: ${programColor}; border-color: ${programColor};" data-i18n="register">Register</a>
         </div>
       </div>
     `;
@@ -1320,6 +1303,7 @@ function updateEventCards(events) {
   MODALS.registration.attachRegisterListeners();
 
   console.log("Event cards rendered successfully");
+  applyTranslations(currentLang);
 }
 
 // Load news from backend
@@ -1458,6 +1442,14 @@ function updateNewsUI(newsItems) {
   // Reinitialize the slider
   setTimeout(() => SLIDERS.news.updateSlider(), 100);
 }
+function getTranslatedMonth(index) {
+  const keys = [
+    "monthJan", "monthFeb", "monthMar", "monthApr", "monthMay", "monthJun",
+    "monthJul", "monthAug", "monthSep", "monthOct", "monthNov", "monthDec"
+  ];
+  return translations[currentLang]?.[keys[index]] || keys[index];
+}
+
 
 // Translation dictionary
 
@@ -1577,6 +1569,26 @@ const translations = {
     CompleteRegistra : "Complete Registration" ,
     AllEvents2 : "All Events" ,
     Exploreall2 : "Explore all our upcoming events and classes. Register online to secure your spot!" ,
+    register: "Register" ,
+    NoEventsForDay : "No events scheduled for this day." ,
+    monthJan: "Jan",
+    monthFeb: "Feb",
+    monthMar: "Mar",
+    monthApr: "Apr",
+    monthMay: "May",
+    monthJun: "Jun",
+    monthJul: "Jul",
+    monthAug: "Aug",
+    monthSep: "Sep",
+    monthOct: "Oct",
+    monthNov: "Nov",
+    monthDec: "Dec" ,
+    mailadd : "markazjamahiri@gmail.com" ,
+
+
+
+
+
 
 
 
@@ -1702,7 +1714,26 @@ const translations = {
     DateTime : " التاريخ والساعة" ,
     CompleteRegistra : "إرسال" ,
     AllEvents2 : "فعاليات المركز" ,
-    Exploreall2 : "هنا يمكنك أن تجد كل الفعاليات القادمة, فلا تضيع فرصتك وسجل الان!"
+    Exploreall2 : "هنا يمكنك أن تجد كل الفعاليات القادمة, فلا تضيع فرصتك وسجل الان!",
+    register: "تسجيل" ,
+    NoEventsForDay : "لا توجد فعاليات لهذا اليوم." ,
+    monthJan: "يناير",
+    monthFeb: "فبراير",
+    monthMar: "مارس",
+    monthApr: "أبريل",
+    monthMay: "مايو",
+    monthJun: "يونيو",
+    monthJul: "يوليو",
+    monthAug: "أغسطس",
+    monthSep: "سبتمبر",
+    monthOct: "أكتوبر",
+    monthNov: "نوفمبر",
+    monthDec: "ديسمبر" ,
+    mailadd : " markazjamahiri@gmail.com" ,
+
+
+
+
 
 
 
@@ -1742,6 +1773,7 @@ const translations = {
     event: "אירוע",
     dateTime: "תאריך ושעה",
     completeRegistration: "השלם רישום",
+    lang : "השפה" ,
     en : "English" ,
     ar : "العربية" ,
     he : "עברית" ,
@@ -1821,8 +1853,21 @@ const translations = {
     CompleteRegistra : "השלם רישום" ,
     AllEvents2 : "כל האירועים" ,
     Exploreall2 : "חקור את כל האירועים והשיעורים הקרובים שלנו. הירשם אונליין כדי להבטיח את מקומך!" ,
-
-
+    register: "הרשמה" ,
+    NoEventsForDay : "אין אירועים ליום זה." ,
+    monthJan: "ינואר",
+    monthFeb: "פברואר",
+    monthMar: "מרץ",
+    monthApr: "אפריל",
+    monthMay: "מאי",
+    monthJun: "יוני",
+    monthJul: "יולי",
+    monthAug: "אוגוסט",
+    monthSep: "ספטמבר",
+    monthOct: "אוקטובר",
+    monthNov: "נובמבר",
+    monthDec: "דצמבר" , 
+    mailadd : "  markazjamahiri@gmail.com" ,
 
 
 
@@ -1854,15 +1899,21 @@ const translations = {
 function applyTranslations(lang) {
   STATE.currentLanguage = lang;
 
-  // Update elements with data-i18n attribute
-  const elements = document.querySelectorAll("[data-i18n]");
+  // Fallback for <html lang> and direction
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" || lang === "he" ? "rtl" : "ltr";
+
+  // Remove Hebrew-specific style
   document.querySelector(".line1")?.classList.remove("he-line1");
+
+  // Update text for all elements with data-i18n
+  const elements = document.querySelectorAll("[data-i18n]");
   elements.forEach((el) => {
     const key = el.getAttribute("data-i18n");
     if (translations[lang] && translations[lang][key]) {
-      // Preserve inner HTML for elements that may contain child elements
+
       if (el.children.length > 0) {
-        // For elements with children, update text content carefully
+
         const textNodes = getTextNodes(el);
         if (textNodes.length > 0) {
           textNodes[0].nodeValue = translations[lang][key];
@@ -1885,10 +1936,7 @@ function applyTranslations(lang) {
     }
   });
 
-  // Handle direction for RTL languages
-  document.body.dir = lang === "ar" || lang === "he" ? "rtl" : "ltr";
-
-  // Update navigation links text
+  // Update navigation links
   const navLinks = document.querySelectorAll(".nav-links a");
   const navKeys = ["home", "programs", "events", "calendar", "news", "contact"];
   navLinks.forEach((link, index) => {
@@ -1897,7 +1945,7 @@ function applyTranslations(lang) {
     }
   });
 
-  // Update quick links in footer
+  // Update quick links
   const quickLinks = document.querySelectorAll(".quick-links a");
   quickLinks.forEach((link, index) => {
     if (navKeys[index] && translations[lang][navKeys[index]]) {
@@ -1905,10 +1953,22 @@ function applyTranslations(lang) {
     }
   });
 
-  if (lang==="he"){
+  // Hebrew-specific style
+  if (lang === "he") {
     document.querySelector(".line1")?.classList.add("he-line1");
   }
+  if (DOM.currentMonthEl) {
+    const monthKeys = [
+      "monthJan", "monthFeb", "monthMar", "monthApr", "monthMay", "monthJun",
+      "monthJul", "monthAug", "monthSep", "monthOct", "monthNov", "monthDec"
+    ];
+    const currentMonthKey = monthKeys[STATE.calendar.currentMonth];
+    const translatedMonth = translations[lang]?.[currentMonthKey] || currentMonthKey;
+
+    DOM.currentMonthEl.textContent = `${translatedMonth} ${STATE.calendar.currentYear}`;
+  }
 }
+
 
 // Helper function to get text nodes
 function getTextNodes(node) {
@@ -1927,6 +1987,44 @@ function getTextNodes(node) {
   return textNodes;
 }
 
+// Function to handle language change
+// Function to handle language change
+async function onLanguageChange(newLang) {
+  currentLang = newLang;
+  localStorage.setItem("lang", currentLang);
+  applyTranslations(currentLang);
+
+  // Rerender calendar + events with updated lang
+  CALENDAR.renderCalendar();
+
+  try {
+    const events = await API.events.getAll();
+    processEventsForCalendar(events); // Rebuild CONFIG.events + STATE.eventData
+
+    if (DOM.allEventsList) {
+      CALENDAR.populateAllEvents(); // Re-render all events
+    } else {
+      updateEventCards(events.slice(0, Math.min(3, events.length)));
+    }
+
+    // Re-render events for the current day
+    CALENDAR.showEventsForDay(
+      STATE.calendar.currentDate.getDate(),
+      STATE.calendar.currentDate.getMonth(),
+      STATE.calendar.currentDate.getFullYear()
+    );
+
+    // Reload news when language changes if we're on a page with news
+    if (DOM.newsGrid) {
+      newsLoaded = false; // Reset the news loaded flag
+      await loadNewsFromBackend(); // Reload news
+    }
+  } catch (err) {
+    console.error("Failed to reload events:", err);
+  }
+}
+
+
 // Add event listener after DOM loads
 document.addEventListener("DOMContentLoaded", () => {
   // Language selector
@@ -1934,15 +2032,16 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
       const lang = e.target.getAttribute("data-lang");
-      applyTranslations(lang);
+      onLanguageChange(lang);
       // Update language toggle text
       const toggle = btn.closest(".language-selector").querySelector(".language-toggle");
       if (toggle) {
-        toggle.textContent = e.target.textContent;
+        toggle.textContent = translations[lang]?.[lang] || "Language";
       }
     });
   });
 
   // Optional: set default language on load
-  applyTranslations("en");
+  currentLang = localStorage.getItem("lang") || "en";
+  applyTranslations(currentLang);
 });
