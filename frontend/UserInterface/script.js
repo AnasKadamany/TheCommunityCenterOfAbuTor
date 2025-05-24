@@ -3,7 +3,6 @@ let currentLang = localStorage.getItem("lang") || "en";
 // DOM Elements
 // =============================================
 const DOM = {
-  
   // Programs Slider
   programsSlider: document.querySelector(".programs-slider"),
   programCards: document.querySelector(".program-cards"),
@@ -1199,7 +1198,7 @@ function processEventsForCalendar(events) {
     const dateKey = `${day}-${month}-${year}`;
 
     // Format time using API helper
-    const time = API.events.formatEventTime(event.date);
+    const time = event.time || "00:00";
 
     // Add to calendar data
     if (!CONFIG.events[dateKey]) {
@@ -1416,7 +1415,10 @@ function updateNewsUI(newsItems) {
         };
 
         const date = new Date(item.date);
-        formattedDate = date.toLocaleDateString(localeMap[currentLang] || "en-US", options);
+        formattedDate = date.toLocaleDateString(
+          localeMap[currentLang] || "en-US",
+          options
+        );
       } catch (error) {
         formattedDate = "Recent update";
       }
