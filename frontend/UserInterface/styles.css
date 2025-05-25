@@ -1677,10 +1677,12 @@ footer {
     /* General Adjustments */
     body {
         font-size: 15px;
+        
     }
 
     .section-header h2 {
-        font-size: 1.6rem;
+        margin-top: 69px;
+        font-size: 1.9rem;
     }
 
     .section-header p {
@@ -1902,6 +1904,7 @@ font-weight: 400;
 
 [dir= "rtl"] .section-header h2 {
     font-family: "Playpen Sans Arabic", "Playpen Sans Hebrew";
+    margin-top: 55px;
     padding-top: 5px;
     font-size: 2.6rem;
     margin-bottom: 15px;
@@ -1980,6 +1983,17 @@ font-weight: 400;
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: var(--transition);
+}
+[dir="rtl"] .footer-col a:hover {
+    color: var(--accent-color);
+    padding-right: 5px;
+}
+[dir="rtl"] .event-card .btn.small:hover,
+.event-item .btn.small:hover {
+    background-color: rgb(22, 120, 183);
+    border-color: rgb(22, 120, 183);
+    color: inherit;
+    transform: translateY(-2px);
 }
 [dir="rtl"] [data-i18n="hours"] {
 font-family: "Tajawal", sans-serif;
@@ -2202,7 +2216,7 @@ padding-right: 2px;
         margin-left: 10px;
         margin-right: 40px;
         padding: 5px 10px;
-        font-size: 0.8rem;
+        font-size: 14px;
     }
     
 

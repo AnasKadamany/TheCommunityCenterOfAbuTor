@@ -435,54 +435,59 @@ const MODALS = {
         });
     },
 
-    handleRegisterClick: function (e) {
-      e.preventDefault();
-      const eventCard = this.closest(".event-card, .event-item");
+handleRegisterClick: function (e) {
+  e.preventDefault();
+  const eventCard = this.closest(".event-card, .event-item");
 
-      // Get the event ID
-      const eventId = eventCard.getAttribute("data-event-id");
+  // Get the event ID
+  const eventId = eventCard.getAttribute("data-event-id");
 
-      // Get event info
-      const dateElement = eventCard.querySelector(".event-date");
-      const calendarDay = eventCard.closest(".calendar-day");
+  // Get event info
+  const dateElement = eventCard.querySelector(".event-date");
+  const calendarDay = eventCard.closest(".calendar-day");
 
-      STATE.registrationModal.currentEventData = {
-        id: eventId, // Store the ID
-        title: eventCard.querySelector("h3").textContent,
-        date: dateElement
-          ? `${dateElement.querySelector(".month").textContent} ${
-              dateElement.querySelector(".day").textContent
-            }`
-          : calendarDay
-          ? `${DOM.currentMonthEl.textContent.split(" ")[0]} ${
-              calendarDay.querySelector(".day-number").textContent
-            }`
-          : "N/A",
-        time: eventCard.querySelector("p:nth-of-type(2)")
-          ? eventCard
-              .querySelector("p:nth-of-type(2)")
-              .textContent.replace(/^\s*[^:]*:\s*/, "")
-          : eventCard.querySelector("p")
-          ? eventCard.querySelector("p").textContent
-          : "N/A",
-        location: eventCard.querySelector("p:first-of-type")
-          ? eventCard
-              .querySelector("p:first-of-type")
-              .textContent.replace(/^\s*[^:]*:\s*/, "")
-          : "Community Center",
-        program: eventCard.getAttribute("data-program"),
-      };
+  STATE.registrationModal.currentEventData = {
+    id: eventId, // Store the ID
+    title: eventCard.querySelector("h3").textContent,
+    date: dateElement
+      ? `${dateElement.querySelector(".month").textContent} ${
+          dateElement.querySelector(".day").textContent
+        }`
+      : calendarDay
+      ? `${DOM.currentMonthEl.textContent.split(" ")[0]} ${
+          calendarDay.querySelector(".day-number").textContent
+        }`
+      : "N/A",
+    time: (() => {
+      const timeElement = eventCard.querySelector("p:nth-of-type(2)") || 
+                          eventCard.querySelector("p");
+      if (!timeElement) return "N/A";
+      
+      // Extract time after the clock icon
+      const timeText = timeElement.textContent;
+      const timeMatch = timeText.match(/(\d{1,2}:\d{2}\s*(?:AM|PM)?)/i);
+      return timeMatch ? timeMatch[0] : "N/A";
+    })(),
+    location: (() => {
+      const locationElement = eventCard.querySelector("p:first-of-type");
+      if (!locationElement) return "Community Center";
+      
+      // Extract location after the map marker icon
+      const locationText = locationElement.textContent;
+      return locationText.split(':').slice(1).join(':').trim() || "Community Center";
+    })(),
+    program: eventCard.getAttribute("data-program"),
+  };
 
-      document.getElementById("reg-event").value =
-        STATE.registrationModal.currentEventData.title;
-      document.getElementById(
-        "reg-date"
-      ).value = `${STATE.registrationModal.currentEventData.date}, ${STATE.registrationModal.currentEventData.time}`;
+  document.getElementById("reg-event").value =
+    STATE.registrationModal.currentEventData.title;
+  document.getElementById("reg-date").value = 
+    `${STATE.registrationModal.currentEventData.date}, ${STATE.registrationModal.currentEventData.time}`;
 
-      DOM.registrationModal.classList.add("show");
-      document.body.style.overflow = "hidden";
-      applyTranslations(currentLang);
-    },
+  DOM.registrationModal.classList.add("show");
+  document.body.style.overflow = "hidden";
+  applyTranslations(currentLang);
+},
 
     handleSubmit: async (e) => {
       e.preventDefault();
@@ -1659,7 +1664,7 @@ const translations = {
     dateTime: "التاريخ والوقت",
     completeRegistration: "إكمال التسجيل",
     home: "الرئيسية",
-    programs: "اللأقسام",
+    programs: "الأقسام",
     events: "الفعاليات",
     calendar: "الجدول",
     news: "الأخبار",
@@ -1814,7 +1819,7 @@ const translations = {
     calendar: "לוח אירועים",
     news: "חשדות",
     contact: "צור קשר",
-    community: "מרקז קהילתי",
+    community: "מרכז קהילתי",
     center: " אבו טור",
     ProgramsOverview: "החוגים שלנו",
     Engageinour:
@@ -1850,7 +1855,7 @@ const translations = {
     ViewAll: "כל האירועים",
     CommunityNews: "החדשות",
     Stayupdated: "הישאר מעודכן במה שקורה במרכז הקהילתי שלנו.",
-    CommunityCenterfooter: "מרקז הקהילה אבו טור",
+    CommunityCenterfooter: "מרכז הקהילה אבו טור",
     Theremustbea:
       "הכרחית היא רוח שתפזר את העננים, והשמש, בעלייתה הזהובה, תטהר את הלב מכל דאגה.",
     br: "מכם ואליכם מאז 2015.",
@@ -1867,7 +1872,7 @@ const translations = {
     emai: "יש לך רעיון?",
     Sharewithus: "שתף אותנו במחשבה שלך ובמה שבלבך.",
     emailPlaceholder: "המייל שלך",
-    footerCopyright: "© 2025 כל הזכויות שמורות - מרקז הקהילה אבו טור.",
+    footerCopyright: "© 2025 כל הזכויות שמורות - מרכז הקהילה אבו טור.",
     EventCalendar: "לוח אירועים",
     Checkourcalendar:
       "עיין בלוח השנה שלנו לאירועים ושיעורים קרובים. לחצו על אירוע להרשמה.",
