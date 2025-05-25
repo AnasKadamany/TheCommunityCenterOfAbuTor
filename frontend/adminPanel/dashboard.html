@@ -132,6 +132,11 @@
                     <div class="action-bar">
                         <h1><i class='bx bx-calendar-event'></i> Manage Events</h1>
                         <div style="display: flex; gap: 1rem;">
+                            <select id="languageSelect" class="form-control">
+                               <option value="en" selected>English</option>
+                               <option value="ar">Arabic</option>
+                               <option value="he">Hebrew</option>
+                            </select>
                             <input type="search" class="search-box" placeholder="Search events..." id="eventSearch">
                             <button class="btn btn-primary" onclick="openAddModal()">
                                 <i class='bx bx-plus'></i>
@@ -257,76 +262,135 @@
 
     <!-- Enhanced Event Modal -->
     <div id="eventModal" class="modal">
-        <div class="modal-content">
-            <h3 id="modalTitle">Add/Edit Event</h3>
-            <form id="eventForm">
-                <input type="hidden" name="mode" value="add">
-                <input type="hidden" name="originalDate">
-                <input type="hidden" name="originalTitle">
-                <input type="hidden" name="eventId">
-                
-                <div class="form-group">
-                    <label class="form-label" for="eventDate">Event Date</label>
-                    <input type="date" name="date" id="eventDate" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="eventTime">Time</label>
-                    <input type="text" name="time" id="eventTime" class="form-control" 
-                           placeholder="e.g., 4:00 PM - 5:00 PM" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="eventTitle">Event Title</label>
-                    <input type="text" name="title" id="eventTitle" class="form-control" 
-                           placeholder="Enter event title" required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="eventLocation">Location</label>
-                    <input type="text" name="location" id="eventLocation" class="form-control" 
-                           placeholder="Enter event location" required>
-                </div>
+    <div class="modal-content">
+    <h3 id="modalTitle">Add/Edit Event</h3>
+    <form id="eventForm">
+      <input type="hidden" name="mode" value="add">
+      <input type="hidden" name="eventId">
+      <input type="hidden" name="existingImage">
 
-                <div class="form-group">
-                    <label class="form-label" for="eventImage">Event Image (optional)</label>
-                    <input type="file" name="imageFile" id="eventImage" class="form-control" accept="image/*">
-                    <img id="imagePreview" src="" style="display: none; width: 100%; max-height: 200px; object-fit: contain; margin-top: 1rem; border-radius: 8px;" />
+      <!-- Tabs -->
+      <div class="tabs">
+        <button type="button" class="tab-btn active" data-lang="en">English</button>
+        <button type="button" class="tab-btn" data-lang="ar">Arabic</button>
+        <button type="button" class="tab-btn" data-lang="he">Hebrew</button>
+      </div>
 
-                </div>
-
-
-                
-                <div class="form-group">
-                    <label class="form-label" for="eventProgram">Program Type</label>
-                    <select name="program" id="eventProgram" class="form-control" required>
-                        <option value="">Select a program</option>
-                        <option value="Elderly">Elderly Programs</option>
-                        <option value="Women">Women's Programs</option>
-                        <option value="Exceptionals">Special Needs Programs</option>
-                        <option value="Youth">Youth Programs</option>
-                        <option value="Culture">Cultural Events</option>
-                        <option value="Kids Workshops">Kids Workshops</option>
-                        <option value="Urban Planning">Urban Planning</option>
-                        <option value="Public Action">Public Action</option>
-                        <option value="Community">Community Events</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="eventDescription">Event Description</label>
-                    <textarea name="description" id="eventDescription" class="form-control" 
-                              placeholder="Enter event description" rows="4" required></textarea>
-                </div>
-                
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Event</button>
-                </div>
-                <input type="hidden" name="existingImage">
-            </form>
+      <!-- Shared Fields -->
+      <div id="sharedFields" class="shared-fields">
+        <div class="form-group">
+          <label id="label-eventDate" for="eventDate"
+                 data-label-en="Event Date"
+                 data-label-ar="تاريخ الحدث"
+                 data-label-he="תאריך האירוע">Event Date</label>
+          <input type="date" name="date" id="eventDate" class="form-control" required>
         </div>
-    </div>
+        <div class="form-group">
+          <label id="label-eventTime" for="eventTime"
+                 data-label-en="Time"
+                 data-label-ar="الوقت"
+                 data-label-he="זמן">Time</label>
+          <input type="text" name="time" id="eventTime" class="form-control" placeholder="e.g., 4:00 PM - 5:00 PM" required>
+        </div>
+        <div class="form-group">
+          <label id="label-eventImage" for="eventImage"
+                 data-label-en="Event Image (optional)"
+                 data-label-ar="صورة الحدث (اختياري)"
+                 data-label-he="תמונה של האירוע (אופציונלי)">Event Image (optional)</label>
+          <input type="file" name="imageFile" id="eventImage" class="form-control" accept="image/*">
+          <img id="imagePreview" src="" style="display: none; width: 100%; max-height: 200px; object-fit: contain; margin-top: 1rem; border-radius: 8px;" />
+        </div>
+      </div>
+      <!-- Put this in the sharedFields section -->
+<div class="form-group">
+  <label id="label-eventProgram"
+         data-label-en="Program"
+         data-label-ar="برنامج"
+         data-label-he="תכנית">
+    Program
+  </label>
+  <select name="program" id="eventProgram" class="form-control" required></select>
+</div>
+<!-- Shared Multilingual Fields (Inside sharedFields) -->
+<!--<div class="form-group">
+  <label id="label-eventTitle"
+         data-label-en="Event Title"
+         data-label-ar="عنوان الحدث"
+         data-label-he="כותרת">Event Title</label>
+  <input type="text" id="eventTitle" class="form-control" required>
+</div>
+
+<div class="form-group">
+  <label id="label-eventLocation"
+         data-label-en="Location"
+         data-label-ar="الموقع"
+         data-label-he="מיקום">Location</label>
+  <input type="text" id="eventLocation" class="form-control" required>
+</div>
+
+<div class="form-group">
+  <label id="label-eventDescription"
+         data-label-en="Event Description"
+         data-label-ar="وصف الحدث"
+         data-label-he="תיאור">Event Description</label>
+  <textarea id="eventDescription" class="form-control" rows="4" required></textarea>
+</div>-->
+
+
+
+      <!-- Language-Specific Fields -->
+      <div class="lang-group" data-lang="en">
+        <div class="form-group">
+          <label for="eventTitle">Event Title</label>
+          <input type="text" id = "title_en" name="title_en" class="form-control" placeholder="Enter event title" required>
+        </div>
+        <div class="form-group">
+          <label for="eventLocation">Location</label>
+          <input type="text" id = "location_en" name="location_en" class="form-control" placeholder="Enter event location" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDescription">Event Description</label>
+          <textarea id="description_en" name="description_en" class="form-control" placeholder="Enter event description" rows="4" required></textarea>
+        </div>
+      </div>
+      <div class="lang-group hidden" data-lang="ar" dir="rtl">
+        <div class="form-group">
+          <label for="eventTitle">عنوان الحدث</label>
+          <input type="text" id = "title_ar" name="title_ar" class="form-control" placeholder="ادخل اسم الحدث" required>
+        </div>
+        <div class="form-group">
+          <label for="eventLocation">الموقع</label>
+          <input type="text" id="location_ar" name="location_ar" class="form-control" placeholder="ادخل اسم الموقع" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDescription">وصف الحدث</label>
+          <textarea id="description_ar" name="description_ar" class="form-control" placeholder="ادخل وصف الحدث" rows="4" required></textarea>
+        </div>
+      </div>
+
+      <div class="lang-group hidden" data-lang="he" dir="rtl">
+        <div class="form-group">
+          <label for="eventTitle">כותרת</label>
+          <input type="text" id = "title_he" name="title_he" class="form-control" placeholder="כתוב כותרת של האירוע" required>
+        </div>
+        <div class="form-group">
+          <label for="eventLocation">מיקום</label>
+          <input type="text" id="location_he" name="location_he" class="form-control" placeholder="איפה מיקום האירוע" required>
+        </div>
+        <div class="form-group">
+          <label for="eventDescription">תיאור</label>
+          <textarea id="description_he" name="description_he" class="form-control" placeholder="תיאור של האירוע" rows="4" required></textarea>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
 
     <!-- Enhanced News Modal -->
     <div id="newsModal" class="modal">

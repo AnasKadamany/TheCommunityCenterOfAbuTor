@@ -546,4 +546,26 @@
         .p-2 { padding: 0.5rem; }
         .p-3 { padding: 0.75rem; }
         .p-4 { padding: 1rem; }
-  
+
+              /* languages changes: */
+        .hidden {
+           display: none;
+        }
+        .tabs {
+           display: flex;
+           gap: 1rem;
+  margin-bottom: 1rem;
+}
+.tab-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+}
+.tab-btn.active {
+  background: var(--primary-color);
+  color: white;
+}
+[dir="rtl"] {
+  text-align: right;
+}

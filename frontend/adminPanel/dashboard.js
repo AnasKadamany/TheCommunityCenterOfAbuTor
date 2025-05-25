@@ -47,6 +47,179 @@ function openSection(sectionId) {
   }
 }
 
+// languagges:
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const langGroups = document.querySelectorAll('.lang-group');
+  const labelIds = ['label-eventDate', 'label-eventTime', 'label-eventImage', 'label-eventProgram'];
+  const sharedFields = document.getElementById('sharedFields');
+
+
+  let currentLang = "en";
+
+  const programOptions = {
+    en: {
+      "": "Select a program",
+      Elderly: "Elderly",
+      Women: "Women",
+      Exceptionals: "Exceptionals",
+      Youth: "Youth",
+      Culture: "Culture",
+      "Kids Workshops": "Kids Workshops",
+      "Urban Planning": "Urban Planning",
+      "Public Action": "Public Action"
+    },
+    ar: {
+      "": "اختار برنامج",
+      Elderly: "المسنين",
+      Women: "النساء",
+      Exceptionals: "الاستثنائيون",
+      Youth: "الشبيبة",
+      Culture: "الثقافة",
+      "Kids Workshops": "ندوات للاطفال",
+      "Urban Planning": "التخطيط العمراني",
+      "Public Action": "العمل الجماهيري"
+    },
+    he: {
+      "": "בחר תוכנית",
+      Elderly: "קשישים",
+      Women: "נשים",
+      Exceptionals: "איחדים",
+      Youth: "נוער",
+      Culture: "תרבות",
+      "Kids Workshops": "סדנאות לילדים",
+      "Urban Planning": "תכנון עירוני",
+      "Public Action": "פעולה ציבורית"
+    }
+  };
+
+  const programLabels = {
+  Elderly: { en: 'Elderly', ar: 'المسنين', he: 'קשישים' },
+  Women: { en: 'Women', ar: 'النساء', he: 'נשים' },
+  Exceptionals: { en: 'Exceptionals', ar: 'الاستثنائيون', he: 'איחדים' },
+  Youth: { en: 'Youth', ar: 'الشبيبة', he: 'נוער' },
+  Culture: { en: 'Culture', ar: 'الثقافة', he: 'תרבות' },
+  "Kids Workshops": { en: 'Kids Workshops', ar: 'ندوات الاطفال', he: 'סדנאות לילדים' },
+  "Urban Planning": { en: 'Urban Planning', ar: 'التخطيط العمراني', he: 'תכנון עירוני' },
+  "Public Action": { en: 'Public Action', ar: 'العمل الجماهيري', he: 'פעולה ציבורית' },
+};
+
+// let multilingualData = {
+//   title: { en: "", ar: "", he: "" },
+//   location: { en: "", ar: "", he: "" },
+//   description: { en: "", ar: "", he: "" }
+// };
+// function updateMultilingualFields(lang) {
+//   document.getElementById("eventTitle").value = multilingualData.title[lang] || "";
+//   document.getElementById("eventLocation").value = multilingualData.location[lang] || "";
+//   document.getElementById("eventDescription").value = multilingualData.description[lang] || "";
+// }
+
+// function storeMultilingualFields(lang) {
+//   multilingualData.title[lang] = document.getElementById("eventTitle").value;
+//   multilingualData.location[lang] = document.getElementById("eventLocation").value;
+//   multilingualData.description[lang] = document.getElementById("eventDescription").value;
+// }
+
+
+function populateProgramDropdown(lang) {
+  const select = document.getElementById("eventProgram");
+  select.innerHTML = ""; // Clear old options
+
+  Object.keys(programLabels).forEach(key => {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = programLabels[key][lang];
+    select.appendChild(option);
+  });
+}
+
+
+  function updateProgramOptions(lang) {
+  const select = document.getElementById(`eventProgram_${lang}`);
+  const options = programOptions[lang];
+  if (!select || !options) return;
+
+  select.innerHTML = "";
+  for (const [value, label] of Object.entries(options)) {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = label;
+    select.appendChild(option);
+  }
+}
+
+tabButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const selectedLang = button.getAttribute('data-lang');
+    currentLang = selectedLang;
+
+    tabButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+
+    langGroups.forEach(group => {
+      const isActive = group.getAttribute('data-lang') === selectedLang;
+      group.classList.toggle('hidden', !isActive);
+    });
+
+    // Update shared labels
+    labelIds.forEach(id => {
+      const label = document.getElementById(id);
+      label.textContent = label.getAttribute(`data-label-${selectedLang}`);
+    });
+
+    // Update Program dropdown
+    populateProgramDropdown(selectedLang);
+
+    // Update direction
+    if (selectedLang === 'ar' || selectedLang === 'he') {
+      sharedFields.setAttribute('dir', 'rtl');
+      sharedFields.style.textAlign = 'right';
+    } else {
+      sharedFields.setAttribute('dir', 'ltr');
+      sharedFields.style.textAlign = 'left';
+    }
+  });
+});
+// tabButtons.forEach(button => {
+//   button.addEventListener("click", () => {
+//     const selectedLang = button.getAttribute("data-lang");
+
+//     // Save current values
+//     storeMultilingualFields(currentLang);
+
+//     // Set new active language
+//     currentLang = selectedLang;
+
+//     // Toggle active class
+//     tabButtons.forEach(btn => btn.classList.remove("active"));
+//     button.classList.add("active");
+
+//     // Update labels
+//     labelIds.forEach(id => {
+//       const label = document.getElementById(id);
+//       label.textContent = label.getAttribute(`data-label-${selectedLang}`);
+//     });
+
+//     // Update shared input values
+//     updateMultilingualFields(selectedLang);
+
+//     // Update direction
+//     if (["ar", "he"].includes(selectedLang)) {
+//       sharedFields.setAttribute("dir", "rtl");
+//       sharedFields.style.textAlign = "right";
+//     } else {
+//       sharedFields.setAttribute("dir", "ltr");
+//       sharedFields.style.textAlign = "left";
+//     }
+
+//     // Update dropdown
+//     populateProgramDropdown(selectedLang);
+//   });
+// });
+
+  // Initial population
+  updateProgramOptions('en');
+
 // Modal Functions
 function openAddModal() {
   const modal = document.getElementById("eventModal");
@@ -63,42 +236,237 @@ function openAddModal() {
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("eventDate").value = today;
 
+  // Reset image preview
+  document.getElementById("imagePreview").style.display = "none";
+
+  // Reset and populate all program fields
+  ['en', 'ar', 'he'].forEach(lang => {
+    updateProgramOptions(lang);
+    const select = document.getElementById(`eventProgram_${lang}`);
+    if (select) select.value = "";
+  });
+
   modal.style.display = "block";
 }
+populateProgramDropdown(currentLang);
 //edit to choose just one item XgetAllEventsX
-function openEditEventModal(eventId) {
-  // Fetch event data and populate the form
-  getAllEvents().then((events) => {
-    const event = events.find((e) => e.id === eventId);
-    if (event) {
-      const modal = document.getElementById("eventModal");
-      const form = document.getElementById("eventForm");
-      const title = document.getElementById("modalTitle");
+function setSelectedProgram(eventTypeJson) {
+  const select = document.getElementById("eventProgram");
+  const matchingKey = Object.keys(programLabels).find(key => 
+    programLabels[key].en === eventTypeJson.en
+  );
 
-      // Populate form fields
-      form.querySelector('input[name="mode"]').value = "edit";
-      form.querySelector('input[name="eventId"]').value = eventId;
-      document.getElementById("eventDate").value = event.date.split("T")[0];
-      document.getElementById("eventTime").value = event.time || "";
-      document.getElementById("eventTitle").value = event.title;
-      document.getElementById("eventLocation").value = event.location || "";
-      document.getElementById("eventProgram").value = event.type || "";
-      document.getElementById("eventDescription").value = event.description;
-      form.querySelector('input[name="existingImage"]').value =
-        event.image || "";
-      const preview = document.getElementById("imagePreview");
-      if (event.image) {
-        preview.src = event.image;
-        preview.style.display = "block";
-      } else {
-        preview.style.display = "none";
-      }
-
-      title.textContent = "Edit Event";
-      modal.style.display = "block";
-    }
-  });
+  if (matchingKey) {
+    select.value = matchingKey;
+  }
 }
+
+async function openEditEventModal(eventId) {
+  const modal = document.getElementById("eventModal");
+  const form = document.getElementById("eventForm");
+  const title = document.getElementById("modalTitle");
+  const imagePreview = document.getElementById("imagePreview");
+
+  // Helper to fetch event in a given language
+  async function fetchEventInLang(lang) {
+    try {
+      const res = await fetch(`http://localhost:8080/api/events/${eventId}?lang=${lang}`);
+      return res.ok ? await res.json() : null;
+    } catch (err) {
+      console.error(`Error fetching ${lang} data:`, err);
+      return null;
+    }
+  }
+
+  // Fetch event data in all 3 languages
+  const [enData, arData, heData] = await Promise.all([
+    fetchEventInLang('en'),
+    fetchEventInLang('ar'),
+    fetchEventInLang('he'),
+  ]);
+
+  if (!enData || !arData || !heData) {
+    alert("Failed to load event data in all languages.");
+    return;
+  }
+
+  // Set form mode to edit
+  form.querySelector('input[name="mode"]').value = "edit";
+  form.querySelector('input[name="eventId"]').value = eventId;
+  title.textContent = "Edit Event";
+
+  // Shared fields (use EN for consistency)
+  document.getElementById("eventDate").value = enData.date?.split("T")[0] || "";
+  document.getElementById("eventTime").value = enData.time || "";
+  form.querySelector('input[name="existingImage"]').value = enData.image || "";
+
+  if (enData.image) {
+    imagePreview.src = enData.image;
+    imagePreview.style.display = "block";
+  } else {
+    imagePreview.style.display = "none";
+  }
+
+  // Set program (uses English value)
+  setSelectedProgram({ en: enData.type });
+
+  // Fill multilingual fields
+  document.getElementById("title_en").value = enData.title || "";
+  document.getElementById("location_en").value = enData.location || "";
+  document.getElementById("description_en").value = enData.description || "";
+
+  document.getElementById("title_ar").value = arData.title || "";
+  document.getElementById("location_ar").value = arData.location || "";
+  document.getElementById("description_ar").value = arData.description || "";
+
+  document.getElementById("title_he").value = heData.title || "";
+  document.getElementById("location_he").value = heData.location || "";
+  document.getElementById("description_he").value = heData.description || "";
+
+  // Language tab
+  tabButtons.forEach(btn => btn.classList.remove('active'));
+  langGroups.forEach(group => group.classList.add('hidden'));
+
+  const activeTab = document.querySelector(`.tab-btn[data-lang="${currentLang}"]`);
+  const activeGroup = document.querySelector(`.lang-group[data-lang="${currentLang}"]`);
+  if (activeTab) activeTab.classList.add('active');
+  if (activeGroup) activeGroup.classList.remove('hidden');
+
+  if (['ar', 'he'].includes(currentLang)) {
+    sharedFields.setAttribute('dir', 'rtl');
+    sharedFields.style.textAlign = 'right';
+  } else {
+    sharedFields.setAttribute('dir', 'ltr');
+    sharedFields.style.textAlign = 'left';
+  }
+
+  modal.style.display = "block";
+}
+
+
+
+// function openEditEventModal(eventId) {
+//   getAllEvents().then((events) => {
+//     const event = events.find((e) => e.id === eventId);
+//     if (event) {
+//       const modal = document.getElementById("eventModal");
+//       const form = document.getElementById("eventForm");
+//       const title = document.getElementById("modalTitle");
+
+//       // Set hidden fields
+//       form.querySelector('input[name="mode"]').value = 'edit';
+//       form.querySelector('input[name="eventId"]').value = eventId;
+
+//       // Shared fields
+//       document.getElementById("eventDate").value = event.date.split('T')[0];
+//       document.getElementById("eventTime").value = event.time || "";
+//       setSelectedProgram(programLabels)
+//       document.getElementById("eventProgram").value = event.type || "";
+
+// //       multilingualData.title = event.title || { en: "", ar: "", he: "" };
+// // multilingualData.location = event.location || { en: "", ar: "", he: "" };
+// // multilingualData.description = event.description || { en: "", ar: "", he: "" };
+
+// // // Load the current language values into fields
+// // updateMultilingualFields(currentLang);
+
+
+//       // Multilingual text fields
+//       document.querySelector('input[name="title_en"]').value = event.title?.en || "";
+//       document.querySelector('input[name="title_ar"]').value = event.title?.ar || "";
+//       document.querySelector('input[name="title_he"]').value = event.title?.he || "";
+
+//       document.querySelector('input[name="location_en"]').value = event.location?.en || "";
+//       document.querySelector('input[name="location_ar"]').value = event.location?.ar || "";
+//       document.querySelector('input[name="location_he"]').value = event.location?.he || "";
+
+//       document.querySelector('textarea[name="description_en"]').value = event.description?.en || "";
+//       document.querySelector('textarea[name="description_ar"]').value = event.description?.ar || "";
+//       document.querySelector('textarea[name="description_he"]').value = event.description?.he || "";
+
+//       // Image
+//       const preview = document.getElementById("imagePreview");
+//       form.querySelector('input[name="existingImage"]').value = event.image || "";
+//       if (event.image) {
+//         preview.src = event.image;
+//         preview.style.display = "block";
+//       } else {
+//         preview.style.display = "none";
+//       }
+
+//       title.textContent = "Edit Event";
+//       modal.style.display = "block";
+//     }
+//   });
+// }
+
+// async function openEditEventModal(eventId) {
+//   const modal = document.getElementById("eventModal");
+//   const form = document.getElementById("eventForm");
+//   const title = document.getElementById("modalTitle");
+//   const imagePreview = document.getElementById("imagePreview");
+
+//   // Fetch the event
+//   const eventData = await getSpecificEvent(eventId);
+//   if (!eventData) {
+//     alert("Failed to load event data.");
+//     return;
+//   }
+
+//   // Set modal title and mode
+//   title.textContent = "Edit Event";
+//   form.querySelector('input[name="mode"]').value = "edit";
+//   form.querySelector('input[name="eventId"]').value = eventId;
+
+//   // Set date, time, and image (shared fields)
+//   document.getElementById("eventDate").value = eventData.date || "";
+//   document.getElementById("eventTime").value = eventData.time || "";
+//   form.querySelector('input[name="existingImage"]').value = eventData.image || "";
+
+//   // Show image preview if image exists
+//   if (eventData.image) {
+//     imagePreview.src = eventData.image;
+//     imagePreview.style.display = "block";
+//   } else {
+//     imagePreview.style.display = "none";
+//   }
+
+//   // Set the selected program
+//   setSelectedProgram(eventData.type); // eventData.type should have { en, ar, he }
+
+//   // Fill multilingual fields
+//   ['en', 'ar', 'he'].forEach(lang => {
+//     const titleInput = document.getElementById(`title_${lang}`);
+//     const locationInput = document.getElementById(`location_${lang}`);
+//     const descInput = document.getElementById(`description_${lang}`);
+
+//     if (titleInput) titleInput.value = eventData[`title_${lang}`] || "";
+//     if (locationInput) locationInput.value = eventData[`location_${lang}`] || "";
+//     if (descInput) descInput.value = eventData[`description_${lang}`] || "";
+//   });
+
+//   // Show the correct language tab
+//   tabButtons.forEach(btn => btn.classList.remove('active'));
+//   langGroups.forEach(group => group.classList.add('hidden'));
+
+//   const activeTab = document.querySelector(`.tab-btn[data-lang="${currentLang}"]`);
+//   const activeGroup = document.querySelector(`.lang-group[data-lang="${currentLang}"]`);
+//   if (activeTab) activeTab.classList.add('active');
+//   if (activeGroup) activeGroup.classList.remove('hidden');
+
+//   // Set direction
+//   if (currentLang === 'ar' || currentLang === 'he') {
+//     sharedFields.setAttribute('dir', 'rtl');
+//     sharedFields.style.textAlign = 'right';
+//   } else {
+//     sharedFields.setAttribute('dir', 'ltr');
+//     sharedFields.style.textAlign = 'left';
+//   }
+
+//   // Show modal
+//   modal.style.display = "block";
+// }
+
 
 function closeModal() {
   const modal = document.getElementById("eventModal");
@@ -544,19 +912,9 @@ function showConfirmModal(
 // 1. Get all events from API
 async function getAllEvents() {
   try {
-    const response = await fetch("http://localhost:8080/api/events");
+    const response = await fetch(`http://localhost:8080/api/events?lang=${currentLang}`);
     const data = await response.json();
-
-    // Handle different response structures
-    if (Array.isArray(data)) {
-      return data;
-    } else if (data && Array.isArray(data.events)) {
-      return data.events;
-    } else if (data && data.length > 0 && Array.isArray(data[0])) {
-      return data[0];
-    }
-
-    return [];
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching events:", error);
     return [];
@@ -566,11 +924,8 @@ async function getAllEvents() {
 async function getSpecificEvent(eventId) {
   try {
     const response = await fetch(`http://localhost:8080/api/events/${eventId}`);
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    const data = await response.json();
-    return data; // Assuming it's already a single event object
+    if (!response.ok) throw new Error("Network response was not ok");
+    return await response.json(); // Full multilingual data
   } catch (error) {
     console.error("Error fetching event:", error);
     return null;
@@ -669,63 +1024,42 @@ function renderEvents(events) {
   events.forEach((event) => {
     const card = document.createElement("div");
     card.className = "event-card";
-
     const eventDate = new Date(event.date);
-    const eventId = event.id;
-
-    // Format the date and time properly
-    const formattedDate = eventDate.toLocaleDateString("en-US", {
+    const formattedDate = eventDate.toLocaleDateString(currentLang === "en" ? "en-US" : currentLang === "ar" ? "ar-EG" : "he-IL", {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
     });
-    const formattedTime =
-      event.time ||
-      eventDate.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
+    const formattedTime = event.time || "";
 
     card.innerHTML = `
       <div class="card-header">
         <h4 class="card-title-text">${event.title || "Untitled Event"}</h4>
         <div class="card-actions">
-          <button class="btn btn-sm btn-outline btn-primary" onclick="openEditEventModal('${eventId}')">
+          <button class="btn btn-sm btn-outline btn-primary" onclick="openEditEventModal('${event.id}')">
             <i class='bx bx-edit'></i> Edit
           </button>
-          <button class="btn btn-sm btn-outline btn-danger" onclick="confirmDeleteEvent('${eventId}', '${
-      event.title
-    }')">
+          <button class="btn btn-sm btn-outline btn-danger" onclick="confirmDeleteEvent('${event.id}', '${event.title}')">
             <i class='bx bx-trash'></i> Delete
           </button>
         </div>
       </div>
-      
-      ${
-        event.image
-          ? `
+      ${event.image ? `
         <div style="margin-bottom: 1rem;">
           <img src="${event.image}" alt="${event.title}" 
                style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px;">
-        </div>
-      `
-          : ""
-      }
-      
+        </div>` : ""}
       <div style="margin-bottom: 1rem;">
         <p><strong><i class='bx bx-calendar'></i> Date:</strong> ${formattedDate}</p>
         <p><strong><i class='bx bx-time'></i> Time:</strong> ${formattedTime}</p>
-        <p><strong><i class='bx bx-map'></i> Location:</strong> ${
-          event.location || "TBA"
-        }</p>
+        <p><strong><i class='bx bx-map'></i> Location:</strong> ${event.location || "TBA"}</p>
         <p><strong><i class='bx bx-category'></i> Type:</strong> 
           <span class="status-badge" style="background-color: var(--primary-color); color: white;">
             ${event.type || "General"}
           </span>
         </p>
       </div>
-      
       <p><strong>Description:</strong></p>
       <p style="color: var(--gray-600); line-height: 1.6;">
         ${event.description || "No description provided"}
@@ -734,6 +1068,8 @@ function renderEvents(events) {
     container.appendChild(card);
   });
 }
+
+
 
 function renderNews(news) {
   const container = document.querySelector(".all-news");
@@ -1045,16 +1381,34 @@ async function handleEventFormSubmit(event) {
     if (imageFile && imageFile.size > 0) {
       imageUrl = await uploadEventImage(imageFile);
     }
+    
+    const selectedProgramKey = document.getElementById("eventProgram").value;
 
-    const eventData = {
-      title: formData.get("title").trim(),
-      type: formData.get("program"),
-      location: formData.get("location").trim(),
-      time: formData.get("time").trim(),
-      description: formData.get("description").trim(),
-      date: new Date(formData.get("date")).toISOString(),
-      image: imageUrl,
-    };
+const eventData = {
+  title: {
+    en: formData.get("title_en")?.trim() || "",
+    ar: formData.get("title_ar")?.trim() || "",
+    he: formData.get("title_he")?.trim() || "",
+  },
+  description: {
+    en: formData.get("description_en")?.trim() || "",
+    ar: formData.get("description_ar")?.trim() || "",
+    he: formData.get("description_he")?.trim() || "",
+  },
+  location: {
+    en: formData.get("location_en")?.trim() || "",
+    ar: formData.get("location_ar")?.trim() || "",
+    he: formData.get("location_he")?.trim() || "",
+  },
+  type: {
+    en: programLabels[selectedProgramKey].en,
+    ar: programLabels[selectedProgramKey].ar,
+    he: programLabels[selectedProgramKey].he,
+  },
+  date: new Date(formData.get("date")).toISOString(),
+  time: formData.get("time")?.trim() || "",
+  image: imageUrl,
+};
 
     if (
       !eventData.title ||
@@ -1089,6 +1443,85 @@ async function handleEventFormSubmit(event) {
     showToast("Failed to save event. Please try again.", "error");
   }
 }
+// async function handleEventFormSubmit(event) {
+//   event.preventDefault();
+
+//   const form = event.target;
+//   const formData = new FormData(form);
+
+//   showLoadingOverlay("Saving event...");
+
+//   try {
+//     // 🟡 Save the current language's input values before using multilingualData
+//     storeMultilingualFields(currentLang);
+
+//     // 🟢 Handle image upload
+//     let imageUrl = formData.get("existingImage") || "";
+//     const imageFile = formData.get("imageFile");
+//     if (imageFile && imageFile.size > 0) {
+//       imageUrl = await uploadEventImage(imageFile);
+//     }
+
+//     // 🟠 Get selected program type
+//     const selectedProgramKey = document.getElementById("eventProgram").value;
+//     if (!selectedProgramKey) {
+//       hideLoadingOverlay();
+//       showToast("Please select a program type.", "error");
+//       return;
+//     }
+
+//     // 🔵 Construct event data
+//     const eventData = {
+//       title: { ...multilingualData.title },
+//       location: { ...multilingualData.location },
+//       description: { ...multilingualData.description },
+//       type: {
+//         en: programLabels[selectedProgramKey].en,
+//         ar: programLabels[selectedProgramKey].ar,
+//         he: programLabels[selectedProgramKey].he,
+//       },
+//       date: new Date(formData.get("date")).toISOString(),
+//       time: formData.get("time")?.trim() || "",
+//       image: imageUrl,
+//     };
+
+//     // 🟥 Validation (make sure at least English fields are filled)
+//     if (
+//       !eventData.title.en.trim() ||
+//       !eventData.location.en.trim() ||
+//       !eventData.description.en.trim() ||
+//       !eventData.type ||
+//       !eventData.date
+//     ) {
+//       hideLoadingOverlay();
+//       showToast("Please fill in all required fields (at least in English).", "error");
+//       return;
+//     }
+
+//     const mode = formData.get("mode");
+//     const eventId = formData.get("eventId");
+
+//     // 🟩 Submit data to backend
+//     let result;
+//     if (mode === "edit" && eventId) {
+//       result = await updateEvent(eventId, eventData);
+//       showToast("Event updated successfully!", "success");
+//     } else {
+//       result = await createEvent(eventData);
+//       showToast("Event created successfully!", "success");
+//     }
+
+//     hideLoadingOverlay();
+//     closeModal();
+//     await loadEvents();
+//     await updateDashboardCounts();
+//   } catch (error) {
+//     hideLoadingOverlay();
+//     console.error("Error saving event:", error);
+//     showToast("Failed to save event. Please try again.", "error");
+//   }
+// }
+
 
 // 9. Load and display events
 async function loadEvents() {
@@ -1178,6 +1611,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "/adminPanel/login.html";
     return;
   }
+
+  //  Handle language switching
+  // let currentLang = "en";
+  const languageSelect = document.getElementById("languageSelect");
+  if (languageSelect) {
+    languageSelect.addEventListener("change", async function () {
+      currentLang = this.value;
+      await loadEvents(); // Reload events in the selected language
+    });
+  }
+
   // Load dashboard data
   await updateDashboardCounts();
 
@@ -1211,6 +1655,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 });
+
 
 // Add CSS for toast animations
 const style = document.createElement("style");
