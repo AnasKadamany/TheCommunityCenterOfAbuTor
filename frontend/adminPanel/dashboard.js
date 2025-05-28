@@ -55,41 +55,6 @@ const sharedFields = document.getElementById('sharedFields');
 let currentLang = "en";
 const langOrder = ["en", "ar", "he"];
 
-const programOptions = {
-  en: {
-    "": "Select a program",
-    Elderly: "Elderly",
-    Women: "Women",
-    Exceptionals: "Exceptionals",
-    Youth: "Youth",
-    Culture: "Culture",
-    "Kids Workshops": "Kids Workshops",
-    "Urban Planning": "Urban Planning",
-    "Public Action": "Public Action"
-  },
-  ar: {
-    "": "اختار برنامج",
-    Elderly: "المسنين",
-    Women: "النساء",
-    Exceptionals: "الاستثنائيون",
-    Youth: "الشبيبة",
-    Culture: "الثقافة",
-    "Kids Workshops": "ندوات للاطفال",
-    "Urban Planning": "التخطيط العمراني",
-    "Public Action": "العمل الجماهيري"
-  },
-  he: {
-  "": "בחר תוכנית",
-  Elderly: "קשישים",
-  Women: "נשים",
-  Exceptionals: "איחדים",
-  Youth: "נוער",
-  Culture: "תרבות",
-  "Kids Workshops": "סדנאות לילדים",
-  "Urban Planning": "תכנון עירוני",
-  "Public Action": "פעולה ציבורית"
-  }
-};
 const programLabels = {
   Elderly: { en: 'Elderly', ar: 'المسنين', he: 'קשישים' },
   Women: { en: 'Women', ar: 'النساء', he: 'נשים' },
@@ -100,40 +65,7 @@ const programLabels = {
   "Urban Planning": { en: 'Urban Planning', ar: 'التخطيط العمراني', he: 'תכנון עירוני' },
   "Public Action": { en: 'Public Action', ar: 'العمل الجماهيري', he: 'פעולה ציבורית' },
 };
-// const newsTranslations = {
-//   en: {
-//     title: "Manage News",
-//     button: "Add News Article",
-//     search: "Search news..."
-//   },
-//   ar: {
-//     title: "إدارة الأخبار",
-//     button: "إضافة خبر جديد",
-//     search: "بحث في الأخبار..."
-//   },
-//   he: {
-//     title: "ניהול חדשות",
-//     button: "הוסף כתבה חדשה",
-//     search: "חפש כתבות..."
-//   }
-// };
-const EventsTranslations = {
-  en: {
-    title: "Manage Events",
-    button: "Add New Event",
-    search: "Search event..."
-  },
-  ar: {
-    title: "إدارة الفعاليات",
-    button: "إضافة فعالية جديد",
-    search: "بحث في الفعاليات..."
-  },
-  he: {
-    title: "ניהול אירועים",
-    button: "הוסף כתבה אירוע",
-    search: "חפש אירוע..."
-  }
-};
+
 const newsModalLabels = {
   en: {
     date: "Publication Date",
@@ -160,33 +92,6 @@ function populateProgramDropdown(lang) {
     select.appendChild(option);
   });
 }
-function updateProgramOptions(lang) {
-  const select = document.getElementById(`eventProgram_${lang}`);
-  const options = programOptions[lang];
-  if (!select || !options) return;
-
-  select.innerHTML = "";
-  for (const [value, label] of Object.entries(options)) {
-    const option = document.createElement('option');
-    option.value = value;
-    option.textContent = label;
-    select.appendChild(option);
-  }
-}
-// function updateNewsTexts(lang) {
-//   const trans = newsTranslations[lang];
-
-//   document.querySelector("#news h1").innerHTML = `<i class='bx bxs-news'></i> ${trans.title}`;
-//   document.getElementById("newsSearch").placeholder = trans.search;
-//   document.querySelector("#news .btn.btn-primary").innerHTML = `<i class='bx bx-plus'></i> ${trans.button}`;
-// }
-// function updateEventsTexts(lang) {
-//   const trans = EventsTranslations[lang];
-
-//   document.querySelector("#events h1").innerHTML = `<i class='bx bxs-news'></i> ${trans.title}`;
-//   document.getElementById("eventSearch").placeholder = trans.search;
-//   document.querySelector("#events .btn.btn-primary").innerHTML = `<i class='bx bx-plus'></i> ${trans.button}`;
-// }
 
 tabButtons.forEach(button => {
   button.addEventListener('click', () => {
@@ -228,9 +133,6 @@ tabButtons.forEach(button => {
     }
   });
 });
-// Initial population
-updateProgramOptions('en');
-
 
 // Modal Functions
 function openAddModal() {
@@ -252,11 +154,10 @@ function openAddModal() {
   document.getElementById("imagePreview").style.display = "none";
 
   // Reset and populate all program fields
-  ['en', 'ar', 'he'].forEach(lang => {
-    updateProgramOptions(lang);
-    const select = document.getElementById(`eventProgram_${lang}`);
-    if (select) select.value = "";
-  });
+  // ['en', 'ar', 'he'].forEach(lang => {
+  const select = document.getElementById(`eventProgram`);
+  //   if (select) select.value = "";
+  // });
 
   modal.style.display = "block";
 }
@@ -273,46 +174,6 @@ function setSelectedProgram(eventTypeJson) {
     select.value = matchingKey;
   }
 }
-
-// function initNewsLanguageTabs() {
-//   const tabButtons = document.querySelectorAll('#newsModal .tab-btn');
-//   const langGroups = document.querySelectorAll('#newsModal .lang-group');
-//   const dateLabel = document.querySelector('label[for="newsDate"]');
-//   const imageLabel = document.querySelector('label[for="newsImage"]');
-//   const sharedContainer = document.querySelector('#newsModal .modal-content');
-
-//   tabButtons.forEach(button => {
-//     button.addEventListener('click', () => {
-//       const selectedLang = button.getAttribute('data-lang');
-//       currentLang = selectedLang;
-
-//       // Update active tab
-//       tabButtons.forEach(btn => btn.classList.remove('active'));
-//       button.classList.add('active');
-
-//       // Show selected language group
-//       langGroups.forEach(group => {
-//         const isActive = group.getAttribute('data-lang') === selectedLang;
-//         group.classList.toggle('hidden', !isActive);
-//       });
-
-//       // Update shared field labels
-//       if (dateLabel && imageLabel) {
-//         dateLabel.textContent = newsModalLabels[selectedLang].date;
-//         imageLabel.textContent = newsModalLabels[selectedLang].image;
-//       }
-
-//       // Update direction
-//       if (['ar', 'he'].includes(selectedLang)) {
-//         sharedContainer.setAttribute('dir', 'rtl');
-//         sharedContainer.style.textAlign = 'right';
-//       } else {
-//         sharedContainer.setAttribute('dir', 'ltr');
-//         sharedContainer.style.textAlign = 'left';
-//       }
-//     });
-//   });
-// }
 
 async function openEditEventModal(eventId) {
   const modal = document.getElementById("eventModal");
@@ -1517,6 +1378,24 @@ function searchEvents() {
     }
   });
 }
+// 11. Search news functionality
+function searchNews() {
+  const searchTerm = document.getElementById("newsSearch").value.toLowerCase();
+  const eventCards = document.querySelectorAll(".news-card");
+
+  eventCards.forEach((card) => {
+    const title = card
+      .querySelector(".card-title-text")
+      .textContent.toLowerCase();
+    const description = card.textContent.toLowerCase();
+
+    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
 
 // Initialize the application
 document.addEventListener("DOMContentLoaded", async () => {
@@ -1528,24 +1407,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   const newsLanguageSelect = document.getElementById("newsLanguageSelect");
   if (newsLanguageSelect) {
-  newsLanguageSelect.addEventListener("change", async function () {
-    currentLang = this.value;
-    // updateNewsTexts(currentLang); 
-    await loadNews(); 
-  });
-  // updateNewsTexts(newsLanguageSelect.value);
+    newsLanguageSelect.addEventListener("change", async function () {
+      currentLang = this.value;
+      await loadNews(); 
+    });
   }
 
   //  Handle language switching
-  // let currentLang = "en";
   const languageSelect = document.getElementById("languageSelect");
   if (languageSelect) {
     languageSelect.addEventListener("change", async function () {
       currentLang = this.value;
-      // updateEventsTexts(currentLang); 
       await loadEvents(); // Reload events in the selected language
     });
-    // updateEventsTexts(LanguageSelect.value);
   }
 
   // Load dashboard data
@@ -1566,6 +1440,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const searchInput = document.getElementById("eventSearch");
   if (searchInput) {
     searchInput.addEventListener("input", searchEvents);
+  }
+  const searchInputNews = document.getElementById("newsSearch");
+  if (searchInputNews) {
+    searchInputNews.addEventListener("input", searchNews);
   }
 
   // Set up modal close on outside click
