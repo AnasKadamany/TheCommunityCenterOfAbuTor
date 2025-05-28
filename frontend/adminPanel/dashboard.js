@@ -83,12 +83,16 @@ const newsModalLabels = {
 
 function populateProgramDropdown(lang) {
   const select = document.getElementById("eventProgram");
+  const selectedValue = select.value;
   select.innerHTML = ""; // Clear old options
 
   Object.keys(programLabels).forEach(key => {
     const option = document.createElement("option");
     option.value = key;
     option.textContent = programLabels[key][lang];
+    if (key === selectedValue) {
+      option.selected = true;
+    }
     select.appendChild(option);
   });
 }
@@ -122,7 +126,6 @@ tabButtons.forEach(button => {
 
     // Update Program dropdown
     populateProgramDropdown(selectedLang);
-
     // Update direction
     if (selectedLang === 'ar' || selectedLang === 'he') {
       sharedFields.setAttribute('dir', 'rtl');
@@ -134,6 +137,7 @@ tabButtons.forEach(button => {
   });
 });
 
+populateProgramDropdown(currentLang);
 // Modal Functions
 function openAddModal() {
   const modal = document.getElementById("eventModal");
@@ -155,14 +159,13 @@ function openAddModal() {
 
   // Reset and populate all program fields
   // ['en', 'ar', 'he'].forEach(lang => {
+    
   const select = document.getElementById(`eventProgram`);
   //   if (select) select.value = "";
   // });
 
   modal.style.display = "block";
 }
-populateProgramDropdown(currentLang);
-
 //edit to choose just one item XgetAllEventsX
 function setSelectedProgram(eventTypeJson) {
   const select = document.getElementById("eventProgram");
@@ -1445,6 +1448,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (searchInputNews) {
     searchInputNews.addEventListener("input", searchNews);
   }
+ // populateSelect();
 
   // Set up modal close on outside click
   window.onclick = function (event) {
