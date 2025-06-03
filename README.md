@@ -49,7 +49,7 @@ The Community Center of Abu Tor web app streamlines operations by allowing resid
 ## 🚀 Installation
 
 # Clone the repository
-git clone https://github.com/AnasKadamany/TheCommunityCenterOfAbuTor.git
+git clone https://github.com/AnasKadamany/TheCommunityCenterOfAbuTor.git <br>
 cd TheCommunityCenterOfAbuTor
 
 ---
