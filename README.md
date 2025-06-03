@@ -56,7 +56,7 @@ cd TheCommunityCenterOfAbuTor
 ---
 ## 📂 Folder Structure
 
-TheCommunityCenterOfAbuTor/
+TheCommunityCenterOfAbuTor/ <br>
 ├── backend/         # API and server logic <br>
 ├── frontend/        # UI and static files <br>
 ├── README.md <br>
