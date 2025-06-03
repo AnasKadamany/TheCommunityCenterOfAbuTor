@@ -4,7 +4,7 @@ A community-driven web platform for organizing, registering, and managing events
 
 #######
 
-<h1 align="center">THECOMMUNITYCENTEROFABUTOR</h1>
+
 
 <p align="center"><i>Empowering Community Connections, One Click at a Time</i></p>
 
@@ -38,22 +38,6 @@ A community-driven web platform for organizing, registering, and managing events
   <img src="https://img.shields.io/badge/languages-3-blue" />
 </p>
 
----
-
-<p align="center"><strong>Built with the tools and technologies:</strong></p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Express-black?logo=express" />
-  <img src="https://img.shields.io/badge/JSON-black?logo=json" />
-  <img src="https://img.shields.io/badge/Markdown-black?logo=markdown" />
-  <img src="https://img.shields.io/badge/npm-red?logo=npm" />
-  <img src="https://img.shields.io/badge/Mongoose-red?logo=mongoose" />
-  <img src="https://img.shields.io/badge/.ENV-yellow" />
-  <img src="https://img.shields.io/badge/JavaScript-yellow?logo=javascript" />
-  <img src="https://img.shields.io/badge/Nodemon-green?logo=nodemon" />
-  <img src="https://img.shields.io/badge/Prisma-darkblue?logo=prisma" />
-  <img src="https://img.shields.io/badge/Cloudinary-blue?logo=cloudinary" />
-</p>
 
 ---
 
