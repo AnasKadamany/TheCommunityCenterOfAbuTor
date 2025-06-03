@@ -3,6 +3,11 @@
 A community-driven web platform for organizing, registering, and managing events, complaints, and announcements at the Abu Tor Community Center.
 
 ---
+<p align="center">
+  <img src="https://img.shields.io/badge/last%20commit-last%20saturday-black" />
+  <img src="https://img.shields.io/badge/javascript-48.8%25-blue" />
+  <img src="https://img.shields.io/badge/languages-3-blue" />
+</p>
 
 ## 🧭 Table of Contents
 
