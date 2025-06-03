@@ -31,14 +31,6 @@ __________
   <img src="https://img.shields.io/badge/Cloudinary-blue?logo=cloudinary" />
 </p>
 
-
-<p align="center">
-  <img src="https://img.shields.io/badge/last%20commit-May%2031-blue" />
-  <img src="https://img.shields.io/badge/javascript-48.8%25-blue" />
-  <img src="https://img.shields.io/badge/languages-3-blue" />
-</p>
-
-
 ---
 
 
