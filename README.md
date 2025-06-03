@@ -2,7 +2,7 @@
 
 A community-driven web platform for organizing, registering, and managing events, complaints, and announcements at the Abu Tor Community Center.
 
-__________
+---
 
 
 
