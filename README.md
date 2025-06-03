@@ -50,17 +50,18 @@ The Community Center of Abu Tor web app streamlines operations by allowing resid
 
 # Clone the repository
 git clone https://github.com/AnasKadamany/TheCommunityCenterOfAbuTor.git <br>
+
 cd TheCommunityCenterOfAbuTor
 
 ---
 ## 📂 Folder Structure
 
 TheCommunityCenterOfAbuTor/
-├── backend/         # API and server logic
-├── frontend/        # UI and static files
-├── README.md
-├── .gitignore
-└── CommunityCenter.docx
+├── backend/         # API and server logic <br>
+├── frontend/        # UI and static files <br>
+├── README.md <br>
+├── .gitignore <br>
+└── CommunityCenter.docx <br>
 
 ---
 ####
