@@ -20,7 +20,7 @@ __________
 
 <p align="center">
   <img src="https://img.shields.io/badge/Express-black?logo=express" />
-  <img src="https://img.shields.io/badge/JSON-black?logo=json" />
+  <img src="https://img.shields.io/badge/JSON-black?logo=json-blue" />
   <img src="https://img.shields.io/badge/Markdown-black?logo=markdown" />
   <img src="https://img.shields.io/badge/npm-red?logo=npm" />
   <img src="https://img.shields.io/badge/Mongoose-red?logo=mongoose" />
