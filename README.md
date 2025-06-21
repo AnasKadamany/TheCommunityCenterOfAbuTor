@@ -91,6 +91,19 @@ cd ../backend
 npm install
 
 ---
+
+## 🧪 Usage
+
+# Start backend server
+cd backend
+npm run dev
+
+# In another terminal, start frontend
+cd frontend
+npm start
+
+---
+
 ## 📂 Folder Structure
 
 TheCommunityCenterOfAbuTor/ <br>
