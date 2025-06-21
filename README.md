@@ -79,9 +79,16 @@ The Community Center of Abu Tor web app streamlines operations by allowing resid
 ## 🚀 Installation
 
 # Clone the repository
-git clone https://github.com/AnasKadamany/TheCommunityCenterOfAbuTor.git <br>
-
+git clone https://github.com/AnasKadamany/TheCommunityCenterOfAbuTor.git
 cd TheCommunityCenterOfAbuTor
+
+# Install frontend dependencies
+cd frontend
+npm install
+
+# Install backend dependencies
+cd ../backend
+npm install
 
 ---
 ## 📂 Folder Structure
