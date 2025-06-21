@@ -129,7 +129,9 @@ This project was created by the following students:
 - **Anas Kadamany**
 - **Omar Alian**
 - **Mayar Natsheh**
-- 
+- **Tayseer Zeer**
+- **Taher Jodieh**
+- **Sarh Jwiles**
 ####
 ![464509373_1098315938970596_5395197786867682526_n](https://github.com/user-attachments/assets/7e0c9dd4-1984-4d2a-9e0f-b318612e9893)
 
