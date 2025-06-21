@@ -114,6 +114,13 @@ TheCommunityCenterOfAbuTor/ <br>
 └── CommunityCenter.docx <br>
 
 ---
+
+## 🎓 Academic Context
+
+This project was developed as part of a course at **Azrieli College of Engineering Jerusalem**.  
+It demonstrates full-stack web development skills and the application of modern technologies to solve real-world community problems.
+
+---
 ####
 ![464509373_1098315938970596_5395197786867682526_n](https://github.com/user-attachments/assets/7e0c9dd4-1984-4d2a-9e0f-b318612e9893)
 
