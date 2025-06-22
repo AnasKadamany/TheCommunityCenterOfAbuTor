@@ -9,7 +9,7 @@ A community-driven web platform for organizing, registering, and managing events
 <p align="center"><i>Empowering Community Connections, One Click at a Time</i></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/last%20commit-Jun%203-blue" />
+  <img src="https://img.shields.io/badge/last%20commit-Jun%2022-blue" />
   <img src="https://img.shields.io/badge/javascript-48.8%25-blue" />
   <img src="https://img.shields.io/badge/languages-3-blue" />
 </p>
