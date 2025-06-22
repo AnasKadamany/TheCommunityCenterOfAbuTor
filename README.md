@@ -130,8 +130,6 @@ This project was created by the following students:
 - **Omar Alian**
 - **Mayar Natsheh**
 - **Tayseer Zeer**
-- **Taher Joudeh**
-- **Sarh Jwiles**
 
 ---
 ####
