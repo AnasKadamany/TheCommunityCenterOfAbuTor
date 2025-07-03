@@ -6,12 +6,14 @@ function openSection(sectionId) {
     section.classList.remove("active");
   });
 
+  
   // Remove active class from all nav items
   const navItems = document.querySelectorAll(".nav-item");
   navItems.forEach((item) => {
     item.classList.remove("active");
   });
 
+  
   // Show the selected section
   const targetSection = document.getElementById(sectionId);
   if (targetSection) {
