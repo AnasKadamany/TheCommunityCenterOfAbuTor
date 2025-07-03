@@ -1,21 +1,21 @@
 // api/browser.js
 (function () {
-  // Base URL for all API requests
+  // Base URL for all API requests.
   const API_BASE_URL = "http://localhost:8080/api";
 
-  // Helper function for making API requests
+  // Helper function for making API requests.
   async function fetchAPI(endpoint, options = {}) {
     try {
       const url = `${API_BASE_URL}${endpoint}`;
 
-      // Default options for all requests
+      // Default options for all requests.
       const defaultOptions = {
         headers: {
           "Content-Type": "application/json",
         },
       };
 
-      // Merge options
+      // Merge options.
       const requestOptions = {
         ...defaultOptions,
         ...options,
@@ -25,10 +25,10 @@
         },
       };
 
-      // Make the request
+      // Make the request.
       const response = await fetch(url, requestOptions);
 
-      // Handle errors
+      // Handle errors.
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         const errorMessage =
@@ -38,7 +38,7 @@
         throw new Error(errorMessage);
       }
 
-      // Parse JSON response
+      // Parse JSON response.
       return await response.json();
     } catch (error) {
       console.error(`API request to ${endpoint} failed:`, error);
@@ -46,29 +46,29 @@
     }
   }
 
-  // Create and expose the API object with all required functions
+  // Create and expose the API object with all required functions.
   window.API = {
     // ----- EVENTS API FUNCTIONS -----
     events: {
-      // Gets all events - Maps to GET /api/events endpoint (eventController.getEvents)
+      // Gets all events - Maps to GET /api/events endpoint (eventController.getEvents).
       getAll: async function () {
         const lang = localStorage.getItem("lang") || "en";
         return fetchAPI("/events?lang="+lang);
       },
 
-      // Gets upcoming events - Maps to GET /api/events/upcoming endpoint (eventController.upcomingEvents)
+      // Gets upcoming events - Maps to GET /api/events/upcoming endpoint (eventController.upcomingEvents).
       getUpcoming: async function () {
         const lang = localStorage.getItem("lang")
         return fetchAPI("/events/upcoming?lang="+lang);
       },
 
-      // Gets a specific event - Maps to GET /api/events/:id endpoint (eventController.getOneEvent)
+      // Gets a specific event - Maps to GET /api/events/:id endpoint (eventController.getOneEvent).
       getById: async function (eventId) {
         if (!eventId) throw new Error("Event ID is required");
         return fetchAPI(`/events/${eventId}`);
       },
 
-      // Helper function to format event date
+      // Helper function to format event date.
       formatEventDate: function (dateString) {
         const date = new Date(dateString);
         const day = date.getDate();
@@ -91,7 +91,7 @@
         return { day, month };
       },
 
-      // Helper function to format event time
+      // Helper function to format event time.
       formatEventTime: function (dateString) {
         const date = new Date(dateString);
         const hours = date.getHours();
@@ -106,19 +106,19 @@
 
     // ----- NEWS API FUNCTIONS -----
     news: {
-      // Gets all news - Maps to GET /api/news endpoint (newsController.getAllNews)
+      // Gets all news - Maps to GET /api/news endpoint (newsController.getAllNews).
       getAll: async function () {
         const lang = localStorage.getItem("lang") || "en";
         return fetchAPI("/news?lang="+lang);
       },
 
-      // Gets a specific news item - Maps to GET /api/news/:id endpoint (newsController.getNewsById)
+      // Gets a specific news item - Maps to GET /api/news/:id endpoint (newsController.getNewsById).
       getById: async function (newsId) {
         if (!newsId) throw new Error("News ID is required");
         return fetchAPI(`/news/${newsId}`);
       },
 
-      // Helper function to format news date
+      // Helper function to format news date.
       formatNewsDate: function (dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-US", {
@@ -131,7 +131,7 @@
 
     // ----- COMPLAINT API FUNCTIONS -----
     complaints: {
-      // Submit a new complaint - Maps to POST /api/complaints endpoint (complaintController.submitComplaint)
+      // Submit a new complaint - Maps to POST /api/complaints endpoint (complaintController.submitComplaint).
       submit: async function (complaintData) {
         // Validate required fields
         if (!complaintData.name) throw new Error("Name is required");
@@ -148,7 +148,7 @@
 
     // ----- EVENT REGISTRATION API FUNCTIONS -----
     registration: {
-      // Register for an event - Maps to POST /api/joins endpoint (joinController.submitJoinRequest)
+      // Register for an event - Maps to POST /api/joins endpoint (joinController.submitJoinRequest).
       submit: async function (registrationData) {
         // Validate required fields
         if (!registrationData.name) throw new Error("Name is required");
@@ -166,13 +166,13 @@
 
     // Utility functions
     utils: {
-      // Error handling for UI
+      // Error handling for UI.
       handleError: function (error, fallbackMessage = "An error occurred") {
         console.error(error);
         return error.message || fallbackMessage;
       },
 
-      // Loading state helpers
+      // Loading state helpers.
       showLoading: function (element) {
         if (element) element.classList.add("loading");
       },
