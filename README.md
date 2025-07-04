@@ -131,6 +131,7 @@ This project was created by the following students:
 - **Mayar Natsheh**
 - **Tayseer Zeer**
 - **Sarah Jweiles**
+- **Taher Joudeh**
 
 ---
 ####
